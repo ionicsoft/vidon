@@ -1,0 +1,37 @@
+<%= form_with(model: video_comment, local: true) do |form| %>
+  <% if video_comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(video_comment.errors.count, "error") %> prohibited this video_comment from being saved:</h2>
+
+      <ul>
+      <% video_comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :creation %>
+    <%= form.datetime_select :creation, id: :video_comment_creation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :video_id %>
+    <%= form.number_field :video_id, id: :video_comment_video_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.number_field :customer_id, id: :video_comment_customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_field :comment, id: :video_comment_comment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

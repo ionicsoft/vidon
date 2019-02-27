@@ -1,0 +1,27 @@
+<%= form_with(model: show_genre, local: true) do |form| %>
+  <% if show_genre.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(show_genre.errors.count, "error") %> prohibited this show_genre from being saved:</h2>
+
+      <ul>
+      <% show_genre.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :show_id %>
+    <%= form.number_field :show_id, id: :show_genre_show_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :genre %>
+    <%= form.text_field :genre, id: :show_genre_genre %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

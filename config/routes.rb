@@ -1,3 +1,20 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :people
+  resources :video_comments
+  resources :profile_comments
+  resources :movie_ratings
+  resources :movie_actors
+  resources :movie_genres
+  resources :movies
+  resources :episodes
+  resources :videos
+  resources :show_actors
+  resources :show_ratings
+  resources :show_genres
+  resources :shows
+  resources :subscriptions
+  resources :customers
+  resources :payments
+  resources :producers
+  root 'application#hello'
 end

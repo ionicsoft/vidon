@@ -1,0 +1,37 @@
+<%= form_with(model: profile_comment, local: true) do |form| %>
+  <% if profile_comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(profile_comment.errors.count, "error") %> prohibited this profile_comment from being saved:</h2>
+
+      <ul>
+      <% profile_comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :creation %>
+    <%= form.datetime_select :creation, id: :profile_comment_creation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.number_field :customer_id, id: :profile_comment_customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commentor_id %>
+    <%= form.number_field :commentor_id, id: :profile_comment_commentor_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_field :comment, id: :profile_comment_comment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

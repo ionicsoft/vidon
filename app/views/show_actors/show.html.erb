@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @show_actor.name %>
+</p>
+
+<p>
+  <strong>Show:</strong>
+  <%= @show_actor.show_id %>
+</p>
+
+<%= link_to 'Edit', edit_show_actor_path(@show_actor) %> |
+<%= link_to 'Back', show_actors_path %>

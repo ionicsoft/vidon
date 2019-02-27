@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Show:</strong>
+  <%= @show_genre.show_id %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @show_genre.genre %>
+</p>
+
+<%= link_to 'Edit', edit_show_genre_path(@show_genre) %> |
+<%= link_to 'Back', show_genres_path %>

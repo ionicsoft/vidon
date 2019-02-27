@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @movie_actor.name %>
+</p>
+
+<p>
+  <strong>Movie:</strong>
+  <%= @movie_actor.movie_id %>
+</p>
+
+<%= link_to 'Edit', edit_movie_actor_path(@movie_actor) %> |
+<%= link_to 'Back', movie_actors_path %>
