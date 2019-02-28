@@ -3,13 +3,11 @@
 <p>
   <strong>Person:</strong>
   <%= @customer.person_id %>
-  <%= link_to 'Show Person', person_path(@customer.person) unless @customer.person.nil? %>
 </p>
 
 <p>
   <strong>Payment:</strong>
   <%= @customer.payment_id %>
-  <%= link_to 'Show Payment Info', payment_path(@customer.payment) unless @customer.payment.nil? %>
 </p>
 
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
