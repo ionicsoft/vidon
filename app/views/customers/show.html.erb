@@ -10,5 +10,10 @@
   <%= @customer.payment_id %>
 </p>
 
+<p>
+  <strong>Slots:</strong>
+  <%= @customer.slots %>
+</p>
+
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>
