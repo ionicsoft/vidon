@@ -5,7 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Creation</th>
       <th>Customer</th>
       <th>Commentor</th>
       <th>Comment</th>
@@ -16,7 +15,6 @@
   <tbody>
     <% @profile_comments.each do |profile_comment| %>
       <tr>
-        <td><%= profile_comment.creation %></td>
         <td><%= profile_comment.customer_id %></td>
         <td><%= profile_comment.commentor_id %></td>
         <td><%= profile_comment.comment %></td>
