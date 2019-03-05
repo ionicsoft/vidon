@@ -16,5 +16,7 @@ Rails.application.routes.draw do
   resources :customers
   resources :payments
   resources :producers
-  root 'application#hello'
+  root 'static_pages#home'
+  get 'static_pages/about'
+  get 'static_pages/contact'
 end
