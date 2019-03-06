@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Customer</th>
       <th>Card name</th>
       <th>Card num</th>
       <th>Cvc</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @payments.each do |payment| %>
       <tr>
+        <td><%= payment.customer_id %></td>
         <td><%= payment.card_name %></td>
         <td><%= payment.card_num %></td>
         <td><%= payment.cvc %></td>

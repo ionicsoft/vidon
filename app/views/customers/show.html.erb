@@ -10,5 +10,23 @@
   <%= @customer.payment_id %>
 </p>
 
+<p>
+  <strong>Slots:</strong>
+  <%= @customer.slots %>
+</p>
+
+<div>
+  <h4>Remote data</h4>
+  <p>
+    <strong>Name:</strong>
+    <%= "#{@customer.person.first_name} #{@customer.person.last_name}" %>
+  </p>
+  
+  <p>
+    <strong>Email:</strong>
+    <%= @customer.person.email %>
+  </p>
+</div>
+
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>

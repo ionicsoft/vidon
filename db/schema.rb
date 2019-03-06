@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190226232220) do
+ActiveRecord::Schema.define(version: 20190306010734) do
 
   create_table "customers", force: :cascade do |t|
     t.integer "person_id"
     t.integer "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "slots"
   end
 
   create_table "episodes", force: :cascade do |t|
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 20190226232220) do
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -64,18 +66,20 @@ ActiveRecord::Schema.define(version: 20190226232220) do
     t.date "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id"
   end
 
   create_table "people", force: :cascade do |t|
     t.string "username"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.string "first_name"
     t.string "last_name"
     t.integer "user_id"
     t.string "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "user_type"], name: "index_people_on_user_id_and_user_type"
   end
 
   create_table "producers", force: :cascade do |t|
@@ -86,7 +90,6 @@ ActiveRecord::Schema.define(version: 20190226232220) do
   end
 
   create_table "profile_comments", force: :cascade do |t|
-    t.datetime "creation"
     t.integer "customer_id"
     t.integer "commentor_id"
     t.string "comment"
@@ -113,6 +116,7 @@ ActiveRecord::Schema.define(version: 20190226232220) do
     t.integer "show_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -120,6 +124,7 @@ ActiveRecord::Schema.define(version: 20190226232220) do
     t.integer "producer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -131,7 +136,6 @@ ActiveRecord::Schema.define(version: 20190226232220) do
   end
 
   create_table "video_comments", force: :cascade do |t|
-    t.datetime "creation"
     t.integer "video_id"
     t.integer "customer_id"
     t.string "comment"
@@ -145,6 +149,9 @@ ActiveRecord::Schema.define(version: 20190226232220) do
     t.string "filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "content_id"
+    t.string "content_type"
+    t.index ["content_id", "content_type"], name: "index_videos_on_content_id_and_content_type"
   end
 
 end

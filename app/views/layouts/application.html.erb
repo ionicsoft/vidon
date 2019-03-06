@@ -9,21 +9,26 @@
   </head>
 
   <body>
-    <p>This will display on all pages.</p>
-    <header>
-      <h1>ionicsoft</h1>
-      <ul>
-        <li><%= link_to "Customers", "/customers" %></li>
-        <li><%= link_to "People", "/people" %></li>
-        <li><%= link_to "Customers", "/customers" %></li>
-        <li><%= link_to "Customers", "/customers" %></li>
-        <li><%= link_to "Customers", "/customers" %></li>
-        <li><%= link_to "Customers", "/customers" %></li>
-        <li><%= link_to "Customers", "/customers" %></li>
-        <li><%= link_to "Customers", "/customers" %></li>
-        <li><%= link_to "Customers", "/customers" %></li>
+    <nav class="navbar navbar-light navbar-bg-light fixed-top">
+      <h1 id="company">ionicSoft</h1>
+      <ul class="navbar-nav">
+        <li class="navbar-item">
+          <a href='/'>Home</a>
+        </li>
+        <li class="navbar-item">
+          <a href="#" class="nav-link">My Shows</a>
+        </li>
+        <li class="navbar-item">
+          <a href="#" class="nav-link">My Profile</a>
+        </li>
+        <li class="navbar-item">
+          <a href="/static_pages/about" class="nav-link">About</a>
+        </li>
+        <li class="navbar-item">
+          <a href='/static_pages/contact' class="nav-link">Contact</a>
+        </li>
       </ul>
-    </header>
+    </nav>
     <%= yield %>
   </body>
 </html>
