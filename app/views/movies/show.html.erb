@@ -2,13 +2,35 @@
 
 <p>
   <strong>Video:</strong>
-  <%= @movie.video_id %>
+  <%= if @movie.video_id? then link_to @movie.video_id, @movie.video end %>
+  <!--<%= @movie.video_id %>-->
 </p>
 
 <p>
   <strong>Producer:</strong>
-  <%= @movie.producer_id %>
+  <%= if @movie.producer_id? then link_to @movie.producer_id, @movie.producer end %>
 </p>
+
+<div>
+  <h4>Remote data</h4>
+  <% unless @movie.video.nil? %>
+  <p>
+    <strong>Title:</strong>
+    <%= @movie.video.title %>
+  </p>
+  
+  <p>
+    <strong>Description:</strong>
+    <%= @movie.video.description %>
+  </p>
+  <% end %>
+  <% unless @movie.producer.nil? %>
+  <p>
+    <strong>Producer:</strong>
+    <%= @movie.producer.company_name %>
+  </p>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %>

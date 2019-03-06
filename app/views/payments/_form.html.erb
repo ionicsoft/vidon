@@ -10,7 +10,12 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.text_field :customer_id, id: :payment_customer_id %>
+  </div>
+  
   <div class="field">
     <%= form.label :card_name %>
     <%= form.text_field :card_name, id: :payment_card_name %>
@@ -28,7 +33,7 @@
 
   <div class="field">
     <%= form.label :expiration %>
-    <%= form.date_select :expiration, id: :payment_expiration %>
+    <%= form.date_select :expiration, order: [:month, :year], use_two_digit_numbers: true, id: :payment_expiration %>
   </div>
 
   <div class="actions">

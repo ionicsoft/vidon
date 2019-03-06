@@ -25,6 +25,16 @@
     <%= form.label :filename %>
     <%= form.text_field :filename, id: :video_filename %>
   </div>
+  
+  <div class="field">
+    <%= form.label :content_id %>
+    <%= form.number_field :content_id, id: :video_content_id %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :content_type %>
+    <%= form.text_field :content_type, id: :video_content_type %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

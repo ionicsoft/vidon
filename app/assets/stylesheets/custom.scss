@@ -1,2 +1,30 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.navbar {
+    background-color: #D3F3DE;
+    font-size: large;
+}
+
+#company {
+    float: left;
+    padding-bottom: 2rem;
+    font-size: x-large;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+.navbar-nav {
+    float: right;
+    margin: auto;
+    padding-top: 2.5rem;
+    padding-left: 37rem;
+}
+
+.navbar-item {
+    margin: auto;
+    padding-right: 3rem;
+    list-style-type: none;
+    float: left;
+    font-size: large;
+    font-family: "Lucida Console", Monaco, monospace;
+}

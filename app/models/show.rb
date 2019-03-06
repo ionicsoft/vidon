@@ -4,7 +4,7 @@ class Show < ApplicationRecord
   has_many :show_actors
   has_many :show_ratings
   has_many :episodes
-  belongs_to :subscription
+  has_many :subscriptions
   validates :name, presence: true
   validates :description, presence: true
 end

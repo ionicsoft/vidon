@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190303022959) do
+ActiveRecord::Schema.define(version: 20190306010734) do
 
   create_table "customers", force: :cascade do |t|
     t.integer "person_id"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20190303022959) do
     t.date "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 20190303022959) do
     t.string "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "user_type"], name: "index_people_on_user_id_and_user_type"
   end
 
   create_table "producers", force: :cascade do |t|
@@ -147,6 +149,9 @@ ActiveRecord::Schema.define(version: 20190303022959) do
     t.string "filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "content_id"
+    t.string "content_type"
+    t.index ["content_id", "content_type"], name: "index_videos_on_content_id_and_content_type"
   end
 
 end
