@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20190306010734) do
     t.integer "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "slots"
   end
 
   create_table "episodes", force: :cascade do |t|
@@ -49,7 +48,6 @@ ActiveRecord::Schema.define(version: 20190306010734) do
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "customer_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -72,7 +70,7 @@ ActiveRecord::Schema.define(version: 20190306010734) do
   create_table "people", force: :cascade do |t|
     t.string "username"
     t.string "email"
-    t.string "password_digest"
+    t.string "password"
     t.string "first_name"
     t.string "last_name"
     t.integer "user_id"
@@ -90,6 +88,7 @@ ActiveRecord::Schema.define(version: 20190306010734) do
   end
 
   create_table "profile_comments", force: :cascade do |t|
+    t.datetime "creation"
     t.integer "customer_id"
     t.integer "commentor_id"
     t.string "comment"
@@ -116,7 +115,6 @@ ActiveRecord::Schema.define(version: 20190306010734) do
     t.integer "show_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "customer_id"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -124,7 +122,6 @@ ActiveRecord::Schema.define(version: 20190306010734) do
     t.integer "producer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "description"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -136,6 +133,7 @@ ActiveRecord::Schema.define(version: 20190306010734) do
   end
 
   create_table "video_comments", force: :cascade do |t|
+    t.datetime "creation"
     t.integer "video_id"
     t.integer "customer_id"
     t.string "comment"

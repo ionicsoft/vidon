@@ -7,19 +7,16 @@
 }
 
 #company {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 10;
-    bottom: 0;
+    float: left;
+    padding-bottom: 2rem;
     font-size: x-large;
     font-family: "Lucida Console", Monaco, monospace;
 }
 
 .navbar-nav {
-    width: 100%;
+    float: right;
     margin: auto;
-    padding-top: 1.5rem;
+    padding-top: 2.5rem;
     padding-left: 37rem;
 }
 
