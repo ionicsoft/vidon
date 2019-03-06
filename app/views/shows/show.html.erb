@@ -7,13 +7,46 @@
 
 <p>
   <strong>Producer:</strong>
-  <%= @show.producer_id %>
+  <%= if @show.producer_id? then link_to @show.producer_id, @show.producer end %>
 </p>
 
 <p>
   <strong>Description:</strong>
   <%= @show.description %>
 </p>
+
+<div>
+  <h4>Remote data:</h4>
+  <% unless @show.producer.nil? %>
+  <p>
+    <strong>Producer:</strong>
+    <%= @show.producer.company_name %>
+  </p>
+  <% end %>
+  
+  
+  <b>Episodes:</b>
+  <table>
+    <thead>
+      <tr>
+        <th>Season</th>
+        <th>Episode</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @show.episodes.each do |episode| %>
+        <tr>
+          <td><%= episode.season %></td>
+          <td><%= episode.episode %></td>
+          <td><%= link_to episode.video.title, episode.video %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  
+</div>
 
 <%= link_to 'Edit', edit_show_path(@show) %> |
 <%= link_to 'Back', shows_path %>

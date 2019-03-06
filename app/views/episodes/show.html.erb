@@ -7,7 +7,7 @@
 
 <p>
   <strong>Show:</strong>
-  <%= @episode.show_id %>
+  <%= if @episode.show_id? then link_to @episode.show_id, @episode.show end %>
 </p>
 
 <p>
@@ -22,8 +22,18 @@
 
 <p>
   <strong>Video:</strong>
-  <%= @episode.video_id %>
+  <%= if @episode.video_id? then link_to @episode.video_id, @episode.video end %>
 </p>
+
+<div>
+  <h4>Remote data:</h4>
+  <% unless @episode.video.nil? %>
+  <p>
+    <strong>Video file:</strong>
+    <%= @episode.video.filename %>
+  </p>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_episode_path(@episode) %> |
 <%= link_to 'Back', episodes_path %>
