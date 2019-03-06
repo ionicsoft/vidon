@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190305213753) do
+ActiveRecord::Schema.define(version: 20190306010734) do
 
   create_table "customers", force: :cascade do |t|
     t.integer "person_id"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20190305213753) do
     t.date "expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id"
   end
 
   create_table "people", force: :cascade do |t|
