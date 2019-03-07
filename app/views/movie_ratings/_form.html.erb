@@ -20,6 +20,11 @@
     <%= form.label :rating %>
     <%= form.number_field :rating, id: :movie_rating_rating %>
   </div>
+  
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.number_field :customer_id, id: :movie_rating_customer_id %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

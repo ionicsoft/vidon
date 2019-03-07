@@ -3,7 +3,6 @@
 one:
   username: MyString
   email: MyString
-  password: MyString
   first_name: MyString
   last_name: MyString
   user_id: 1
@@ -12,7 +11,6 @@ one:
 two:
   username: MyString
   email: MyString
-  password: MyString
   first_name: MyString
   last_name: MyString
   user_id: 1

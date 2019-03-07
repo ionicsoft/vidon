@@ -21,6 +21,11 @@
     <%= form.number_field :payment_id, id: :customer_payment_id %>
   </div>
 
+  <div class="field">
+    <%= form.label :slots %>
+    <%= form.number_field :slots, id: :customer_slots %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

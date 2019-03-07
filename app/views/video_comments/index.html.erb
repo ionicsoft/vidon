@@ -5,7 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Creation</th>
       <th>Video</th>
       <th>Customer</th>
       <th>Comment</th>
@@ -16,7 +15,6 @@
   <tbody>
     <% @video_comments.each do |video_comment| %>
       <tr>
-        <td><%= video_comment.creation %></td>
         <td><%= video_comment.video_id %></td>
         <td><%= video_comment.customer_id %></td>
         <td><%= video_comment.comment %></td>

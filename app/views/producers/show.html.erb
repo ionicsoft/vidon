@@ -7,11 +7,12 @@
 
 <p>
   <strong>Person:</strong>
-  <%= @producer.person_id %>
+  <%= if @producer.person_id? then link_to @producer.person_id, @producer.person end %>
 </p>
 
 <div>
   <h4>Remote data</h4>
+  <% unless @producer.person.nil? %>
   <p>
     <strong>Name:</strong>
     <%= "#{@producer.person.first_name} #{@producer.person.last_name}" %>
@@ -21,6 +22,7 @@
     <strong>Email:</strong>
     <%= @producer.person.email %>
   </p>
+  <% end %>
 </div>
 
 <%= link_to 'Edit', edit_producer_path(@producer) %> |

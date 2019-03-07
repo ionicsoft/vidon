@@ -2,12 +2,12 @@
 
 <p>
   <strong>Person:</strong>
-  <%= @customer.person_id %>
+  <%= if @customer.person_id? then link_to @customer.person_id, @customer.person end %>
 </p>
 
 <p>
   <strong>Payment:</strong>
-  <%= @customer.payment_id %>
+  <%= if @customer.payment_id? then link_to @customer.payment_id, @customer.payment end %>
 </p>
 
 <p>
@@ -17,16 +17,26 @@
 
 <div>
   <h4>Remote data</h4>
-  <p>
-    <strong>Name:</strong>
-    <%= "#{@customer.person.first_name} #{@customer.person.last_name}" %>
-  </p>
-  
-  <p>
-    <strong>Email:</strong>
-    <%= @customer.person.email %>
-  </p>
+  <% unless @customer.person.nil? %>
+    <p>
+      <strong>Name:</strong>
+      <%= "#{@customer.person.first_name} #{@customer.person.last_name}" %>
+    </p>
+    
+    <p>
+      <strong>Email:</strong>
+      <%= @customer.person.email %>
+    </p>
+  <% end %>
+  <% unless @customer.payment.nil? %>
+    <p>
+      <strong>Payment info:</strong>
+      <%= "xxxx-xxxx-xxxx-#{@customer.payment.card_num[-4..-1]}" %>
+    </p>
+  <% end %>
 </div>
+
+
 
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>

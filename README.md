@@ -27,3 +27,9 @@ If the test suite passes, you'll be ready to run the app in a local server:
 ```
 $ rails server
 ```
+
+### Information about filesystem
+
+The main HTML file is /app/views/layout/application.html.erb
+The main CSS file is /app/assets/stylesheets/custom.scss
+The database schema is /db/schema.rb
