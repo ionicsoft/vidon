@@ -7,7 +7,7 @@ before_install:
 deploy:
     provider: heroku
     api_key:
-        secure: KEY
+        secure: "I94n/N3lo9PjCVxbYBiaZ8OV5UUkdtlF0A6J6aHAD7qNGYEbFM0n8+6xkNeI95CP4uTFjjzcC3u2GrTdAB0IMjfSvxKvCcRPwn0sXcNcHx/WJF6uFzcWjXKXWvAfeYK5ZwMe9l7IYAWiloZ2anmU3RcjqO9tidACEsD0UH3P+BN3WYyBY8T3C5gOuVDdyBBJMLzijiE3oLBefH8xXd/Xd9REwptcLOx8oPxszSBXPwEpa8HXgwUZVXx9wHQTylfE/KqXsqzYvV5av4IXCSR6N+R5vLX3LnMojDlaVKp/121iQf+bUyUKK4tPyfb1pPERlnJtujsNpLlPzMxdmaSfaiVPr/6ip1NDqOEDyzx3gYspbz4slvc7eIOXK6ZYC3YvOMVLPTppCnesUMpnqEul6rNRPWK69xDuyuUUh12ShQiTDwE/1nT82PzcZZCC096RU7zEQYIqbV32bWSUjNzpiiLykTiFjhCT12oOMB5rZInz6xEdKMjke8ha66HKn66JgQbZKx6ZU7IBFzNcUmUKTu0mWY2uukcTe/JyGiGU2ht1HsqdggG8LxJpm6ZDaPZNeinPycRO8Y/rZzWqev8DRFqc6Xa35dTj5GnyNOfYX+mac6Wb57MQXh08Q0wA931kOH28ep/Sua3fSZ3n/7N5f+FbMPtBPc+fRpTNttXxJjY="
     app: ionicsoft-vidon
     on:
         repo: ionicsoft/vidon
