@@ -1,4 +1,9 @@
 class Person < ApplicationRecord
+    before_save do 
+        self.username = username.downcase
+        self.email = email.downcase
+    end
+    
     belongs_to :user, polymorphic: true
     validates :username, presence: true, length: { minimum: 3 }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i

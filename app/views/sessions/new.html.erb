@@ -1,0 +1,23 @@
+<h1>Login</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_with scope: :session, url: login_path do |form| %>
+      <div class="field">
+        <%= form.label :username %>
+        <%= form.text_field :username %>
+      </div>
+      
+      <div class="field">
+        <%= form.label :password %>
+        <%= form.text_field :password %>
+      </div>
+      
+      <div class="actions">
+        <%= form.submit "Log in" %>
+      </div>
+    <% end %>
+    
+    <p><%= link_to "Sign up", signup_path %></p>
+  </div>
+</div>

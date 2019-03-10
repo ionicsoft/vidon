@@ -16,8 +16,11 @@ Rails.application.routes.draw do
   resources :customers
   resources :payments
   resources :producers
-  root 'static_pages#home'
-  get '/about', to: 'static_pages#about'
-  get '/contact', to: 'static_pages#contact'
-  get '/signup', to: 'customers#new'
+  root    'static_pages#home'
+  get     '/about',   to: 'static_pages#about'
+  get     '/contact', to: 'static_pages#contact'
+  get     '/signup',  to: 'customers#new'
+  get     '/login',   to: 'sessions#new'
+  post    '/login',   to: 'sessions#create'
+  delete  '/logout',  to: 'sessions#destroy'
 end
