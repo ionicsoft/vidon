@@ -4,6 +4,9 @@
 .navbar {
     background-color: #D3F3DE;
     font-size: large;
+    text-align: center;
+    display: inline-grid;
+    width: 100%;
 }
 
 #company {
@@ -14,17 +17,24 @@
 }
 
 .navbar-nav {
-    float: right;
+    display: inline;
+    text-align:center;
     margin: auto;
     padding-top: 2.5rem;
-    padding-left: 37rem;
+    padding-left: 27rem;
+    list-style-type: none;
 }
 
 .navbar-item {
     margin: auto;
-    padding-right: 3rem;
-    list-style-type: none;
-    float: left;
+    padding-right: 2.5rem;
     font-size: large;
     font-family: "Lucida Console", Monaco, monospace;
+}
+
+.searchbar {
+    display: inline;
+    margin: auto;
+    padding-top: 2.5rem;
+    float: right;
 }
