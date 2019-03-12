@@ -1,0 +1,47 @@
+<div class="container">
+<% if current_person.user_type == "Customer" %>
+<div class="row" id="showbox">
+  <% if current_person.user.subscriptions.count > 0 %>
+    <h1>Your latest shows!</h1>
+    <% current_person.user.subscriptions[0..4].each do |sub| %>
+      <div class="row well vcenter" style="padding: 15px">
+        <div class="col-sm-3 text-center">
+          <h3><%= sub.show.name %></h3>
+        </div>
+        <div class="col-sm-6">
+          <% ep = sub.show.episodes[sub.current_episode] %>
+          <b><%= ep.video.title %></b>
+          <p><%= ep.video.description[0..100] %></p>
+        </div>
+        <div class="col-sm-3 text-center ">
+          <%= link_to "Watch S#{ep.season}E#{ep.episode}", ep.video, class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <h1>You have no subscriptions!</h1>
+    <p><%= link_to "Browse new shows!", shows_path, class: "btn btn-primary" %></p>
+  <% end %>
+</div>
+<div class="row">
+  <h1>Your recommendations!</h1>
+  <% Show.all.each do |show| %>
+    <div class="row well vcenter" style="padding: 15px">
+      <div class="col-sm-3 text-center">
+        <h3><%= show.name %></h3>
+      </div>
+      <div class="col-sm-6">
+        <p><%= show.description %></p>
+      </div>
+      <div class="col-sm-3 text-center">
+        <%= link_to "Check it out!", show, class: "btn btn-info" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% else %>
+<div class="row">
+  <h1>Sorry no producer info yet.</h1>
+</div>
+<% end %>
+</div>
