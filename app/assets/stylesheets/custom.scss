@@ -8,7 +8,8 @@
 
 #company {
     float: left;
-    padding-bottom: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     font-size: x-large;
     font-family: "Lucida Console", Monaco, monospace;
 }
@@ -23,8 +24,24 @@
 .navbar-item {
     margin: auto;
     padding-right: 3rem;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
     list-style-type: none;
     float: left;
     font-size: large;
     font-family: "Lucida Console", Monaco, monospace;
+}
+
+.dropdown {
+    margin: auto;
+    padding-right: 3rem;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    float: left;
+    font-size: large;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+.dropdown-menu {
+    //might alter appearance of dropdown menus
 }

@@ -15,18 +15,34 @@
         <li class="navbar-item">
           <a href='/'>Home</a>
         </li>
-        <li class="navbar-item">
-          <a href="#" class="nav-link">My Shows</a>
-        </li>
-        <li class="navbar-item">
-          <a href="#" class="nav-link">My Profile</a>
-        </li>
-        <li class="navbar-item">
-          <a href="/static_pages/about" class="nav-link">About</a>
-        </li>
-        <li class="navbar-item">
-          <a href='/static_pages/contact' class="nav-link">Contact</a>
-        </li>
+          <li class="navbar-item">
+            <a href="/static_pages/about" class="nav-link">About</a>
+          </li>
+          <li class="navbar-item">
+            <a href='/static_pages/contact' class="nav-link">Contact</a>
+          </li>
+        <% if logged_in? %>
+          <li class="navbar-item">
+            <a href="#" class="nav-link">My Shows</a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", '#' %></li>
+              <li><%= link_to "Settings", '#' %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Log out", logout_path, method: :delete %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="navbar-item">
+            <a href="/login" class="nav-link">Login</a>
+          </li>
+        <% end %>
       </ul>
     </nav>
     <%= yield %>
