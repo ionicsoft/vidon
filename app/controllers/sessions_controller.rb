@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     person = Person.find_by(username: params[:session][:username].downcase)
     if person && person.authenticate(params[:session][:password])
       log_in(person)
-      redirect_to person.user
+      redirect_to root_url
     else
       flash.now[:danger] = "No user found with username/password combination."
       render 'new'
