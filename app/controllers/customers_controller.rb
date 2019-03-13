@@ -15,6 +15,7 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
+    @customer.person = Person.new
   end
 
   # GET /customers/1/edit
@@ -28,6 +29,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
+        log_in(@customer.person)
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
@@ -69,6 +71,7 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:person_id, :payment_id)
+      params.require(:customer).permit(:slots, :person_attributes => [:username,
+        :password, :password_confirmation, :email, :first_name, :last_name])
     end
 end

@@ -1,40 +1,41 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body { 
+  padding-top: 70px;
+}
+
 .navbar {
-    background-color: #D3F3DE;
-    font-size: large;
-    text-align: center;
-    display: inline-grid;
-    width: 100%;
+  background-color: #D3F3DE;
+}
+
+.nav-text {
+  font-family: "Lucida Console", Monaco, monospace;
 }
 
 #company {
+  letter-spacing: -1px;
+  font-size: x-large;
+  margin-top: 14px;
+  margin-bottom: 0px;
+}
+
+#footer {
+  padding-top: 5px;
+  margin-top: 65px;
+  border-top: 1px solid #eee;
+  
+  small {
     float: left;
-    padding-bottom: 2rem;
-    font-size: x-large;
-    font-family: "Lucida Console", Monaco, monospace;
-}
-
-.navbar-nav {
-    display: inline;
-    text-align:center;
-    margin: auto;
-    padding-top: 2.5rem;
-    padding-left: 27rem;
-    list-style-type: none;
-}
-
-.navbar-item {
-    margin: auto;
-    padding-right: 2.5rem;
-    font-size: large;
-    font-family: "Lucida Console", Monaco, monospace;
-}
-
-.searchbar {
-    display: inline;
-    margin: auto;
-    padding-top: 2.5rem;
+  }
+  
+  ul {
+    list-style: none;
     float: right;
+    
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
 }
