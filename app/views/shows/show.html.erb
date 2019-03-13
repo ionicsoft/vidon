@@ -1,52 +1,67 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @show.name %>
-</p>
-
-<p>
-  <strong>Producer:</strong>
-  <%= if @show.producer_id? then link_to @show.producer_id, @show.producer end %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @show.description %>
-</p>
-
 <div>
-  <h4>Remote data:</h4>
-  <% unless @show.producer.nil? %>
-  <p>
-    <strong>Producer:</strong>
-    <%= @show.producer.company_name %>
-  </p>
-  <% end %>
+  <h1 class="show_title">
+    <%= @show.name %>
+    <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
+  </h1>
   
-  
-  <b>Episodes:</b>
-  <table>
-    <thead>
-      <tr>
-        <th>Season</th>
-        <th>Episode</th>
-        <th>Title</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @show.episodes.each do |episode| %>
-        <tr>
-          <td><%= episode.season %></td>
-          <td><%= episode.episode %></td>
-          <td><%= link_to episode.video.title, episode.video %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  
-  
+  <h2 class="show_description">
+    
+    <p>
+      <ul class="show_navbar_nav">
+        <li class="navbar-item">
+          <a href='/'>Subscribe</a>
+        </li>
+        <li class="navbar-item">
+          <a href='/'>Play</a>
+        </li>
+      </ul>
+      <br />
+    </p>
+    
+    <p>
+      <strong>Description:</strong>
+      <%= @show.description %>
+    </p>
+    
+    <% unless @show.producer.nil? %>
+    <p>
+      <strong>Producer:</strong>
+      <%= @show.producer.company_name %>
+    </p>
+    <% end %>
+    
+    <p>
+      <%= link_to 'Return to shows', shows_path %>
+    </p>
+    
+  </h2>
+</div>  
+
+<div class="episodes_list">
+  <h3>Episodes</h3>
+  <ul>
+    <% @show.episodes.each do |episode| %>
+    <li>
+      <p class="episodes_list_image">
+        <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 100px; width: 100px;") %>
+      </p>
+    
+      <div class="episodes_description">
+        <h3><%= episode.episode %> <%= episode.video.title %></h3>
+        <p>
+          <%= episode.video.description %>
+          <br/>
+          <%= link_to 'Watch', episode.video %>
+        </p>
+      </div>
+      
+    </li>
+    <% end %>
+  </ul>
 </div>
 
-<%= link_to 'Edit', edit_show_path(@show) %> |
-<%= link_to 'Back', shows_path %>
+  
+  
+

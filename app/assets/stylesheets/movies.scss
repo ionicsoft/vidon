@@ -1,3 +1,45 @@
 // Place all the styles related to the Movies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+ $primary_color: #D3F3DE;
+ 
+ .movie_title {
+    width: 400px;
+    margin-right: 10px;
+    background-color: $primary_color;
+    padding: 30px 30px 30px 30px;    
+    border: 5px solid black;
+    text-shadow: 1px 1px 1px black;
+    float: left;
+    line-height: 1.8;
+}
+
+.movie_list_image {
+    margin-right: 10px;
+    background-color: $primary_color;
+    padding: 10px 10px 10px 10px;    
+    border: 3px solid black;
+    float: left;
+    display: block;
+}
+
+.movie_navbar {
+    font-size: large;
+    padding: 2.5rem;
+}
+
+.movie_description {
+    padding: 30px;
+   
+}
+
+.movies_list{
+    list-style: none;
+}
+
+.movies_list > li {
+    float: left;
+    padding: 5px;
+    width: 80%;
+}
+
