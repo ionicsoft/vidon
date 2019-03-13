@@ -1,36 +1,46 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Video:</strong>
-  <%= if @movie.video_id? then link_to @movie.video_id, @movie.video end %>
-  <!--<%= @movie.video_id %>-->
-</p>
-
-<p>
-  <strong>Producer:</strong>
-  <%= if @movie.producer_id? then link_to @movie.producer_id, @movie.producer end %>
-</p>
-
 <div>
-  <h4>Remote data</h4>
   <% unless @movie.video.nil? %>
-  <p>
-    <strong>Title:</strong>
+  <h1 class="movie_title">
     <%= @movie.video.title %>
-  </p>
+    <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
+  </h1>
   
-  <p>
-    <strong>Description:</strong>
-    <%= @movie.video.description %>
-  </p>
-  <% end %>
-  <% unless @movie.producer.nil? %>
-  <p>
-    <strong>Producer:</strong>
-    <%= @movie.producer.company_name %>
-  </p>
+  <h2 class="movie_description">
+    
+    <p>
+      <ul class="movie_navbar_nav">
+        <li class="navbar-item">
+          <a href='/'>Subscribe</a>
+        </li>
+        <li class="navbar-item">
+          <%= link_to 'Watch', @movie.video %>
+        </li>
+      </ul>
+      <br />
+    </p>
+    
+    <p>
+      <strong>Description:</strong>
+      <%= @movie.video.description %>
+    </p>
+    
+    <% end %>
+    <% unless @movie.producer.nil? %>
+    
+    <p>
+      <strong>Producer:</strong>
+      <%= @movie.producer.company_name %>
+    </p>
+    
+    <p>
+      <%= link_to 'Return to movies', movies_path %>
+    </p>
+    
+  </h2>
+  
   <% end %>
 </div>
 
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+
