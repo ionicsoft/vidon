@@ -69,6 +69,6 @@ class ShowRatingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def show_rating_params
-      params.require(:show_rating).permit(:rating, :show_id)
+      params.require(:show_rating).permit(:rating, :show_id, :customer_id)
     end
 end
