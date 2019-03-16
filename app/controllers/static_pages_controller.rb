@@ -13,7 +13,9 @@ class StaticPagesController < ApplicationController
       redirect_to(shows_path) 
     else
       @parameter = params[:search].downcase  
-      @results = Video.all.where("lower(title) LIKE :search", search: "%#{@parameter}%")
+      @show_results = Show.all.where("lower(name) LIKE :search", search: "%#{@parameter}%")
+      @movie_results = Movie.joins(:video).search("%#{@parameter}%")
+      @results = @show_results + @movie_results
     end
   end
 end
