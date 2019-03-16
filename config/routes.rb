@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get     '/about',   to: 'static_pages#about'
   get     '/contact', to: 'static_pages#contact'
   get     '/signup',  to: 'customers#new'
+  get     '/search',  to: 'static_pages#search', :as => 'search_page'
   get     '/login',   to: 'sessions#new'
   post    '/login',   to: 'sessions#create'
   delete  '/logout',  to: 'sessions#destroy'

@@ -1,0 +1,22 @@
+<h3>Search Result</h3>  
+
+    <% @results.each do |result| %>  
+        <p>
+        <strong>Title:</strong>
+        <%= result.title %><br>
+        </p>
+          
+        <p>
+          <strong>Description:</strong>
+          <%= result.description %>
+        </p>
+        
+        <p>
+          <strong>Filename:</strong>
+          <%= result.filename %>
+        </p>
+    <% end %>
+    
+
+
+
