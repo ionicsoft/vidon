@@ -9,54 +9,55 @@
       </div>
     </div>
   </div>
-  <div class="container" id="customer-content">
-    <div class="row" id="last-watched">
-      <h3>Last Watched</h3>
-      <% last_sub = @customer.subscriptions.order("updated_at")
-                                             .find_by("current_episode > 0") %>
-      <% unless last_sub.nil?  %>
-        <% ep = last_sub.show.episodes[last_sub.current_episode-1] %>
-        <div class="col-sm-3">
-          <h4><%= last_sub.show.name %></h4>
+    <div class="col-sm-8" id="profile-main">
+      <div class="row" id="customer-favorites">
+        <h3>My Favorites</h3>
+          <% favs = @customer.show_ratings.where("rating = 5") %>
+          <% if favs.any? %>
+          <% favs[0..4].each do |rating| %>
+            <div class="panel panel-default">
+            <div class="panel-heading"><%= rating.show.name %></div>
+            <div class="panel-body"><%= rating.show.description %></div>
+          </div>
+          <% end %>
+          <% end %>
         </div>
-        <div class="col-sm-3">
-          <h5><%= "Season #{ep.season}, Episode #{ep.episode}" %></h5>
+        <hr>
+        <div class="row" id="customer-timeline">
+          <h3>My Timeline</h3>
+          
         </div>
-        <div class="col-sm-6">
-          <h5><%= ep.video.title %></h5>
-          <p><%= ep.video.description %></p>
+      </div>
+      <div class="col-sm-4">
+        <div class="panel panel-default" id="profile-side">
+          <div class="panel-body" id="last-watched">
+            <h3>Last Watched</h3>
+            <% last_sub = @customer.subscriptions.order("updated_at")
+                                                   .find_by("current_episode > 0") %>
+            <% unless last_sub.nil?  %>
+              <% ep = last_sub.show.episodes[last_sub.current_episode-1] %>
+              <div class="col-sm-4">
+                <h4><%= last_sub.show.name %></h4>
+              </div>
+              <div class="col-sm-8">
+                <small><%= "Season #{ep.season}, Episode #{ep.episode}" %></small>
+                <h5><%= ep.video.title %></h5>
+                <p class="text-justify"><%= ep.video.description %></p>
+              </div>
+            <% else %>
+              <small>Oh no! They haven't watched anything!</small>
+            <% end %>
+          </div>
+          <hr>
+          <div class="panel-body" id="customer-ratings">
+            <h3>My Ratings</h3>
+            <% @customer.show_ratings[0..4].each do |rating| %>
+              <div class="panel panel-default">
+                <div class="panel-heading"><%= rating.show.name %></div>
+                <div class="panel-body"><span class="text-info text-lg"><%= rating.rating %></span>/5</div>
+              </div>
+            <% end %>
+          </div>
         </div>
-      <% else %>
-        <p>Oh no! They haven't watched anything!</p>
-      <% end %>
-    </div>
-    <hr>
-    <div class="row" id="customer-ratings">
-      <h3>My Ratings</h3>
-      <% @customer.show_ratings[0..4].each do |rating| %>
-        <div class="panel panel-default">
-          <div class="panel-heading"><%= rating.show.name %></div>
-          <div class="panel-body"><span class="text-info text-lg"><%= rating.rating %></span>/5</div>
-        </div>
-      <% end %>
-    </div>
-    <hr>
-    <div class="row" id="customer-favorites">
-      <h3>My Favorites</h3>
-        <% favs = @customer.show_ratings.where("rating = 5") %>
-        <% if favs.any? %>
-        <% favs[0..4].each do |rating| %>
-          <div class="panel panel-default">
-          <div class="panel-heading"><%= rating.show.name %></div>
-          <div class="panel-body"><%= rating.show.description %></div>
-        </div>
-        <% end %>
-        <% end %>
-    </div>
-    <hr>
-    <div class="row" id="customer-timeline">
-      <h3>My Timeline</h3>
-      
-    </div>
   </div>
 </div>
