@@ -15,6 +15,7 @@
           <h1 id="company" class="nav-text"><%= link_to "Vidon", root_path %></h1>
         </div>
         
+        <% if logged_in? %>
   		  <%= form_tag(search_page_path, :method => "get",   
               class: 'navbar-form navbar-right') do %>  
   		    <div class="input-group">
@@ -23,6 +24,7 @@
               <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
     		    </div>
   		    </div>
+        <% end %>
         <% end %>
   		  
   		  <ul class="nav navbar-nav navbar-right nav-text">
