@@ -2,62 +2,83 @@
   <div class="navbar navbar-default" id="customer-header">
     <div class="container-fluid">
       <div class="navbar-header">
-        <h2><%= "#{@customer.person.first_name} #{@customer.person.last_name}" %></h2>
+        <h2><%= @customer.person.full_name %></h2>
       </div>
       <div id="customer-nav-text">
-        <small>Member since <%= @customer.created_at.strftime "%B %Y" %></small>
+        <small>Subscriber since <%= @customer.created_at.strftime "%B %Y" %></small>
       </div>
     </div>
   </div>
-    <div class="col-sm-8" id="profile-main">
-      <div class="row" id="customer-favorites">
-        <h3>My Favorites</h3>
-          <% favs = @customer.show_ratings.where("rating = 5") %>
-          <% if favs.any? %>
-          <% favs[0..4].each do |rating| %>
-            <div class="panel panel-default">
-            <div class="panel-heading"><%= rating.show.name %></div>
+  <div class="col-sm-8" id="profile-main">
+    <div class="row" id="customer-favorites">
+      <h3>My Favorites</h3>
+      <% favs = @customer.show_ratings.where("rating = 5") %>
+      <% if favs.any? %>
+        <% favs[0..4].each do |rating| %>
+          <div class="panel panel-default">
+            <div class="panel-heading"><%= link_to rating.show.name, rating.show %></div>
             <div class="panel-body"><%= rating.show.description %></div>
           </div>
-          <% end %>
-          <% end %>
-        </div>
-        <hr>
-        <div class="row" id="customer-timeline">
-          <h3>My Timeline</h3>
-          
-        </div>
-      </div>
+        <% end %>
+      <% else %>
+        <small>I like nothing!</small>
+      <% end %>
+    </div>
+    <hr>
+    <div class="row" id="customer-timeline">
+      <h3>My Timeline</h3>
+      <% if @customer.profile_comments.any? %>
+        <% @customer.profile_comments.each do |comment| %>
+          <div class="panel panel-default profile-comment">
+            <div class="panel-heading">
+              <%= link_to comment.customer.person.full_name, comment.customer %>
+            </div>
+            <div class="panel-body">
+              <p><%= comment.comment %></p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
       <div class="col-sm-4">
-        <div class="panel panel-default" id="profile-side">
-          <div class="panel-body" id="last-watched">
-            <h3>Last Watched</h3>
-            <% last_sub = @customer.subscriptions.order("updated_at")
-                                                   .find_by("current_episode > 0") %>
-            <% unless last_sub.nil?  %>
-              <% ep = last_sub.show.episodes[last_sub.current_episode-1] %>
-              <div class="col-sm-4">
-                <h4><%= last_sub.show.name %></h4>
-              </div>
-              <div class="col-sm-8">
-                <small><%= "Season #{ep.season}, Episode #{ep.episode}" %></small>
-                <h5><%= ep.video.title %></h5>
-                <p class="text-justify"><%= ep.video.description %></p>
-              </div>
-            <% else %>
-              <small>Oh no! They haven't watched anything!</small>
-            <% end %>
+        <hr>
+        <%= render 'comment_form' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="panel panel-default" id="profile-side">
+      <div class="panel-body" id="last-watched">
+        <h3>Last Watched</h3>
+        <% last_sub = @customer.subscriptions.order("updated_at")
+                                             .find_by("current_episode > 0") %>
+        <% unless last_sub.nil?  %>
+          <% ep = last_sub.show.episodes[last_sub.current_episode-1] %>
+          <div class="col-sm-4">
+            <h4><%= link_to last_sub.show.name, last_sub.show %></h4>
           </div>
-          <hr>
-          <div class="panel-body" id="customer-ratings">
-            <h3>My Ratings</h3>
-            <% @customer.show_ratings[0..4].each do |rating| %>
-              <div class="panel panel-default">
-                <div class="panel-heading"><%= rating.show.name %></div>
-                <div class="panel-body"><span class="text-info text-lg"><%= rating.rating %></span>/5</div>
-              </div>
-            <% end %>
+          <div class="col-sm-8">
+            <small><%= "Season #{ep.season}, Episode #{ep.episode}" %></small>
+            <h5><%= ep.video.title %></h5>
+            <p class="text-justify"><%= ep.video.description %></p>
           </div>
-        </div>
+        <% else %>
+          <small>Oh no! They haven't watched anything!</small>
+        <% end %>
+      </div>
+      <hr>
+      <div class="panel-body" id="customer-ratings">
+        <h3>My Ratings</h3>
+        <% if @customer.show_ratings.any? %>
+          <% @customer.show_ratings[0..4].each do |rating| %>
+            <div class="panel panel-default">
+              <div class="panel-heading"><%= link_to rating.show.name, rating.show %></div>
+              <div class="panel-body"><b><%= rating.rating %></b>/5</div>
+            </div>
+          <% end %>
+        <% else %>
+          <small>No ratings yet.</small>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

@@ -25,10 +25,11 @@ class ProfileCommentsController < ApplicationController
   # POST /profile_comments.json
   def create
     @profile_comment = ProfileComment.new(profile_comment_params)
-
+    session[:return_to] ||= request.referer
+    
     respond_to do |format|
       if @profile_comment.save
-        format.html { redirect_to @profile_comment, notice: 'Profile comment was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Profile comment was successfully created.' }
         format.json { render :show, status: :created, location: @profile_comment }
       else
         format.html { render :new }

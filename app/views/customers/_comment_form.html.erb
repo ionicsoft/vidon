@@ -1,0 +1,18 @@
+<% if logged_in? && current_person.customer? %>
+  <div class="panel panel-default">
+    <%= form_with(model: ProfileComment.new, local: true, class: "panel-body") do |form| %>
+    
+      <%= form.hidden_field :customer_id, :value => @customer.id %>
+      <%= form.hidden_field :commentor_id, :value => current_person.user.id %>
+    
+      <div class="field">
+        <%= form.label :comment, "Your message:" %>
+        <%= form.text_area :comment, id: :profile_comment_comment %>
+      </div>
+    
+      <div class="actions">
+        <%= form.submit "Post comment" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
