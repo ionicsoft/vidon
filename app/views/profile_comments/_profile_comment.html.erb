@@ -1,0 +1,10 @@
+<div class="media profile-comment">
+  <div class="media-left">
+    <%= image_tag("homepage/01.jpg", :alt => "nullPhoto", size: "58x58") %>
+  </div>
+  <div class="media-body">
+    <small id="profile-comment-time"><%= time_ago_in_words profile_comment.created_at %> ago</small>
+    <b class="media-heading"><%= link_to profile_comment.customer.person.full_name, profile_comment.customer %></b>
+    <p><%= profile_comment.comment %></p>
+  </div>
+</div>

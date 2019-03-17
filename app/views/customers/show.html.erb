@@ -29,17 +29,10 @@
       <h3>My Timeline</h3>
       <% if @customer.profile_comments.any? %>
         <% @customer.profile_comments.each do |comment| %>
-          <div class="panel panel-default profile-comment">
-            <div class="panel-heading">
-              <%= link_to comment.customer.person.full_name, comment.customer %>
-            </div>
-            <div class="panel-body">
-              <p><%= comment.comment %></p>
-            </div>
-          </div>
+          <%= render comment %>
         <% end %>
       <% end %>
-      <div class="col-sm-4">
+      <div>
         <hr>
         <%= render 'comment_form' %>
       </div>
