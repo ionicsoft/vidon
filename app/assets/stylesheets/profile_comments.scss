@@ -1,3 +1,12 @@
 // Place all the styles related to the ProfileComments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.profile-comment {
+  background-color: #f5f5f5;
+  padding: 5px;
+  
+  small {
+    float: right;
+  }
+}

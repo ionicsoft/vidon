@@ -7,4 +7,12 @@ class Subscription < ApplicationRecord
   def default_episode
     self.current_episode ||= 0
   end
+  
+  def next_episode
+    show.episodes.find_by absolute_episode: current_episode
+  end
+  
+  def next_video
+    next_episode.video
+  end
 end
