@@ -9,10 +9,10 @@ class Subscription < ApplicationRecord
   end
   
   def next_episode
-    show.episodes[current_episode]
+    show.episodes.find_by absolute_episode: current_episode
   end
   
   def next_video
-    show.episodes[current_episode].video
+    next_episode.video
   end
 end

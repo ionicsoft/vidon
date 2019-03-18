@@ -63,10 +63,7 @@
         <h3>My Ratings</h3>
         <% if @customer.show_ratings.any? %>
           <% @customer.show_ratings[0..4].each do |rating| %>
-            <div class="panel panel-default">
-              <div class="panel-heading"><%= link_to rating.show.name, rating.show %></div>
-              <div class="panel-body"><b><%= rating.rating %></b>/5</div>
-            </div>
+            <%= render rating %>
           <% end %>
         <% else %>
           <small>No ratings yet.</small>
