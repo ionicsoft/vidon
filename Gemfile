@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',                   '~> 5.1.6.2'
+gem 'rails',                   '~> 5.2'
 gem 'bcrypt',                  '3.1.12'
 gem 'faker',                   '1.7.3'
 gem 'carrierwave',             '1.2.2'
@@ -40,6 +40,7 @@ end
 group :production do
   gem 'mysql2',  '~> 0.3.18'
   gem 'fog', '1.42'
+  gem "aws-sdk-s3", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
