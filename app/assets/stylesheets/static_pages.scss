@@ -61,4 +61,28 @@ a.btn:visited {
       -webkit-transform: translate3d(0, 0, 0);
               transform: translate3d(0, 0, 0);
     }
+} $primary_color: #D3F3DE;
+
+.result_image {
+    margin-right: 10px;
+    background-color: $primary_color;
+    padding: 10px 10px 10px 10px;    
+    border: 3px solid black;
+    float: left;
+    display: block;
+}
+
+.result_description {
+    padding: 30px;
+   
+}
+
+.search_results{
+    list-style: none;
+}
+
+.search_results > li {
+    float: left;
+    padding: 5px;
+    width: 80%;
 }

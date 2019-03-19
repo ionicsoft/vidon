@@ -1,0 +1,37 @@
+<h3>Search Results</h3>  
+
+    <div class="container">
+    <br/>
+    <ul class="search_results">
+    <% @results.each do |result| %>  
+        <li>
+        <p class="result_image">
+            <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 150px; width: 150px;") %>
+        </p>
+          
+        <div class="result_description">
+            <% if result.is_a?(Show) %>
+                <h3><%= result.name %></h3>
+        <p>
+          <%= result.description %>
+                <br/>
+                <%= link_to 'View page', result %>
+        </p>
+            <% end %>
+            <% if result.is_a?(Movie) %>
+                <h3><%= result.video.title %></h3>
+        <p>
+                <%= result.video.description %>
+                <br/>
+                <%= link_to 'View page', result %>
+        </p>
+    <% end %>
+        </div>
+        </li>
+    <% end %>
+    </ul>
+    </div>
+    
+
+
+
