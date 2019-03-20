@@ -27,6 +27,16 @@
   </div>
   
   <div class="field">
+    <%= form.label :clip %>
+    <%= form.file_field :clip, id: :video_clip %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :thumbnail %>
+    <%= form.file_field :thumbnail, id: :video_thumb %>
+  </div>
+  
+  <div class="field">
     <%= form.label :content_id %>
     <%= form.number_field :content_id, id: :video_content_id %>
   </div>

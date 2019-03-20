@@ -6,32 +6,40 @@
 <p>
   <strong>Title:</strong>
   <%= @video.title %>
+</p>
 
+</head>
+
+<body>
+  
+<!--
+<div style="width:400px; height:400px">
+  <%= image_tag(@video.thumbnail, style:'width: 100%; height: auto') %>
+</div>
+<div style="width:400px; height:400px">
+  <%= video_tag(url_for(@video.clip), style:'width: 100%; height: auto', controls: '') %>
+</div>
+-->
+
+<div ="video-player">
+    <video id= "example1" class="video-js vjs-default-skin vjs-16-9"
+        controls preload="auto" width="640" height="264" poster="<%= url_for(@video.thumbnail) %>" data-setup= '{}'>
+        <source src="<%= url_for(@video.clip) %>" type="video/mp4">
+       <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+</div>
+  
+<hr>  
+<p>
   <strong>Description:</strong>
   <%= @video.description %>
+</p>
 
+<p>
   <strong>Filename:</strong>
   <%= @video.filename %>
 </p>
-</head>
 
-
-
-<body>
-  <hr>
-  
-  <div id="instructions">
-    <!-- "techOrder": ["html5", "youtube", "flash"] -->
-    <video id= "example1" class="video-js vjs-default-skin vjs-fluid"
-        controls preload="auto" width="640" height="264" data-setup= '{"autoplay": false}'>
-        <source src="https://www.youtube.com/watch?v=YE7VzlLtp-4" type="video/youtube">
-        <source src=@video.filename type="video/mp4">
-       <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-    </video>
-    
-  </div>
-  <hr> 
-  
 </body>
 
 <%= link_to 'Edit', edit_video_path(@video) %> |
