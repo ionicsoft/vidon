@@ -5,6 +5,7 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -54,5 +55,6 @@
         <li><%= link_to "Contact", contact_path %></li>
       </ul>
     </footer>
+    <script src='https://vjs.zencdn.net/7.4.1/video.js'></script>
   </body>
 </html>

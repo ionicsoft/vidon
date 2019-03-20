@@ -424,9 +424,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    videojs-ng (6.2.7)
-    videojs-ng-youtube (2.4.1)
-      videojs-ng (~> 6.2.7)
     web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -474,8 +471,6 @@ DEPENDENCIES
   turbolinks (= 5.0.1)
   tzinfo-data
   uglifier (>= 3.2.0)
-  videojs-ng
-  videojs-ng-youtube
   web-console (>= 3.5.1)
   will_paginate (= 3.1.6)
 

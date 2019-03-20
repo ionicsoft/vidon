@@ -18,5 +18,3 @@
 //= require_tree
 //= require jquery
 //= require bootstrap
-//= require video
-//= require video-youtube
