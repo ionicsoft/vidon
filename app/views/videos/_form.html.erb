@@ -20,20 +20,17 @@
     <%= form.label :description %>
     <%= form.text_field :description, id: :video_description %>
   </div>
-
-  <div class="field">
-    <%= form.label :filename %>
-    <%= form.text_field :filename, id: :video_filename %>
-  </div>
   
   <div class="field">
     <%= form.label :clip %>
-    <%= form.file_field :clip, id: :video_clip %>
+    <%= form.file_field :clip, id: :video_clip, direct_upload: true,
+    class: "direct-upload", accept: "video/mp4" %>
   </div>
   
   <div class="field">
     <%= form.label :thumbnail %>
-    <%= form.file_field :thumbnail, id: :video_thumb %>
+    <%= form.file_field :thumbnail, id: :video_thumb, direct_upload: true,
+      accept: "image/png,image/gif,image/jpeg", class: "direct-upload" %>
   </div>
   
   <div class="field">

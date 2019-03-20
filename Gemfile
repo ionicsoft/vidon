@@ -17,8 +17,6 @@ gem 'turbolinks',              '5.0.1'
 gem 'jbuilder',                '~> 2.7.0'
 gem 'videojs-ng'
 gem 'videojs-ng-youtube'
-gem 'aws-sdk-rails'           
-gem 'aws-sdk-s3'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'
