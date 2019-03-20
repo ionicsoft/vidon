@@ -24,3 +24,7 @@
 
 # Ignore Spring files.
 /spring/*.pid
+
+# Ignore development storage files
+/storage/*
+!/storage/.keep

@@ -9,7 +9,7 @@ class Customer < ApplicationRecord
   validates :slots, numericality: { greater_than_or_equal_to: 5 }
   after_initialize :default_slots
   
-  accepts_nested_attributes_for :person
+  accepts_nested_attributes_for :person, allow_destroy: true
 
   def default_slots
     self.slots ||= 5
