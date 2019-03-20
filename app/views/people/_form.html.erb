@@ -12,6 +12,13 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar, id: :person_avatar,
+      accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+      class: "direct-upload"%>
+  </div>
+        
+  <div class="field">
     <%= form.label :username %>
     <%= form.text_field :username, id: :person_username %>
   </div>
