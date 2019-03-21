@@ -14,4 +14,16 @@ class Customer < ApplicationRecord
   def default_slots
     self.slots ||= 5
   end
+  
+  def open_slots?
+    subscriptions.count < slots
+  end
+  
+  def has_subscription?(show)
+    !(subscriptions.find_by show_id: show.id).nil?
+  end
+  
+  def can_subscribe?(show)
+    open_slots? && !has_subscription?(show)
+  end
 end
