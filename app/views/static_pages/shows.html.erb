@@ -1,0 +1,23 @@
+<div class="container">
+  <h3>My Shows</h3>
+  <hr>
+  <% current_person.user.subscriptions.each do |sub| %>
+    <!--<hr>-->
+    <div class="row well">
+      <div class="col-sm-2">
+        image
+      </div>
+      <div class="col-sm-8">
+        <b><%= sub.show.name %></b>
+        <p><%= sub.show.description %></p>
+      </div>
+      <div class="col-sm-2">
+        <%= link_to "Episodes", sub.show, class: "btn btn-primary btn-block btn-sm" %>
+        <%= link_to "Unsubscribe", "#", class: "btn btn-danger btn-block btn-sm" %>
+      </div>
+    </div>
+  <% end %>
+  <div class="col-sm-12 text-center">
+    <%= link_to "Find new shows!", shows_path, class: "btn btn-primary btn-lg" %>
+  </div>
+</div>

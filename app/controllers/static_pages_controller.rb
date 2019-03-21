@@ -18,4 +18,8 @@ class StaticPagesController < ApplicationController
       @results = @show_results + @movie_results
     end
   end
+  
+  def shows
+    
+  end
 end
