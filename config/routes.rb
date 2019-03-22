@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get     '/contact', to: 'static_pages#contact'
   get     '/signup',  to: 'customers#new'
   get     '/search',  to: 'static_pages#search', :as => 'search_page'
+  get     '/friends', to: 'static_pages#friends'
   get     '/login',   to: 'sessions#new'
   post    '/login',   to: 'sessions#create'
   delete  '/logout',  to: 'sessions#destroy'

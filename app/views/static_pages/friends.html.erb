@@ -1,0 +1,51 @@
+<div id="friend_header">
+    <h1>Friends</h1>
+</div>
+
+<div id="person_search">
+    <%= form_tag(search_page_path, :method => "get", class: 'navbar-form') do %>  
+  		<div class="input-group">
+        <%= search_field_tag :friend_search, params[:search], placeholder: "Search", class: "form-control" %>  
+        	<div class="input-group-btn">
+                <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
+        	</div>
+  		</div>
+    <% end %>
+</div>
+
+<div id="pend_req">
+    <h1>Pending Friend Requests</h1>
+    <% @requests.each do |frequest| %>
+        <div class="result_image">
+            <% if frequest.person.avatar.attached? %>
+                <%= image_tag(url_for(frequest.person.avatar), :alt => "Avatar", size: "100x100") %>
+            <% else %>
+                <%= image_tag("homepage/01.jpg", :alt => "Avatar", size: "100x100") %>
+            <% end %>
+        </div>
+        <div class="result_description">
+            <h3><%= frequest.person.full_name %></h3>
+            <br/>
+        </div>
+        <div class="friend_buttons">
+            <%= button_to "Accept", action: "add_friend" %>
+        </div>
+    <% end %>
+</div>
+
+<div id="friend_list">
+    <h1>Friends List</h1>
+    <% @friends.each do |friend| %>
+        <div class="result_image">
+            <% if friend.person.avatar.attached? %>
+                <%= image_tag(url_for(friend.person.avatar), :alt => "Avatar", size: "100x100") %>
+            <% else %>
+                <%= image_tag("homepage/01.jpg", :alt => "Avatar", size: "100x100") %>
+            <% end %>
+        </div>
+        <div class="result_description">
+            <h3><%= friend.person.full_name %></h3>
+            <br/>
+        </div>
+    <% end %>
+</div>

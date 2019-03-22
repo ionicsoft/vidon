@@ -18,4 +18,25 @@ class StaticPagesController < ApplicationController
       @results = @show_results + @movie_results
     end
   end
+  
+  def friends
+    @friends = Friend.all
+  end
+  
+  def friend_search
+    if params[:search].blank?
+      redirect_to(friends_path)
+    else
+      @results = Customer.joins(:person).search("%#{@parameter}%")
+    end
+  end
+  
+  def friend_requests
+    @requests = FriendRequest.all
+  end
+  
+  def add_friend
+    @userID = current_person.person_id
+  end
+  
 end

@@ -4,6 +4,8 @@ class Customer < ApplicationRecord
   has_many :video_comments
   has_many :movie_ratings
   has_many :show_ratings
+  has_many :friends
+  has_many :friend_requests
   has_one :payment
   has_one :person, :as => :user, :inverse_of => :user
   validates :slots, numericality: { greater_than_or_equal_to: 5 }
