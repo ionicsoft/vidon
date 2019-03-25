@@ -3,9 +3,9 @@
 </div>
 
 <div id="person_search">
-    <%= form_tag(search_page_path, :method => "get", class: 'navbar-form') do %>  
+    <%= form_tag(friends_path, :method => "get", class: 'navbar-form navbar-right') do %>  
   		<div class="input-group">
-        <%= search_field_tag :friend_search, params[:search], placeholder: "Search", class: "form-control" %>  
+        <%= search_field_tag :friend_search, params[:friend_search], placeholder: "Search", class: "form-control" %>  
         	<div class="input-group-btn">
                 <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
         	</div>
@@ -28,7 +28,7 @@
             <br/>
         </div>
         <div class="friend_buttons">
-            <%= button_to "Accept", action: "add_friend" %>
+            <%= button_to "Accept", static_pages_path(frequest.customer_id, frequest.requester_id), method: "add_friend" %>
         </div>
     <% end %>
 </div>

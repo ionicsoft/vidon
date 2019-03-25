@@ -20,23 +20,18 @@ class StaticPagesController < ApplicationController
   end
   
   def friends
-    @friends = Friend.all
+    @friends = Friend.all.where("customer_id LIKE :search", search: current_person)
+    @requests = FriendRequest.all.where("customer_id LIKE :search", search: current_person)
   end
   
   def friend_search
     if params[:search].blank?
       redirect_to(friends_path)
     else
-      @results = Customer.joins(:person).search("%#{@parameter}%")
-    end
+      @parameter = params[:search].downcase
+      @results = Person.all.where("lower(username) LIKE :search", search: "%#{@parameter}%")
+      redirect_to(search_page_path)
   end
-  
-  def friend_requests
-    @requests = FriendRequest.all
-  end
-  
-  def add_friend
-    @userID = current_person.person_id
   end
   
 end
