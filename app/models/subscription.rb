@@ -2,10 +2,11 @@ class Subscription < ApplicationRecord
   belongs_to :customer
   belongs_to :show
   validates :current_episode, numericality: { greater_than_or_equal_to: 0 }
-  after_initialize :default_episode
+  after_initialize :defaults_set
 
-  def default_episode
+  def defaults_set
     self.current_episode ||= 0
+    self.cancel ||= false
   end
   
   def next_episode

@@ -2,7 +2,6 @@
   <h3>My Shows</h3>
   <hr>
   <% current_person.user.subscriptions.each do |sub| %>
-    <!--<hr>-->
     <div class="row well">
       <div class="col-sm-2">
         image
@@ -10,10 +9,23 @@
       <div class="col-sm-8">
         <b><%= sub.show.name %></b>
         <p><%= sub.show.description %></p>
+        <p>Cancel: <%= sub.cancel %></p>
       </div>
       <div class="col-sm-2">
         <%= link_to "Episodes", sub.show, class: "btn btn-primary btn-block btn-sm" %>
-        <%= link_to "Unsubscribe", "#", class: "btn btn-danger btn-block btn-sm" %>
+        <% if sub.cancel? %>
+          <%= form_with(model: sub) do |form| %>
+            <%= form.hidden_field :cancel, value: false %>
+            <%= form.submit "Renew", class: "btn btn-info btn-block btn-sm" %>
+          <% end %>
+          
+          <!--<%= link_to "Cancelled", "#", class: "btn btn-danger btn-block btn-sm", disabled: "disabled" %>-->
+        <% else %>
+          <%= form_with(model: sub) do |form| %>
+            <%= form.hidden_field :cancel, value: true %>
+            <%= form.submit "Cancel", class: "btn btn-danger btn-block btn-sm" %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   <% end %>
