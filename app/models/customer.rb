@@ -16,4 +16,8 @@ class Customer < ApplicationRecord
   def default_slots
     self.slots ||= 5
   end
+  
+  def self.search(search)  
+   where("lower(people.username) LIKE :search", search: "%#{search.downcase}%").uniq   
+  end
 end

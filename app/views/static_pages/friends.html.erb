@@ -3,9 +3,9 @@
 </div>
 
 <div id="person_search">
-    <%= form_tag(friends_path, :method => "get", class: 'navbar-form navbar-right') do %>  
+    <%= form_tag(search_page_path, :method => "get", class: 'navbar-form navbar-right') do %>  
   		<div class="input-group">
-        <%= search_field_tag :friend_search, params[:friend_search], placeholder: "Search", class: "form-control" %>  
+        <%= search_field_tag :fsearch, params[:fsearch], placeholder: "Search", class: "form-control" %>  
         	<div class="input-group-btn">
                 <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
         	</div>
@@ -16,19 +16,29 @@
 <div id="pend_req">
     <h1>Pending Friend Requests</h1>
     <% @requests.each do |frequest| %>
+        <% newfren = Customer.find_by(person_id: frequest.requester_id) %>
         <div class="result_image">
-            <% if frequest.person.avatar.attached? %>
-                <%= image_tag(url_for(frequest.person.avatar), :alt => "Avatar", size: "100x100") %>
+            <% if newfren.person.avatar.attached? %>
+                <%= image_tag(url_for(newfren.person.avatar), :alt => "Avatar", size: "100x100") %>
             <% else %>
                 <%= image_tag("homepage/01.jpg", :alt => "Avatar", size: "100x100") %>
             <% end %>
         </div>
         <div class="result_description">
-            <h3><%= frequest.person.full_name %></h3>
+            <h3><%= newfren.person.full_name %></h3>
             <br/>
         </div>
         <div class="friend_buttons">
-            <%= button_to "Accept", static_pages_path(frequest.customer_id, frequest.requester_id), method: "add_friend" %>
+            <%= form_with(model: FriendRequest.add_friend) do |form| %>
+              <%= form.hidden_field :customer_id, value: current_person.id %>
+              <%= form.hidden_field :friend_id, value: frequest.requester_id %>
+              <%= form.submit "Add Friend", class: "btn btn-info" %>
+            <% end %>
+            <%= form_with(model: FriendRequest.delete_req) do |form| %>
+              <%= form.hidden_field :customer_id, value: current_person.id %>
+              <%= form.hidden_field :friend_id, value: frequest.requester_id %>
+              <%= form.submit "Add Friend", class: "btn btn-info" %>
+            <% end %>
         </div>
     <% end %>
 </div>
@@ -36,16 +46,22 @@
 <div id="friend_list">
     <h1>Friends List</h1>
     <% @friends.each do |friend| %>
+    <% fren = Customer.find_by(friend.id) %>
         <div class="result_image">
-            <% if friend.person.avatar.attached? %>
-                <%= image_tag(url_for(friend.person.avatar), :alt => "Avatar", size: "100x100") %>
+            <% if fren.person.avatar.attached? %>
+                <%= image_tag(url_for(fren.person.avatar), :alt => "Avatar", size: "100x100") %>
             <% else %>
                 <%= image_tag("homepage/01.jpg", :alt => "Avatar", size: "100x100") %>
             <% end %>
         </div>
         <div class="result_description">
-            <h3><%= friend.person.full_name %></h3>
+            <h3><%= fren.person.full_name %></h3>
             <br/>
+            <%= form_with(model: FriendRequest.delete_friend) do |form| %>
+              <%= form.hidden_field :customer_id, value: current_person.id %>
+              <%= form.hidden_field :friend_id, value: frequest.requester_id %>
+              <%= form.submit "Add Friend", class: "btn btn-info" %>
+          <% end %>
         </div>
     <% end %>
 </div>
