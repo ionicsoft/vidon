@@ -27,4 +27,11 @@ class Customer < ApplicationRecord
   def can_subscribe?(show)
     open_slots? && !has_subscription?(show)
   end
+  
+  #called once a day from schedule.rb
+  def subscription_renewal
+    if self.renewal_date = Date.today
+      self.renewal_date ||= 30.days.from_now
+      #call renewal procedures
+  end
 end
