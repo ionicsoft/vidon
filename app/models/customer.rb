@@ -23,7 +23,7 @@ class Customer < ApplicationRecord
   end
   
   def can_friend?(customer)
-    self != customer && !has_friend?(customer) and friend_requests.find_by(customer_id: customer.id).nil?
+    self != customer && !has_friend?(customer) and customer.friend_requests.find_by(requester_id: self.id).nil?
   end
   
   def has_friend?(friend)

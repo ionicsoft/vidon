@@ -5,7 +5,7 @@
 <div id="person_search">
     <%= form_tag(search_page_path, :method => "get", class: 'navbar-form navbar-right') do %>  
   		<div class="input-group">
-        <%= search_field_tag :fsearch, params[:fsearch], placeholder: "Search", class: "form-control" %>  
+        <%= search_field_tag :fsearch, params[:fsearch], placeholder: "Username", class: "form-control" %>  
         	<div class="input-group-btn">
                 <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
         	</div>
