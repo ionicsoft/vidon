@@ -25,14 +25,16 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions.json
   def create
     @subscription = Subscription.new(subscription_params)
-
-    respond_to do |format|
-      if @subscription.save
-        format.html { redirect_to @subscription, notice: 'Subscription was successfully created.' }
-        format.json { render :show, status: :created, location: @subscription }
-      else
-        format.html { render :new }
-        format.json { render json: @subscription.errors, status: :unprocessable_entity }
+    
+    if @subscription.customer.can_subscribe?(@subscription.show)
+      respond_to do |format|
+        if @subscription.save
+          format.html { redirect_to @subscription.show, notice: 'Subscription was successfully added.' }
+          format.json { render :show, status: :created, location: @subscription }
+        else
+          format.html { render :new }
+          format.json { render json: @subscription.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -42,7 +44,7 @@ class SubscriptionsController < ApplicationController
   def update
     respond_to do |format|
       if @subscription.update(subscription_params)
-        format.html { redirect_to @subscription, notice: 'Subscription was successfully updated.' }
+        format.html { redirect_back(fallback_location: root_url) }
         format.json { render :show, status: :ok, location: @subscription }
       else
         format.html { render :edit }
@@ -69,6 +71,6 @@ class SubscriptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subscription_params
-      params.require(:subscription).permit(:customer_id, :show_id, :current_episode)
+      params.require(:subscription).permit(:customer_id, :show_id, :current_episode, :cancel)
     end
 end
