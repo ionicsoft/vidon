@@ -10,12 +10,13 @@ class Customer < ApplicationRecord
   has_one :payment
   has_one :person, :as => :user, :inverse_of => :user
   validates :slots, numericality: { greater_than_or_equal_to: 5 }
-  after_initialize :default_slots
+  after_initialize :defaults_set
   
   accepts_nested_attributes_for :person, allow_destroy: true
 
-  def default_slots
-    self.slots ||= 5
+  def defaults_set
+    self.slots ||= 10
+    self.renewal_date ||= 30.days.from_now
   end
   
   def self.search(search)  
@@ -33,4 +34,16 @@ class Customer < ApplicationRecord
   def remove_friend(friend)
     friends.destroy(friend)
   end
+  def open_slots?
+    subscriptions.count < slots
+  end
+  
+  def has_subscription?(show)
+    !(subscriptions.find_by show_id: show.id).nil?
+  end
+  
+  def can_subscribe?(show)
+    open_slots? && !has_subscription?(show)
+  end
+  
 end

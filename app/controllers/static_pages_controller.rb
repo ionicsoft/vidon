@@ -21,6 +21,9 @@ class StaticPagesController < ApplicationController
     end
   end
   
+  def shows
+  end
+  
   def friends
     @friends = current_person.user.friends
     @requests = current_person.user.friend_requests

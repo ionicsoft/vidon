@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "slots"
+    t.date "renewal_date"
   end
 
   create_table "episodes", force: :cascade do |t|
@@ -172,6 +173,8 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.integer "current_episode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "cancel"
+    t.index ["customer_id", "show_id"], name: "index_subscriptions_on_customer_id_and_show_id", unique: true
   end
 
   create_table "video_comments", force: :cascade do |t|

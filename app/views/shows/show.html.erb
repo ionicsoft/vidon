@@ -8,19 +8,25 @@
   </h1>
   
   <h2 class="show_description">
-    
+    <% if logged_in? && current_person.customer? %>
     <p>
       <ul class="show_navbar_nav">
-        <li class="navbar-item">
-          <a href='/'>Subscribe</a>
+        <li>
+          <% if current_person.user.can_subscribe?(@show) %>
+            <%= form_with(model: Subscription.new) do |form| %>
+              <%= form.hidden_field :customer_id, value: current_person.user.id %>
+              <%= form.hidden_field :show_id, value: @show.id %>
+              <%= form.submit "Subscribe", class: "btn btn-info" %>
+            <% end %>
+          <% end %>
         </li>
-        <li class="navbar-item">
-          <a href='/'>Play</a>
+        <li>
+          <%= link_to "Play", @show.episodes.find_by(absolute_episode: "1").video, class: "btn btn-primary" %>
         </li>
       </ul>
       <br />
     </p>
-    
+    <% end %>
     <p>
       <strong>Description:</strong>
       <%= @show.description %>
