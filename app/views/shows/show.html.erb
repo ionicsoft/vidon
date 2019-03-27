@@ -21,7 +21,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to "Play", @show.episodes.find_by("absolute_episode = 1"), class: "btn btn-primary" %>
+          <%= link_to "Play", @show.episodes.find_by(absolute_episode: "1").video, class: "btn btn-primary" %>
         </li>
       </ul>
       <br />

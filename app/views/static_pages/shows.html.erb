@@ -4,12 +4,14 @@
   <% current_person.user.subscriptions.each do |sub| %>
     <div class="row well">
       <div class="col-sm-2">
-        image
+        <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
       </div>
       <div class="col-sm-8">
         <b><%= sub.show.name %></b>
         <p><%= sub.show.description %></p>
-        <p>Cancel: <%= sub.cancel %></p>
+        <% if sub.cancel? %>
+          <p class="text-warning">This subscription will not renew.</p>
+        <% end %>
       </div>
       <div class="col-sm-2">
         <%= link_to "Episodes", sub.show, class: "btn btn-primary btn-block btn-sm" %>
@@ -18,8 +20,6 @@
             <%= form.hidden_field :cancel, value: false %>
             <%= form.submit "Renew", class: "btn btn-info btn-block btn-sm" %>
           <% end %>
-          
-          <!--<%= link_to "Cancelled", "#", class: "btn btn-danger btn-block btn-sm", disabled: "disabled" %>-->
         <% else %>
           <%= form_with(model: sub) do |form| %>
             <%= form.hidden_field :cancel, value: true %>
