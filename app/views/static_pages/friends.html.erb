@@ -25,7 +25,7 @@
             <% end %>
         </div>
         <div class="result_description">
-            <h3><%= requester.person.full_name %></h3>
+            <h3><%= link_to requester.person.full_name, requester %></h3>
             <br/>
         </div>
         <div class="friend_buttons">
@@ -48,7 +48,7 @@
             <% end %>
         </div>
         <div class="result_description">
-            <h3><%= friend.person.full_name %></h3>
+            <h3><%= link_to friend.person.full_name, friend %></h3>
             <br/>
             <%= link_to "Delete friend", "#{friends_path}/#{friend.id}", method: :delete, class: "btn btn-warning" %>
         </div>
