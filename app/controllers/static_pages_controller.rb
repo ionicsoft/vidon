@@ -22,8 +22,8 @@ class StaticPagesController < ApplicationController
   end
   
   def friends
-    @friends = Friend.all.where("customer_id LIKE :search", search: current_person.id)
-    @requests = FriendRequest.all.where("customer_id LIKE :search", search: current_person.id)
+    @friends = current_person.user.friends
+    @requests = current_person.user.friend_requests
   end
   
   def friend_search
