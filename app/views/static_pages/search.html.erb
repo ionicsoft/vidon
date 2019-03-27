@@ -3,8 +3,25 @@
     <div class="container">
     <br/>
     <ul class="search_results">
+    <% if @results.blank? %>
+        <p>Sorry, no results match your search.</p>
+    <% end %>
     <% @results.each do |result| %>  
         <li>
+            <% if result.is_a?(Customer) %>
+                <p class="result_image">
+                    <% if result.person.avatar.attached? %>
+                      <%= image_tag(url_for(result.person.avatar), :alt => "Avatar", size: "100x100") %>
+                    <% else %>
+                      <%= image_tag("homepage/01.jpg", :alt => "Avatar", size: "100x100") %>
+                    <% end %>
+                </p>
+                <div class="result_description">
+                    <h3><%= result.person.full_name %></h3>
+                    <br/>
+                    <%= link_to 'View page', result %>
+                </div>
+            <% else %>
         <p class="result_image">
             <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 150px; width: 150px;") %>
         </p>
@@ -27,6 +44,7 @@
         </p>
     <% end %>
         </div>
+            <% end %>
         </li>
     <% end %>
     </ul>
