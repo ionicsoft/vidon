@@ -2,6 +2,54 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$highlight-white: #000;
+
+.guest-fill {
+  background-color: #461A3B;
+  margin-top: -52px;
+  margin-left: -48px;
+  margin-right: -48px;
+  // height: 100vh;
+  // width: 100vw;
+  img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+  
+  .carousel-inner {
+    height: 95vh;
+  }
+  
+  .carousel-caption {
+    top: 20%;
+  }
+  
+  .btn {
+    border: none;
+    border-radius: 0;
+    font-weight: bold;
+    // background: #487F5BBB;
+    // background: $highlight-white;
+    padding: 6px 40px;
+  }
+  
+  .text-main {
+    padding: 5px;
+    margin: 10px 10vw;
+  }
+  
+  h4 {
+    padding: 5px;
+    margin: 30px 0;
+  }
+  
+  .btn, .text-main, h4 {
+    background: $highlight-white;
+  }
+}
+
+
 a.btn:visited {
   color: white;
 }
@@ -61,7 +109,9 @@ a.btn:visited {
       -webkit-transform: translate3d(0, 0, 0);
               transform: translate3d(0, 0, 0);
     }
-} $primary_color: #D3F3DE;
+} 
+
+$primary_color: #D3F3DE;
 
 .result_image {
     margin-right: 10px;

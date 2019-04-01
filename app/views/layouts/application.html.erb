@@ -13,7 +13,11 @@
     <nav class="navbar navbar-light navbar-bg-light navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <h1 id="company" class="nav-text"><%= link_to "Vidon", root_path %></h1>
+          <%= link_to root_path, class: "navbar-brand" do %>
+            <%= image_tag("logo-small.png", size: "40x40") %>
+            <span>Vidon</span>
+          <% end %>
+          <!--<h1 id="company" class="nav-text"><%= link_to "Vidon", root_path %></h1>-->
         </div>
         
         <% if logged_in? %>

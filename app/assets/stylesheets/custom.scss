@@ -9,6 +9,16 @@ body {
   background-color: #D3F3DE;
 }
 
+.navbar-brand {
+  font-family: "Lucida Console", Monaco, monospace;
+  
+  img {
+    margin-top: -9px;
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+
 .nav-text {
   font-family: "Lucida Console", Monaco, monospace;
 }

@@ -1,26 +1,12 @@
-<div class="container">
-  <div class="col-md-12">
+<div class="guest-fill">
+  <!--<div class="col-md-12">-->
     <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
       <div class="carousel-inner">
-        <div class="item active">
-          <%= image_tag "homepage/01.jpg", alt: "Slide 1" %>
-          <div class="carousel-caption">
-            <h2>
-              Say hello to subscriptions.
-            </h2>
-            <h4>
-              Pick your shows, sit back, and enjoy.
-            </h4>
-            <h2>
-              <%= link_to "Sign up today", signup_path, class: "btn btn-primary btn-lg" %>
-            </h2>
-          </div>
-        </div>
-        <% (2..4).each do |num| %>
-        <div class="item">
+        <% (1..4).each do |num| %>
+        <div class="item<%= " active" if num == 1 %>">
           <%= image_tag "homepage/0#{num}.jpg", alt: "Slide #{num}" %>
           <div class="carousel-caption">
-            <h2>
+            <h2 class="text-main">
               Say hello to subscriptions.
             </h2>
             <h4>
@@ -34,5 +20,5 @@
         <% end %>
       </div>
     </div>
-  </div>
+  <!--</div>-->
 </div>
