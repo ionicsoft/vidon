@@ -15,6 +15,7 @@ class ProducersController < ApplicationController
   # GET /producers/new
   def new
     @producer = Producer.new
+    @producer.person = Person.new
   end
 
   # GET /producers/1/edit
@@ -28,6 +29,7 @@ class ProducersController < ApplicationController
 
     respond_to do |format|
       if @producer.save
+        log_in(@producer.person)
         format.html { redirect_to @producer, notice: 'Producer was successfully created.' }
         format.json { render :show, status: :created, location: @producer }
       else
