@@ -1,14 +1,14 @@
 class Customer < ApplicationRecord
-  has_many :subscriptions, dependent: destroy
-  has_many :profile_comments, dependent: destroy
-  has_many :video_comments, dependent: destroy
-  has_many :movie_ratings, dependent: destroy
-  has_many :show_ratings, dependent: destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :profile_comments, dependent: :destroy
+  has_many :video_comments, dependent: :destroy
+  has_many :movie_ratings, dependent: :destroy
+  has_many :show_ratings, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
   has_many :friend_requests, dependent: :destroy
-  has_one :payment, dependent: destroy
-  has_one :person, :as => :user, :inverse_of => :user, dependent: destroy
+  has_one :payment, dependent: :destroy
+  has_one :person, :as => :user, :inverse_of => :user, dependent: :destroy
   validates :slots, numericality: { greater_than_or_equal_to: 5 }
   after_initialize :defaults_set
   
