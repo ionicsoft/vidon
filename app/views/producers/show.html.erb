@@ -5,11 +5,6 @@
   <%= @producer.company_name %>
 </p>
 
-<p>
-  <strong>Person:</strong>
-  <%= if @producer.person_id? then link_to @producer.person_id, @producer.person end %>
-</p>
-
 <div>
   <h4>Remote data</h4>
   <% unless @producer.person.nil? %>
