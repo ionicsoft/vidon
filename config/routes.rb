@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   delete  '/logout',  to: 'sessions#destroy'
   get     '/friends', to: 'static_pages#friends'
   delete  '/friends/:id', to: 'friends#destroy'
+  get     '/my_rentals',  to: 'static_pages#my_rentals'
+  post    '/movies/:id/rent', to: 'rentals#create'
 end

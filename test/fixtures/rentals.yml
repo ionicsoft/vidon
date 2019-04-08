@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer: one
+  movie: one
+  expiration: 2019-04-08 17:26:35
+
+two:
+  customer: two
+  movie: two
+  expiration: 2019-04-08 17:26:35
