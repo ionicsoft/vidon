@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Advertures in Cyberspace
+  producer: one
+  description: MyString
+
+two:
+  name: Foobar
+  producer: two
+  description: MyString

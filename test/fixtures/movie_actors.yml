@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Bob Smith
+  movie: one
+
+two:
+  name: Alexa Jones
+  movie: two
+
+three:
+  name: Bob Smith
+  movie: two

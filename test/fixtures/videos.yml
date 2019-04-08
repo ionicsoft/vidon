@@ -1,0 +1,36 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  content: one (Episode)
+
+two:
+  title: MyString
+  description: MyString
+  content: two (Episode)
+
+three:
+  title: MyString
+  description: MyString
+  content: three (Episode)
+
+four:
+  title: MyString
+  description: MyString
+  content: Four (Episode)
+
+five:
+  title: MyString
+  description: MyString
+  content: five (Episode)
+
+six:
+  title: MyString
+  description: MyString
+  content: one (Movie)
+
+seven:
+  title: MyString
+  description: MyString
+  content: two (Movie)

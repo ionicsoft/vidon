@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer: one
+  show: one
+  current_episode: 0
+
+two:
+  customer: two
+  show: one
+  current_episode: 0
