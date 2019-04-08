@@ -4,7 +4,11 @@
 <div>
   <h1 class="show_title">
     <%= @show.name %>
-    <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
+    <% if @show.promo_image.attached? %>
+        <%= image_tag(url_for(@show.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
+    <% else %>
+        <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
+    <% end %>
   </h1>
   
   <h2 class="show_description">
@@ -52,7 +56,11 @@
     <% @show.episodes.each do |episode| %>
     <li>
       <p class="episodes_list_image">
-        <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 100px; width: 100px;") %>
+        <% if episode.thumbnail.attached? %>
+          <%= image_tag(url_for(episode.thumbnail), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
+        <% else %>
+          <%= image_tag("nullPhoto.png", :alt => "Thumbnail", :style => "height: 100px; width: 100px;") %>
+        <% end %>
       </p>
     
       <div class="episodes_description">

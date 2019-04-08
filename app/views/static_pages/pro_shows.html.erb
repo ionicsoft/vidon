@@ -4,7 +4,11 @@
   <% current_person.user.shows.each do |theshow| %>
     <div class="row well">
       <div class="col-sm-2">
-        <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
+        <% if theshow.promo_image.attached? %>
+          <%= image_tag(url_for(theshow.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
+        <% else %>
+          <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
+        <% end %>
       </div>
       <div class="col-sm-8">
         <b><%= theshow.name %></b>
@@ -17,5 +21,6 @@
   <% end %>
   <div class="col-sm-12 text-center">
     <%= link_to "Add New Show", newshow_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to "Add New Movie", newmovie_path, class: "btn btn-primary btn-lg" %>
   </div>
 </div>

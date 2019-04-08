@@ -71,6 +71,7 @@ class ProducersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def producer_params
-      params.require(:producer).permit(:company_name, :person_id)
+      params.require(:producer).permit(:company_name,:person_attributes => [:avatar, :username, :password, 
+      :password_confirmation, :email])
     end
 end

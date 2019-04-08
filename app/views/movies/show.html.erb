@@ -4,7 +4,11 @@
   <% unless @movie.video.nil? %>
   <h1 class="movie_title">
     <%= @movie.video.title %>
-    <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
+    <% if @movie.promo_image.attached? %>
+        <%= image_tag(url_for(@movie.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
+    <% else %>
+        <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
+    <% end %>
   </h1>
   
   <h2 class="movie_description">

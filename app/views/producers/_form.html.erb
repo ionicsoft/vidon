@@ -25,6 +25,8 @@
         <div class="field">
           <%= person_fields.label :username %>
           <%= person_fields.text_field :username, id: :person_username %>
+          <%= form.hidden_field :first_name, value: "" %>
+          <%= form.hidden_field :last_name, value: "" %>
         </div>
 
         <div class="field">

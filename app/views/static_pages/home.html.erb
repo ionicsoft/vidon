@@ -1,7 +1,7 @@
 <div class="container-fluid">
-    <% if logged_in? and customer? %>
+    <% if logged_in? and current_person.customer? %>
         <%= render 'home_customer' %>
-    <% elsif logged_in? and producer? %>
+    <% elsif logged_in? and current_person.producer? %>
         <%= render 'home_producer' %>
     <% else %>
         <%= render 'home_guest' %>
