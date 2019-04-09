@@ -15,7 +15,7 @@ namespace :update do
   task rentals_update: :environment do
     puts "Updating user rentals"
     # Look for rentals whose expiration dates are in the past
-    Rental.where("expiration >= ?", Time.current).destroy_all
+    Rental.where("expiration <= ?", Time.current).destroy_all
     puts "#{Time.now} - Done."
   end
 end
