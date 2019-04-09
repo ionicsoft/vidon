@@ -1,32 +1,38 @@
 <div class="container">
-<p id="notice"><%= notice %></p>
-  
-<p>
-  <strong>Title:</strong>
-  <%= @video.title %>
-</p>
-  
-<!--
-<div style="width:400px; height:400px">
-  <%= image_tag(@video.thumbnail, style:'width: 100%; height: auto') %>
-</div>
-<div style="width:400px; height:400px">
-  <%= video_tag(url_for(@video.clip), style:'width: 100%; height: auto', controls: '') %>
-</div>
--->
-
-<div ="video-player">
-    <video id= "example1" class="video-js vjs-default-skin vjs-16-9"
-        controls preload="auto" width="640" height="264" poster="<%= url_for(@video.thumbnail) %>" data-setup= '{}'>
-        <source src="<%= url_for(@video.clip) %>" type="video/mp4">
-       <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-    </video>
-</div>
-  
-<hr>  
-<p>
-  <strong>Description:</strong>
-  <%= @video.description %>
-</p>
+  <p id="notice well"><%= notice %></p>
+  <div class="col-sm-9 video-main">
+    <div class="row">
+      <div class="video-player">
+        <video id= "example1" class="video-js vjs-default-skin vjs-16-9"
+            controls autoplay preload="auto" width="640" height="264" 
+            <%= if @video.thumbnail.attached? then "poster=\"#{ url_for @video.thumbnail }\"" end %>
+            data-setup= '{}'>
+          <source src="<%= url_for(@video.clip) %>" type="video/mp4">
+          <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+      </div>
+    </div>
+    <div class="row well video-description">
+      <h3><%= @video.title %></h3>
+      <p><%= @video.description %></p>
+    </div>
+    <div class="row well video-comments">
+      <h4>Comments</h4>
+      <% if @video.video_comments.any? %>
+        <% @video.video_comments.each do |comment| %>
+          <%= render comment %>
+        <% end %>
+      <% else %>
+        <h5>No comments.</small>
+        <hr>
+      <% end %>
+      <div id="comment-form">
+        <%= render 'comment_form' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 video-playlist">
+    <p>playlist info here if not movie!</p>
+  </div>
 
 </div>
