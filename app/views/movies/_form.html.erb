@@ -20,24 +20,30 @@
           <%= form.file_field :promo_image, id: :movie_promo_image,
             accept: "image/png,image/gif,image/jpeg", direct_upload: true,
             class: "direct-upload" %>
-            <%= form.hidden_field :producer_id, value: current_person.user.id %>
-            <%= form.hidden_field :thumbnail, value: :movie_promo_image %>
+            <%= form.hidden_field :movie_producer_id, value: current_person.user.id %>
         </div>
         
         <div class="field">
-          <%= form.label :clip %>
-          <%= form.file_field :clip, id: :video_clip, direct_upload: true,
+          <%= video_fields.label :thumbnail %>
+          <%= video_fields.file_field :thumbnail, id: :video_thumbnail,
+            accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+            class: "direct-upload" %>
+        </div>
+        
+        <div class="field">
+          <%= video_fields.label :clip %>
+          <%= video_fields.file_field :clip, id: :video_clip, direct_upload: true,
           class: "direct-upload", accept: "video/mp4" %>
         </div>
         
         <div class="field">
-          <%= form.label :title %>
-          <%= form.text_field :title, id: :video_title %>
+          <%= video_fields.label :title %>
+          <%= video_fields.text_field :title, id: :video_title %>
         </div>
 
         <div class="field">
-          <%= form.label :description %>
-          <%= form.text_field :description, id: :video_description %>
+          <%= video_fields.label :description %>
+          <%= video_fields.text_field :description, id: :video_description %>
         </div>
         
       </div>

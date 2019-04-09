@@ -43,9 +43,15 @@
     </p>
     <% end %>
     
-    <p>
-      <%= link_to 'Return to shows', shows_path %>
-    </p>
+    <% if current_person.customer? %>
+      <p>
+        <%= link_to 'Return to shows', shows_path %>
+      </p>
+    <% else %>
+      <p>
+        <%= link_to 'Return', pro_shows_path %>
+      </p>
+    <% end %>
     
   </h2>
 </div>  
@@ -56,8 +62,8 @@
     <% @show.episodes.each do |episode| %>
     <li>
       <p class="episodes_list_image">
-        <% if episode.thumbnail.attached? %>
-          <%= image_tag(url_for(episode.thumbnail), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
+        <% if episode.video.thumbnail.attached? %>
+          <%= image_tag(url_for(episode.video.thumbnail), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
         <% else %>
           <%= image_tag("nullPhoto.png", :alt => "Thumbnail", :style => "height: 100px; width: 100px;") %>
         <% end %>
@@ -68,11 +74,17 @@
         <p>
           <%= episode.video.description %>
           <br/>
-          <%= link_to 'Watch', episode.video %>
+          <% if current_person.customer? %>
+            <%= link_to 'Watch', episode.video %>
+          <% end %>
         </p>
       </div>
       
     </li>
+    <% end %>
+    <% if current_person.producer? %>
+      <%= link_to 'Add Episode', {:controller => "episodes", :action => "new", :showid => @show.id } %>
+      <%= link_to 'Edit Show', edit_show_path %>
     <% end %>
   </ul>
 </div>

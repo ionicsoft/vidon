@@ -14,7 +14,9 @@ class EpisodesController < ApplicationController
 
   # GET /episodes/new
   def new
+    @showid = params[:showid]
     @episode = Episode.new
+    @episode.video = Video.new
   end
 
   # GET /episodes/1/edit
@@ -69,6 +71,7 @@ class EpisodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
-      params.require(:episode).permit(:season, :show_id, :episode, :absolute_episode, :video_id)
+      params.require(:episode).permit(:season, :show_id, :episode, :absolute_episode, 
+      :video_attributes => [:title, :description, :clip, :thumbnail])
     end
 end
