@@ -25,8 +25,6 @@ Rails.application.routes.draw do
   get     '/search',  to: 'static_pages#search', :as => 'search_page'
   get     '/myshows', to: 'static_pages#shows',  :as => 'my_shows'
   get     '/pro_shows', to: 'static_pages#pro_shows'
-  get     '/newshow', to: 'shows#new'
-  get     '/newmovie', to: 'movies#new'
   get     '/login',   to: 'sessions#new'
   post    '/login',   to: 'sessions#create'
   delete  '/logout',  to: 'sessions#destroy'
