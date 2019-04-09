@@ -16,8 +16,8 @@
       <div class="panel-heading"><h3>Show information:</h3></div>
       <div class="panel-body">
         <div class="field">
-          <%= show_fields.label :promo_image %>
-          <%= show_fields.file_field :promo_image, id: :show_promo_image,
+          <%= form.label :promo_image %>
+          <%= form.file_field :promo_image, id: :show_promo_image,
             accept: "image/png,image/gif,image/jpeg", direct_upload: true,
             class: "direct-upload" %>
         </div>

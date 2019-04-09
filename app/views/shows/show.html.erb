@@ -76,15 +76,19 @@
           <br/>
           <% if current_person.customer? %>
             <%= link_to 'Watch', episode.video %>
+          <% else %>
+            <%= link_to 'Delete', episode, method: :delete, data: { confirm: 'Are you sure?' } %>
           <% end %>
+          
         </p>
       </div>
       
     </li>
     <% end %>
     <% if current_person.producer? %>
-      <%= link_to 'Add Episode', {:controller => "episodes", :action => "new", :showid => @show.id } %>
+      <%= link_to 'Add Episode', new_episode_path(show_id: @show.id) %>
       <%= link_to 'Edit Show', edit_show_path %>
+      <%= link_to 'Delete Show', @show, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
   </ul>
 </div>

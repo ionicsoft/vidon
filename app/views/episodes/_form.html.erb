@@ -18,7 +18,7 @@
         <div class="field">
           <%= form.label :season %>
           <%= form.number_field :season, id: :episode_season %>
-          <%= form.hidden_field :episode_show_id, value: @showid%>
+          <%= form.hidden_field :show_id, value: @show.id %>
         </div>
         
         <div class="field">

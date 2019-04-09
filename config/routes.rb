@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get     '/psignup', to: 'producers#new'
   get     '/search',  to: 'static_pages#search', :as => 'search_page'
   get     '/myshows', to: 'static_pages#shows',  :as => 'my_shows'
-  get     '/pro_shows', to: 'static_pages#pro_shows'
+  get     '/pro_shows', to: 'static_pages#_pro_shows'
   get     '/login',   to: 'sessions#new'
   post    '/login',   to: 'sessions#create'
   delete  '/logout',  to: 'sessions#destroy'

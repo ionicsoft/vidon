@@ -14,7 +14,6 @@ class EpisodesController < ApplicationController
 
   # GET /episodes/new
   def new
-    @showid = params[:showid]
     @episode = Episode.new
     @episode.video = Video.new
   end

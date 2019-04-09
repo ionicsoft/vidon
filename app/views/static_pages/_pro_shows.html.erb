@@ -5,7 +5,7 @@
     <div class="row well">
       <div class="col-sm-2">
         <% if theshow.promo_image.attached? %>
-          <%= image_tag(url_for(theshow.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
+          <%= image_tag(url_for(theshow.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
         <% else %>
           <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
         <% end %>

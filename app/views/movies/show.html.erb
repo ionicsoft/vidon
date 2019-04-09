@@ -41,9 +41,10 @@
     <p>
       <%= link_to 'Return to movies', movies_path %>
     </p>
-    
   </h2>
-  
+   <% if current_person.producer? %>
+      <%= link_to 'Delete Movie', @movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
   <% end %>
 </div>
 
