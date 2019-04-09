@@ -6,4 +6,12 @@ class Video < ApplicationRecord
 
   validates :title, presence: true
   validates :description, presence: true
+  
+  def episode?
+    content_type == "Episode"
+  end
+
+  def movie?
+    content_type == "Movie"
+  end
 end

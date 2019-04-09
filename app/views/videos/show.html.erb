@@ -13,7 +13,9 @@
       </div>
     </div>
     <div class="row well video-description">
-      <h3><%= @video.title %></h3>
+      <h3><%= @video.title %>
+        <%= if @video.episode? then content_tag :small, @video.content.season_episode end %>
+      </h3>
       <p><%= @video.description %></p>
     </div>
     <div class="row well video-comments">
@@ -32,7 +34,24 @@
     </div>
   </div>
   <div class="col-sm-3 video-playlist">
-    <p>playlist info here if not movie!</p>
+    <% if @video.episode? %>
+      <div class="panel panel-default">
+        <div class="panel-heading text-center"><b><%= link_to @video.content.show.name, @video.content.show %></b></div>
+        <div class="panel-body">
+          <% @video.content.show.episodes.order(:absolute_episode).each do |episode| %>
+            <%= link_to episode.video do %>
+              <%= content_tag :div, class: "media", style: (if episode.video == @video then "background-color: #ddd" end) do %>
+                <div class="media-body">
+                  <h4 class="media-heading"><%= episode.video.title %></h4>
+                  <small><%= episode.season_episode %></small>
+                  <p><%= episode.video.description %></p>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
 </div>

@@ -34,3 +34,17 @@
 #comment-form {
     margin-top: 15px;
 }
+
+.video-description {
+    margin-top: -15px;
+}
+
+.video-playlist {
+    padding-right:0px;
+    .panel-body{
+        padding: 0;
+    }
+    .media, .media-body{
+        padding: 5px 15px 0 15px;
+    }
+}
