@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   root    'static_pages#home'
   get     '/about',   to: 'static_pages#about'
   get     '/contact', to: 'static_pages#contact'
+  get     '/browse',  to: 'static_pages#browse'
   get     '/signup',  to: 'customers#new'
   get     '/psignup', to: 'producers#new'
   get     '/search',  to: 'static_pages#search', :as => 'search_page'
