@@ -7,4 +7,5 @@ class Show < ApplicationRecord
   has_many :subscriptions
   validates :name, presence: true
   validates :description, presence: true
+  has_one_attached :promo_image
 end
