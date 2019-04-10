@@ -76,7 +76,7 @@
           <br/>
           <% if current_person.customer? %>
             <%= link_to 'Watch', episode.video %>
-          <% else %>
+          <% elsif current_person.user == @show.producer %>
             <%= link_to 'Delete', episode, method: :delete, data: { confirm: 'Are you sure?' } %>
           <% end %>
           
@@ -85,7 +85,7 @@
       
     </li>
     <% end %>
-    <% if current_person.producer? %>
+    <% if current_person.producer? and current_person.user == @show.producer %>
       <%= link_to 'Add Episode', new_episode_path(show_id: @show.id) %>
       <%= link_to 'Edit Show', edit_show_path %>
       <%= link_to 'Delete Show', @show, method: :delete, data: { confirm: 'Are you sure?' } %>
