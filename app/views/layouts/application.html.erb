@@ -31,9 +31,9 @@
   		  <ul class="nav navbar-nav navbar-right nav-text">
   		    <% if logged_in? %>
             <% if current_person.customer? %>
+              <li><%= link_to "Browse", browse_path, class: "nav-link" %></li>
               <li><%= link_to "My Shows", my_shows_path, class: "nav-link" %></li>
               <li><%= link_to "My Rentals", my_rentals_path, class: "nav-link" %></li>
-              <li><%= link_to "Friends", friends_path %></li>
             <% elsif current_person.producer?%>
               <li><%= link_to "My Shows", pro_shows_path, class: "nav-link" %></li>
             <% end %>
@@ -42,7 +42,9 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= current_person.first_name %> <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Friends", friends_path %></li>
+                <% if current_person.customer? %>
+                  <li><%= link_to "Friends", friends_path %></li>
+                <% end %>
                 <li><%= link_to "Profile", current_person.user %></li>
                 <li><%= link_to "Settings", edit_person_path(current_person) %></li>
                 <li role="seperator" class="divider"></li>

@@ -1,3 +1,4 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
 <h1>Shows</h1>
@@ -6,7 +7,11 @@
   <% @shows.each do |show| %>
   <li>
     <p class="show_list_image">
-      <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 150px; width: 150px;") %>
+      <% if show.promo_image.attached? %>
+          <%= image_tag(url_for(show.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+        <% else %>
+          <%= image_tag("nullPhoto.png", :alt => "Thumbnail", :style => "height: 100px; width: 100px;") %>
+        <% end %>
     </p>
     
     <div class="show_description">
@@ -22,3 +27,4 @@
 </ul>
 
 <br>
+</div>
