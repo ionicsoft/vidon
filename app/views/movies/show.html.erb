@@ -42,7 +42,7 @@
       <%= link_to 'Return to movies', movies_path %>
     </p>
   </h2>
-   <% if current_person.producer? %>
+   <% if current_person.producer? and @movie.producer == current_person.user %>
       <%= link_to 'Delete Movie', @movie, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
   <% end %>
