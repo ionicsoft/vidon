@@ -10,11 +10,45 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= form.fields_for :video, movie.video do |video_fields| %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3>Movie information:</h3></div>
+      <div class="panel-body">
+        <div class="field">
+          <%= form.label :promo_image %>
+          <%= form.file_field :promo_image, id: :movie_promo_image,
+            accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+            class: "direct-upload" %>
+            <%= form.hidden_field :producer_id, value: current_person.user.id %>
+        </div>
+        
+        <div class="field">
+          <%= video_fields.label :thumbnail %>
+          <%= video_fields.file_field :thumbnail, id: :video_thumbnail,
+            accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+            class: "direct-upload" %>
+        </div>
+        
+        <div class="field">
+          <%= video_fields.label :clip %>
+          <%= video_fields.file_field :clip, id: :video_clip, direct_upload: true,
+          class: "direct-upload", accept: "video/mp4" %>
+        </div>
+        
+        <div class="field">
+          <%= video_fields.label :title %>
+          <%= video_fields.text_field :title, id: :video_title %>
+        </div>
 
-  <div class="field">
-    <%= form.label :producer_id %>
-    <%= form.number_field :producer_id, id: :movie_producer_id %>
-  </div>
+        <div class="field">
+          <%= video_fields.label :description %>
+          <%= video_fields.text_field :description, id: :video_description %>
+        </div>
+        
+      </div>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>
