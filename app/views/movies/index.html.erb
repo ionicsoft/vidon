@@ -20,7 +20,7 @@
         <%= movie.video.description %>
         <br/>
         <%= link_to 'Check Out', movie %>
-        <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= if movie.producer == current_person.user then link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } end %>
       </p>
     </div>
   </li>
