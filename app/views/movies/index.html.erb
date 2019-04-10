@@ -6,9 +6,8 @@
   <% @movies.each do |movie| %>
   <li>
     <p class="movie_list_image">
-      <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 150px; width: 150px;") %>
       <% if movie.promo_image.attached? %>
-          <%= image_tag(url_for(movie.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
+          <%= image_tag(url_for(movie.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
         <% else %>
           <%= image_tag("nullPhoto.png", :alt => "Thumbnail", :style => "height: 100px; width: 100px;") %>
         <% end %>
