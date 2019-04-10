@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_27_025352) do
+ActiveRecord::Schema.define(version: 2019_04_08_172635) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -34,8 +34,6 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.integer "person_id"
-    t.integer "payment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "slots"
@@ -47,9 +45,9 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.integer "show_id"
     t.integer "episode"
     t.integer "absolute_episode"
-    t.integer "video_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["show_id"], name: "index_episodes_on_show_id"
   end
 
   create_table "friend_requests", force: :cascade do |t|
@@ -75,6 +73,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.integer "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_actors_on_movie_id"
   end
 
   create_table "movie_genres", force: :cascade do |t|
@@ -82,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.integer "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_genres_on_movie_id"
   end
 
   create_table "movie_ratings", force: :cascade do |t|
@@ -90,13 +90,15 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "customer_id"
+    t.index ["customer_id"], name: "index_movie_ratings_on_customer_id"
+    t.index ["movie_id"], name: "index_movie_ratings_on_movie_id"
   end
 
   create_table "movies", force: :cascade do |t|
-    t.integer "video_id"
     t.integer "producer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["producer_id"], name: "index_movies_on_producer_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -107,6 +109,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "customer_id"
+    t.index ["customer_id"], name: "index_payments_on_customer_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -120,11 +123,11 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "user_type"], name: "index_people_on_user_id_and_user_type"
+    t.index ["username"], name: "index_people_on_username", unique: true
   end
 
   create_table "producers", force: :cascade do |t|
     t.string "company_name"
-    t.integer "person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -132,9 +135,22 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
   create_table "profile_comments", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "commentor_id"
-    t.string "comment"
+    t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["commentor_id"], name: "index_profile_comments_on_commentor_id"
+    t.index ["customer_id"], name: "index_profile_comments_on_customer_id"
+  end
+
+  create_table "rentals", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "movie_id"
+    t.datetime "expiration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_rentals_on_customer_id"
+    t.index ["expiration"], name: "index_rentals_on_expiration"
+    t.index ["movie_id"], name: "index_rentals_on_movie_id"
   end
 
   create_table "show_actors", force: :cascade do |t|
@@ -142,6 +158,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.integer "show_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["show_id"], name: "index_show_actors_on_show_id"
   end
 
   create_table "show_genres", force: :cascade do |t|
@@ -149,6 +166,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.string "genre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["show_id"], name: "index_show_genres_on_show_id"
   end
 
   create_table "show_ratings", force: :cascade do |t|
@@ -157,6 +175,8 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "customer_id"
+    t.index ["customer_id"], name: "index_show_ratings_on_customer_id"
+    t.index ["show_id"], name: "index_show_ratings_on_show_id"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -164,7 +184,8 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
     t.integer "producer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "description"
+    t.text "description"
+    t.index ["producer_id"], name: "index_shows_on_producer_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -180,15 +201,16 @@ ActiveRecord::Schema.define(version: 2019_03_27_025352) do
   create_table "video_comments", force: :cascade do |t|
     t.integer "video_id"
     t.integer "customer_id"
-    t.string "comment"
+    t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_video_comments_on_customer_id"
+    t.index ["video_id"], name: "index_video_comments_on_video_id"
   end
 
   create_table "videos", force: :cascade do |t|
     t.string "title"
-    t.string "description"
-    t.string "filename"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "content_id"
