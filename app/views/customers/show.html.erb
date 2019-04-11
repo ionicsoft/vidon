@@ -25,8 +25,8 @@
           <div class="panel panel-default">
             <div class="panel-heading"><%= link_to fav.content.video.title, fav.content %></div>
             <div class="panel-body">
-              <%= if (logged_in? and @customer == current_person.user) then button_to "Unfavorite", favorite_path(fav),  method: :delete, class: "btn btn-warning pull-right" end %>
-              <%= fav.content.video.description %>
+              <p><%= fav.content.video.description %></p>
+              <%= if (logged_in? and @customer == current_person.user) then button_to "Unfavorite", favorite_path(fav),  method: :delete, class: "btn btn-warning btn-sm" end %>
             </div>
           </div>
         <% end %>
