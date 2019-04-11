@@ -16,6 +16,12 @@
       <h3><%= @video.title %>
         <%= if @video.episode? then content_tag :small, @video.content.season_episode end %>
       </h3>
+      <% @favorite = @video.content.favorites.find_by(customer_id: current_person.user.id) %>
+      <% if @favorite.nil? %>
+        <%= button_to "Favorite", favorites_path, params: { favorite: { content_id: @video.content_id, content_type: @video.content_type } }, class: "btn btn-primary pull-right" %>
+      <% else %>
+        <%= button_to "Unfavorite", favorite_path(@favorite),  method: :delete, class: "btn btn-warning pull-right" %>
+      <% end %>
       <p><%= @video.description %></p>
     </div>
     <div class="row well video-comments">
