@@ -1,6 +1,8 @@
 class Episode < ApplicationRecord
-  has_one :video, :as => :content
   belongs_to :show
+  has_one :video, as: :content
+  has_many :favorites, as: :content, dependent: :destroy
+  
   validates :season, presence: true, numericality: { greater_than: 0 }
   validates :episode, presence: true, numericality: { greater_than: 0 }
   validates :absolute_episode, presence: true, numericality: { greater_than: 0 }

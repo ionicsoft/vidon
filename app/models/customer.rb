@@ -10,6 +10,8 @@ class Customer < ApplicationRecord
   has_many :rentals, dependent: :destroy
   has_one :payment, dependent: :destroy
   has_one :person, :as => :user, :inverse_of => :user, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  
   validates :slots, numericality: { greater_than_or_equal_to: 5 }
   after_initialize :defaults_set
   
