@@ -4,7 +4,11 @@
   <% current_person.user.subscriptions.each do |sub| %>
     <div class="row well">
       <div class="col-sm-2">
-        <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
+        <% if sub.show.promo_image.attached? %>
+          <%= image_tag(url_for(sub.show.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+        <% else %>
+          <%= image_tag("nullPhoto.png", :alt => "Thumbnail", :style => "height: 100px; width: 100px;") %>
+        <% end %>
       </div>
       <div class="col-sm-8">
         <b><%= sub.show.name %></b>
