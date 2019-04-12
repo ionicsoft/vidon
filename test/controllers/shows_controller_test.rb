@@ -43,6 +43,6 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
       delete show_url(@show)
     end
 
-    assert_redirected_to shows_url
+    assert_redirected_to pro_shows_path
   end
 end

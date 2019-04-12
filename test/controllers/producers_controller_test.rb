@@ -17,7 +17,18 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create producer" do
     assert_difference('Producer.count') do
-      post producers_url, params: { producer: { company_name: @producer.company_name } }
+      # :company_name,:person_attributes => [:avatar, :username, :password, 
+      # :password_confirmation, :email]
+      @person = @producer.person
+      post producers_url, params: { producer: {
+        company_name: @producer.company_name,
+        person_attributes: {
+          username: "producername",
+          password: "123456",
+          password_confirmation:
+          "123456",
+          email: @person.email
+      } } }
     end
 
     assert_redirected_to producer_url(Producer.last)
