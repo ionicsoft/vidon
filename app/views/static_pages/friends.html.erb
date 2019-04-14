@@ -1,9 +1,12 @@
 <div id="friend_header">
-    <h1>Friends</h1>
+    <h1 id="friend_head">Friends</h1>
+    <hr>
+    <br/>
 </div>
 
-<div id="person_search">
-    <%= form_tag(search_page_path, :method => "get", class: 'navbar-form navbar-right') do %>  
+<h3 style="color:white;">Search for friends here:</h3>
+<div id="psearch">
+    <%= form_tag(search_page_path, :method => "get", class: 'navbar-form') do %>  
   		<div class="input-group">
         <%= search_field_tag :fsearch, params[:fsearch], placeholder: "Username", class: "form-control" %>  
         	<div class="input-group-btn">
@@ -12,9 +15,12 @@
   		</div>
     <% end %>
 </div>
+<br/>
+<hr>
 
 <div id="pend_req">
-    <h1>Pending Friend Requests</h1>
+    <h3 style="color:white;">Pending Friend Requests</h3>
+    <hr>
     <% @requests.each do |frequest| %>
         <% requester = frequest.requester %>
         <div class="result_image">
@@ -35,10 +41,14 @@
             <%= link_to "Delete friend", "#{friend_requests_path}/#{frequest.id}", method: :delete, class: "btn btn-warning" %>
         </div>
     <% end %>
+    <% if @requests.none? %>
+        <p id="banner">No pending friend requests.</p>
+    <% end %>
 </div>
 
 <div id="friend_list">
-    <h1>Friends List</h1>
+    <h3 style="color:white;">Friends List</h3>
+    <hr>
     <% @friends.each do |friend| %>
         <div class="result_image">
             <% if friend.person.avatar.attached? %>
@@ -52,5 +62,8 @@
             <br/>
             <%= link_to "Delete friend", "#{friends_path}/#{friend.id}", method: :delete, class: "btn btn-warning" %>
         </div>
+    <% end %>
+    <% if @friends.none? %>
+        <p id="banner">No friends yet.</p>
     <% end %>
 </div>

@@ -4,11 +4,17 @@
 
 $highlight-white: #000;
 
+h1, #banner {
+  color: white;
+}
+
 .guest-fill {
-  background-color: #461A3B;
+  //background-color: #461A3B;
+  background-color: #272b30;
   margin-top: -52px;
   margin-left: -48px;
   margin-right: -48px;
+  height: 100%;
   // height: 100vh;
   // width: 100vw;
   img {

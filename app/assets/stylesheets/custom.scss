@@ -3,6 +3,11 @@
 
 body { 
   padding-top: 70px;
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  background-color: #272b30;
 }
 
 .navbar {
@@ -28,7 +33,7 @@ body {
 }
 
 .navbar-brand {
-  font-family: "Lucida Console", Monaco, monospace;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   
   img {
     margin-top: -9px;
@@ -38,7 +43,7 @@ body {
 }
 
 .nav-text {
-  font-family: "Lucida Console", Monaco, monospace;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #company {
@@ -54,11 +59,11 @@ body {
   border-top: 1px solid #eee;
   
   a {
-    color: black;
+    color: white;
   }
   
   a:hover, a:active {
-    color: white;
+    color: #EBE8E7;
   }
   
   small {

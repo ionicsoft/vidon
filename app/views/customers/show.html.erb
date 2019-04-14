@@ -18,7 +18,7 @@
   </div>
   <div class="col-sm-8" id="profile-main">
     <div class="row" id="customer-favorites">
-      <h3>My Favorites</h3>
+      <h3 id="banner">My Favorites</h3>
       <% favs = @customer.favorites %>
       <% if favs.any? %>
         <% favs[0..4].each do |fav| %>
@@ -31,12 +31,12 @@
           </div>
         <% end %>
       <% else %>
-        <small>I like nothing!</small>
+        <small id="sm-text">I like nothing!</small>
       <% end %>
     </div>
     <hr>
     <div class="row" id="customer-timeline">
-      <h3>My Timeline</h3>
+      <h3 id="banner">My Timeline</h3>
       <% if @customer.profile_comments.any? %>
         <% @customer.profile_comments.each do |comment| %>
           <%= render comment %>
@@ -65,7 +65,7 @@
             <p class="text-justify"><%= ep.video.description %></p>
           </div>
         <% else %>
-          <small>Oh no! They haven't watched anything!</small>
+          <small id="sm-text">Oh no! They haven't watched anything!</small>
         <% end %>
       </div>
       <hr>
@@ -76,7 +76,7 @@
             <%= render rating %>
           <% end %>
         <% else %>
-          <small>No ratings yet.</small>
+          <small id="sm-text">No ratings yet.</small>
         <% end %>
       </div>
     </div>
