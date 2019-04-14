@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <h2><%= @customer.person.full_name %></h2>
-        <% if current_person.customer? and current_person.user.can_friend?(@customer) %>
+        <% if logged_in? and current_person.customer? and current_person.user.can_friend?(@customer) %>
           <%= form_with(scope: :friend_request, url: friend_requests_path) do |form| %>
               <%= form.hidden_field :customer_id, value: @customer.id %>
               <%= form.hidden_field :requester_id, value: current_person.user.id %>

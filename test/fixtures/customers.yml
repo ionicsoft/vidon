@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  slots: 5
+
+two:
+  slots: 8
+
+three:
+  slots: 5
+
+four:
+  slots: 5

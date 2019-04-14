@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  season: 1
+  show: one
+  episode: 1
+  absolute_episode: 1
+
+two:
+  season: 1
+  show: one
+  episode: 2
+  absolute_episode: 2
+
+three:
+  season: 1
+  show: two
+  episode: 1
+  absolute_episode: 1
+
+four:
+  season: 2
+  show: two
+  episode: 1
+  absolute_episode: 2
+
+five:
+  season: 2
+  show: two
+  episode: 2
+  absolute_episode: 3

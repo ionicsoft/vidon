@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: bob
+  email: bob@example.com
+  first_name: Robert
+  last_name: Jones
+  user: one (Customer)
+
+two:
+  username: rick
+  email: rick@example.com
+  first_name: Richard
+  last_name: Anderson
+  user: two (Customer)
+
+three:
+  username: joe
+  email: joe@example.com
+  first_name: Joe
+  last_name: Anderson
+  user: three (Customer)
+
+four:
+  username: ann
+  email: ann@example.com
+  first_name: Ann
+  last_name: Anderson
+  user: four (Customer)
+
+five:
+  username: laura
+  email: laura@example.com
+  first_name: Laura
+  last_name: Likesdogs
+  user: one (Producer)
+
+six:
+  username: dawn
+  email: dawn@example.com
+  first_name: Dawn
+  last_name: Anderson
+  user: two (Producer)
