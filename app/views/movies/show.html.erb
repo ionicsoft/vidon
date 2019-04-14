@@ -21,10 +21,11 @@
             <%= form.hidden_field :movie_id, value: @movie.id %>
             <%= form.submit "Rent", class: "btn btn-info" %>
           <% end %>
-        <% end %>
-        <li class="navbar-item">
-          <%= link_to 'Watch', @movie.video %>
+        <% else %>
+          <li class="navbar-item">
+          <%= link_to 'Watch', @movie.video, class: "btn btn-primary btn-large" %>
         </li>
+        <% end %>
       </ul>
       <br />
     </p>
