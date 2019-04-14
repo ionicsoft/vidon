@@ -4,22 +4,31 @@
   <% unless @movie.video.nil? %>
   <h1 class="movie_title">
     <%= @movie.video.title %>
-    <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
+    <% if @movie.promo_image.attached? %>
+        <%= image_tag(url_for(@movie.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
+    <% else %>
+        <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
+    <% end %>
   </h1>
   
   <h2 class="movie_description">
     
+    <% if logged_in? and current_person.customer? %>
     <p>
       <ul class="movie_navbar_nav">
-        <li class="navbar-item">
-          <a href='/'>Subscribe</a>
-        </li>
+        <% unless @movie.rentals.find_by(customer_id: current_person.user.id) %>
+          <%= form_with(scope: :rental, url: "#{url_for @movie}/rent") do |form| %>
+            <%= form.hidden_field :movie_id, value: @movie.id %>
+            <%= form.submit "Rent", class: "btn btn-info" %>
+          <% end %>
+        <% end %>
         <li class="navbar-item">
           <%= link_to 'Watch', @movie.video %>
         </li>
       </ul>
       <br />
     </p>
+    <% end %>
     
     <p>
       <strong>Description:</strong>
@@ -37,9 +46,10 @@
     <p>
       <%= link_to 'Return to movies', movies_path %>
     </p>
-    
   </h2>
-  
+   <% if current_person.producer? and @movie.producer == current_person.user %>
+      <%= link_to 'Delete Movie', @movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
   <% end %>
 </div>
 

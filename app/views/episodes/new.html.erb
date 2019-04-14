@@ -1,5 +1,7 @@
 <h1>New Episode</h1>
-
+<% unless params[:show_id].nil? %>
+    <% @show = Show.find(params[:show_id]) %>
+<% end %>
 <%= render 'form', episode: @episode %>
 
 <%= link_to 'Back', episodes_path %>

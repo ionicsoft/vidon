@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <h2><%= @customer.person.full_name %></h2>
-        <% if current_person.customer? and current_person.user.can_friend?(@customer) %>
+        <% if logged_in? and current_person.customer? and current_person.user.can_friend?(@customer) %>
           <%= form_with(scope: :friend_request, url: friend_requests_path) do |form| %>
               <%= form.hidden_field :customer_id, value: @customer.id %>
               <%= form.hidden_field :requester_id, value: current_person.user.id %>
@@ -19,12 +19,15 @@
   <div class="col-sm-8" id="profile-main">
     <div class="row" id="customer-favorites">
       <h3>My Favorites</h3>
-      <% favs = @customer.show_ratings.where("rating = 5") %>
+      <% favs = @customer.favorites %>
       <% if favs.any? %>
-        <% favs[0..4].each do |rating| %>
+        <% favs[0..4].each do |fav| %>
           <div class="panel panel-default">
-            <div class="panel-heading"><%= link_to rating.show.name, rating.show %></div>
-            <div class="panel-body"><%= rating.show.description %></div>
+            <div class="panel-heading"><%= link_to fav.content.video.title, fav.content %></div>
+            <div class="panel-body">
+              <p><%= fav.content.video.description %></p>
+              <%= if (logged_in? and @customer == current_person.user) then button_to "Unfavorite", favorite_path(fav),  method: :delete, class: "btn btn-warning btn-sm" end %>
+            </div>
           </div>
         <% end %>
       <% else %>

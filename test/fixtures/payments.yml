@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  card_name: Bob Bobberton
+  card_num: 1234567812345678
+  cvc: 123
+  expiration: 2024-02-26
+  customer: one
+
+two:
+  card_name: Mike Mikington
+  card_num: 8765432187654321
+  cvc: 321
+  expiration: 2024-02-26
+  customer: two

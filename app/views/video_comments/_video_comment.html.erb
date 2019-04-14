@@ -1,0 +1,19 @@
+<div class="media video-comment">
+  <div class="media-left">
+    <% if video_comment.customer.person.avatar.attached? %>
+      <%= image_tag(url_for(video_comment.customer.person.avatar), :alt => "Avatar", size: "58x58") %>
+    <% else %>
+      <%= image_tag("nullPhoto.png", :alt => "Avatar", size: "58x58") %>
+    <% end %>
+  </div>
+  <div class="media-body">
+    <b class="media-heading"><%= link_to video_comment.customer.person.full_name, video_comment.customer %></b>
+    <small id="video-comment-time"><%= time_ago_in_words video_comment.created_at %> ago</small>
+    <% if video_comment.customer.person == current_person %>
+      <small id="video-comment-delete" style="float: right;">
+        <%= link_to "Delete", video_comment, method: :delete %>
+      </small>
+    <% end %>
+    <p><%= video_comment.comment %></p>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :favorites
   resources :people
   resources :video_comments
   resources :profile_comments
@@ -20,12 +21,17 @@ Rails.application.routes.draw do
   root    'static_pages#home'
   get     '/about',   to: 'static_pages#about'
   get     '/contact', to: 'static_pages#contact'
+  get     '/browse',  to: 'static_pages#browse'
   get     '/signup',  to: 'customers#new'
+  get     '/psignup', to: 'producers#new'
   get     '/search',  to: 'static_pages#search', :as => 'search_page'
   get     '/myshows', to: 'static_pages#shows',  :as => 'my_shows'
+  get     '/pro_shows', to: 'static_pages#_pro_shows'
   get     '/login',   to: 'sessions#new'
   post    '/login',   to: 'sessions#create'
   delete  '/logout',  to: 'sessions#destroy'
   get     '/friends', to: 'static_pages#friends'
   delete  '/friends/:id', to: 'friends#destroy'
+  get     '/my_rentals',  to: 'static_pages#my_rentals'
+  post    '/movies/:id/rent', to: 'rentals#create'
 end

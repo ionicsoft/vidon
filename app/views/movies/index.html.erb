@@ -1,3 +1,4 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
 <h1>Movies</h1>
@@ -6,7 +7,11 @@
   <% @movies.each do |movie| %>
   <li>
     <p class="movie_list_image">
-      <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 150px; width: 150px;") %>
+      <% if movie.promo_image.attached? %>
+          <%= image_tag(url_for(movie.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+        <% else %>
+          <%= image_tag("nullPhoto.png", :alt => "Thumbnail", :style => "height: 100px; width: 100px;") %>
+        <% end %>
     </p>
     
     <div class="movie_description">
@@ -15,6 +20,7 @@
         <%= movie.video.description %>
         <br/>
         <%= link_to 'Check Out', movie %>
+        <%= if movie.producer == current_person.user then link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } end %>
       </p>
     </div>
   </li>
@@ -22,3 +28,4 @@
 </ul>
 
 <br>
+</div>

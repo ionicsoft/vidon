@@ -1,29 +1,27 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Company name:</strong>
-  <%= @producer.company_name %>
-</p>
-
-<p>
-  <strong>Person:</strong>
-  <%= if @producer.person_id? then link_to @producer.person_id, @producer.person end %>
-</p>
-
-<div>
-  <h4>Remote data</h4>
-  <% unless @producer.person.nil? %>
-  <p>
-    <strong>Name:</strong>
-    <%= "#{@producer.person.first_name} #{@producer.person.last_name}" %>
-  </p>
-  
-  <p>
-    <strong>Email:</strong>
-    <%= @producer.person.email %>
-  </p>
-  <% end %>
+<div class="container" id="customer-profile">
+  <div class="navbar navbar-default" id="customer-header">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <h2><%= @producer.company_name %></h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8" id="profile-main">
+    <div class="row" id="customer-favorites">
+      <h3>Highest Rated Shows</h3>
+      <% favs = @producer.shows %>
+      <% if favs.any? %>
+        <% favs[0..4].each do |rating| %>
+          <div class="panel panel-default">
+            <div class="panel-heading"><%= link_to rating.name %></div>
+            <div class="panel-body"><%= rating.description %></div>
+          </div>
+        <% end %>
+      <% else %>
+        <small>No money makers here.</small>
+      <% end %>
+    </div>
+  </div>
+  </div>
 </div>
 
-<%= link_to 'Edit', edit_producer_path(@producer) %> |
-<%= link_to 'Back', producers_path %>

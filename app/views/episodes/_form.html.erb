@@ -11,30 +11,52 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :season %>
-    <%= form.number_field :season, id: :episode_season %>
-  </div>
+  <%= form.fields_for :video, episode.video do |video_fields| %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3>Episode information:</h3></div>
+      <div class="panel-body">
+        <div class="field">
+          <%= form.label :season %>
+          <%= form.number_field :season, id: :episode_season %>
+          <%= form.hidden_field :show_id, value: @show.id %>
+        </div>
+        
+        <div class="field">
+          <%= form.label :episode %>
+          <%= form.number_field :episode, id: :episode_episode %>
+        </div>
+        
+        <div class="field">
+          <%= video_fields.label :thumbnail %>
+          <%= video_fields.file_field :thumbnail, id: :video_thumbnail,
+            accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+            class: "direct-upload" %>
+        </div>
+        
+        <div class="field">
+          <%= form.label :absolute_episode %>
+          <%= form.number_field :absolute_episode, id: :episode_absolute_episode %>
+        </div>
+        
+        <div class="field">
+          <%= video_fields.label :clip %>
+          <%= video_fields.file_field :clip, id: :video_clip, direct_upload: true,
+          class: "direct-upload", accept: "video/mp4" %>
+        </div>
+        
+        <div class="field">
+          <%= video_fields.label :title %>
+          <%= video_fields.text_field :title, id: :video_title %>
+        </div>
 
-  <div class="field">
-    <%= form.label :show_id %>
-    <%= form.number_field :show_id, id: :episode_show_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :episode %>
-    <%= form.number_field :episode, id: :episode_episode %>
-  </div>
-
-  <div class="field">
-    <%= form.label :absolute_episode %>
-    <%= form.number_field :absolute_episode, id: :episode_absolute_episode %>
-  </div>
-
-  <div class="field">
-    <%= form.label :video_id %>
-    <%= form.number_field :video_id, id: :episode_video_id %>
-  </div>
+        <div class="field">
+          <%= video_fields.label :description %>
+          <%= video_fields.text_field :description, id: :video_description %>
+        </div>
+        
+      </div>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

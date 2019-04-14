@@ -15,6 +15,7 @@ class EpisodesController < ApplicationController
   # GET /episodes/new
   def new
     @episode = Episode.new
+    @episode.video = Video.new
   end
 
   # GET /episodes/1/edit
@@ -28,7 +29,7 @@ class EpisodesController < ApplicationController
 
     respond_to do |format|
       if @episode.save
-        format.html { redirect_to @episode, notice: 'Episode was successfully created.' }
+        format.html { redirect_to @episode.show, notice: 'Episode was successfully created.' }
         format.json { render :show, status: :created, location: @episode }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class EpisodesController < ApplicationController
   def update
     respond_to do |format|
       if @episode.update(episode_params)
-        format.html { redirect_to @episode, notice: 'Episode was successfully updated.' }
+        format.html { redirect_to @episode.show, notice: 'Episode was successfully updated.' }
         format.json { render :show, status: :ok, location: @episode }
       else
         format.html { render :edit }
@@ -69,6 +70,7 @@ class EpisodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
-      params.require(:episode).permit(:season, :show_id, :episode, :absolute_episode, :video_id)
+      params.require(:episode).permit(:season, :show_id, :episode, :absolute_episode, 
+      :video_attributes => [:title, :description, :clip, :thumbnail])
     end
 end

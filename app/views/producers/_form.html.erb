@@ -10,16 +10,52 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= form.fields_for :person, producer.person do |person_fields| %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3>Account information:</h3></div>
+      <div class="panel-body">
+        <div class="field">
+          <%= person_fields.label :avatar %>
+          <%= person_fields.file_field :avatar, id: :person_avatar,
+            accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+            class: "direct-upload" %>
+        </div>
 
-  <div class="field">
-    <%= form.label :company_name %>
-    <%= form.text_field :company_name, id: :producer_company_name %>
-  </div>
+        <div class="field">
+          <%= person_fields.label :username %>
+          <%= person_fields.text_field :username, id: :person_username %>
+        </div>
 
-  <div class="field">
-    <%= form.label :person_id %>
-    <%= form.number_field :person_id, id: :producer_person_id %>
-  </div>
+        <div class="field">
+          <%= person_fields.label :password %>
+          <%= person_fields.password_field :password, id: :person_password %>
+        </div>
+
+        <div class="field">
+          <%= person_fields.label :password_confirmation %>
+          <%= person_fields.password_field :password_confirmation, id: :person_password_confirmation %>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3>Company information:</h3></div>
+      <div class="panel-body">
+
+        <div class="field">
+          <%= person_fields.label :email %>
+          <%= person_fields.text_field :email, id: :person_email %>
+        </div>
+
+        <div class="field">
+          <%= form.label :company_name %>
+          <%= form.text_field :company_name, id: :producer_company_name %>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

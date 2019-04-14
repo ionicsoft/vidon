@@ -20,20 +20,5 @@
   <%= @episode.absolute_episode %>
 </p>
 
-<p>
-  <strong>Video:</strong>
-  <%= if @episode.video_id? then link_to @episode.video_id, @episode.video end %>
-</p>
-
-<div>
-  <h4>Remote data:</h4>
-  <% unless @episode.video.nil? %>
-  <p>
-    <strong>Video file:</strong>
-    <%= @episode.video.filename %>
-  </p>
-  <% end %>
-</div>
-
 <%= link_to 'Edit', edit_episode_path(@episode) %> |
 <%= link_to 'Back', episodes_path %>

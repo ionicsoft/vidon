@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  genre: Comedy
+  movie: one
+
+two:
+  genre: Romance
+  movie: one
+
+three:
+  genre: Action
+  movie: two
