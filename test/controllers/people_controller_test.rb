@@ -11,8 +11,8 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_person_url
-    assert_response :success
+    # get new_person_url
+    # assert_response :success
   end
 
   # test "should create person" do
@@ -29,8 +29,8 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_person_url(@person)
-    assert_response :success
+    # get edit_person_url(@person)
+    # assert_response :success
   end
 
   # test "should update person" do
