@@ -9,6 +9,34 @@ body {
   background-color: #D3F3DE;
 }
 
+.navbar-header {
+  a:link, a:visited {
+    color: black;
+  }
+  
+  a:hover, a:active {
+    color: white;
+    background: black;
+  }
+}
+
+.nav-link:link, .nav-link:visited {
+  color: black;
+}
+.nav-link:hover, .nav-link:active {
+  color: black;
+}
+
+.navbar-brand {
+  font-family: "Lucida Console", Monaco, monospace;
+  
+  img {
+    margin-top: -9px;
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+
 .nav-text {
   font-family: "Lucida Console", Monaco, monospace;
 }
@@ -24,6 +52,14 @@ body {
   padding-top: 5px;
   margin-top: 65px;
   border-top: 1px solid #eee;
+  
+  a {
+    color: black;
+  }
+  
+  a:hover, a:active {
+    color: white;
+  }
   
   small {
     float: left;
