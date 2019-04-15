@@ -1,5 +1,6 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+@import "font-awesome";
 
 body { 
   padding-top: 60px;
@@ -7,6 +8,12 @@ body {
 
 .navbar {
   background-color: #D3F3DE;
+  
+  form {
+    #search, #search-btn {
+      font-size: 13px;
+    }
+  }
 }
 
 .navbar-header {
