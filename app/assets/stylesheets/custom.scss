@@ -1,8 +1,9 @@
-@import "bootstrap-sprockets";
+// Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+@import "font-awesome";
 
 body { 
-  padding-top: 70px;
+  padding-top: 60px;
   height: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -12,6 +13,12 @@ body {
 
 .navbar {
   background-color: #D3F3DE;
+  
+  form {
+    #search, #search-btn {
+      font-size: 13px;
+    }
+  }
 }
 
 .navbar-header {
@@ -36,7 +43,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   
   img {
-    margin-top: -9px;
+    margin-top: -6px;
     display: inline-block;
     vertical-align: top;
   }
