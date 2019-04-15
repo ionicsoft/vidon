@@ -1,5 +1,7 @@
 class FriendRequestsController < ApplicationController
   before_action :set_request, only: [:destroy, :update]
+  # Authorization
+  before_action :logged_in_customer
   
   def create
     @request = FriendRequest.new(request_params)

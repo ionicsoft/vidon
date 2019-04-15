@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if person && person.authenticate(params[:session][:password])
       log_in(person)
       params[:session][:remember_me] == '1' ? remember(person) : forget(person)
-      redirect_to root_url
+      redirect_back_or root_url
     else
       flash.now[:danger] = "No user found with username/password combination."
       render 'new'

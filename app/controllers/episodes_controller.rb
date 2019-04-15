@@ -1,5 +1,8 @@
 class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy]
+  # Check authorization
+  before_action :logged_in_any, only: [:show]
+  before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
 
   # GET /episodes
   # GET /episodes.json

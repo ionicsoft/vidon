@@ -1,4 +1,7 @@
 class FavoritesController < ApplicationController
+  # Authorization
+  before_action :logged_in_customer
+  
   def create
     if logged_in? and current_person.customer?
       fav_params = params.require(:favorite).permit(:content_id, :content_type)
