@@ -16,6 +16,7 @@ class Customer < ApplicationRecord
   after_initialize :defaults_set
   
   accepts_nested_attributes_for :person, allow_destroy: true
+  accepts_nested_attributes_for :payment, allow_destroy: true
 
   def defaults_set
     self.slots ||= 10

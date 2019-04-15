@@ -16,6 +16,7 @@ class CustomersController < ApplicationController
   def new
     @customer = Customer.new
     @customer.person = Person.new
+    @customer.payment = Payment.new
   end
 
   # GET /customers/1/edit
@@ -73,6 +74,6 @@ class CustomersController < ApplicationController
     def customer_params
       params.require(:customer).permit(:person_attributes => [:avatar, 
         :username, :password, :password_confirmation, :email, :first_name,
-        :last_name])
+        :last_name], :payment_attributes => [:card_name, :card_num, :cvc, :expiration])
     end
 end
