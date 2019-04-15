@@ -2,7 +2,7 @@
 
 <div class="container">
   <% unless @movie.video.nil? %>
-  <h1 class="movie_title">
+  <h1 class="movie_title" style="color:black;">
     <%= @movie.video.title %>
     <% if @movie.promo_image.attached? %>
         <%= image_tag(url_for(@movie.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
@@ -11,7 +11,7 @@
     <% end %>
   </h1>
   
-  <h2 class="movie_description">
+  <h2 class="movie_description" style="color:white;">
     
     <% if logged_in? and current_person.customer? %>
     <p>
@@ -21,16 +21,17 @@
             <%= form.hidden_field :movie_id, value: @movie.id %>
             <%= form.submit "Rent", class: "btn btn-info" %>
           <% end %>
-        <% end %>
-        <li class="navbar-item">
-          <%= link_to 'Watch', @movie.video %>
+        <% else %>
+          <li class="navbar-item">
+          <%= link_to 'Watch', @movie.video, class: "btn btn-primary btn-large" %>
         </li>
+        <% end %>
       </ul>
       <br />
     </p>
     <% end %>
     
-    <p>
+    <p id="sm-text">
       <strong>Description:</strong>
       <%= @movie.video.description %>
     </p>
@@ -38,17 +39,21 @@
     <% end %>
     <% unless @movie.producer.nil? %>
     
-    <p>
+    <p id="sm-text">
       <strong>Producer:</strong>
       <%= @movie.producer.company_name %>
     </p>
     
     <p>
-      <%= link_to 'Return to movies', movies_path %>
+      <% if current_person.customer? %>
+        <%= link_to 'Return to movies', movies_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+      <% elsif current_person.producer? and @movie.producer == current_person.user %>
+        <%= link_to 'Return', pro_shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+      <% end %>
     </p>
   </h2>
    <% if current_person.producer? and @movie.producer == current_person.user %>
-      <%= link_to 'Delete Movie', @movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Delete Movie', @movie, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
   <% end %>
 </div>

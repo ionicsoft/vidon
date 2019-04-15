@@ -3,6 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
  $primary_color: #D3F3DE;
  
+ body {
+     background-color: #272b30;
+ }
+ 
+ #sm-text {
+     color: white;
+ }
+ 
  .show_title {
     width: 400px;
     margin-right: 10px;

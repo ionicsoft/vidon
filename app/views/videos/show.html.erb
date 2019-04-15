@@ -1,6 +1,10 @@
 <div class="container">
   <p id="notice well"><%= notice %></p>
-  <div class="col-sm-9 video-main">
+  <% if @video.episode? %>
+    <div class="col-sm-9 video-main">
+  <% elsif @video.movie? %>
+    <div class="col-sm-12 video-main">
+  <% end %>
     <div class="row">
       <div class="video-player">
         <video id= "example1" class="video-js vjs-default-skin vjs-16-9"
@@ -46,8 +50,8 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-3 video-playlist">
-    <% if @video.episode? %>
+  <% if @video.episode? %>
+    <div class="col-sm-3 video-playlist">
       <div class="panel panel-default">
         <div class="panel-heading text-center"><b><%= link_to @video.content.show.name, @video.content.show %></b></div>
         <div class="panel-body">
@@ -64,7 +68,6 @@
           <% end %>
         </div>
       </div>
-    <% end %>
-  </div>
-
+    </div>
+ <% end %>
 </div>

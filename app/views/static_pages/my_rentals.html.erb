@@ -1,12 +1,16 @@
 <p id="notice"><%= notice %></p>
 <% if logged_in? and current_person.customer? %>
   <div class="container">
-    <h3>My Rentals</h3>
+    <h3 id="banner">My Rentals</h3>
     <hr>
     <% current_person.user.rentals.each do |rental| %>
       <div class="row well">
         <div class="col-sm-2">
-          <%= image_tag("nullPhoto.png", :alt => "movie thumbnail", :style => "height: 100px; width: 100px;") %>
+          <% if rental.movie.promo_image.attached? %>
+            <%= image_tag(url_for(rental.movie.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+          <% else %>
+            <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 100px; width: 100px;") %>
+          <% end %>
         </div>
         <div class="col-sm-8">
           <b><%= rental.movie.title %></b>
