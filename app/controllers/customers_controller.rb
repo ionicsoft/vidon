@@ -77,7 +77,7 @@ class CustomersController < ApplicationController
     end
 
     # Check is logged in customer matches
-    def correct_person
+    def correct_customer
       redirect_to(root_url) unless current_user?(@customer)
     end
 

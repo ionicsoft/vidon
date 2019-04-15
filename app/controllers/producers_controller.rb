@@ -1,5 +1,8 @@
 class ProducersController < ApplicationController
   before_action :set_producer, only: [:show, :edit, :update, :destroy]
+  # Check authorization
+  before_action :logged_in_producer, only: [:edit, :update, :destroy]
+  before_action :correct_producer, only: [:edit, :update, :destroy]
 
   # GET /producers
   # GET /producers.json
@@ -67,6 +70,11 @@ class ProducersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_producer
       @producer = Producer.find(params[:id])
+    end
+    
+    # Check is logged in producer matches
+    def correct_producer
+      redirect_to(root_url) unless current_user?(@producer)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
