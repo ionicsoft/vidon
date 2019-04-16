@@ -2,14 +2,43 @@
 @import "bootstrap";
 @import "font-awesome";
 
+//Start "theme"
 body { 
   padding-top: 60px;
   height: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
+  color: white;
   background-color: #272b30;
 }
+
+hr {
+  margin-top: 21px;
+  margin-bottom: 21px;
+  border: 0;
+  border-top: 1px solid #464545;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: inherit;
+  font-weight: 400;
+  line-height: 1.1;
+  color: white;
+}
+
+.small {
+  color: white;
+}
+
+.col-sm-12 {
+  width: 100%;
+}
+
+.form.field {
+  color: white;
+}
+//end "theme"
 
 .navbar {
   background-color: #D3F3DE;
