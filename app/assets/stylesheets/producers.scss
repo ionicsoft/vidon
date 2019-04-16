@@ -1,12 +1,8 @@
 // Place all the styles related to the Producers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-#sm-text {
-    color: white;
-}
-
-#banner {
+h3 {
+    margin-bottom: 1rem;
     border-bottom: 1px solid white;
 }
 
@@ -16,10 +12,6 @@
 
 #customer-favorites {
     margin: 2rem;
-}
-
-#temp {
-    margin-bottom: 1rem;
 }
 
 .card-heading {

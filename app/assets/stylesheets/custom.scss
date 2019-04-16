@@ -1,4 +1,13 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
+
+$theme-colors: (
+  "primary": #0074d9,
+  "danger": #ff4136,
+  "navbar-col": #D3F3DE,
+  "background": #272b30
+);
+
+
 @import "bootstrap";
 @import "font-awesome";
 
@@ -10,7 +19,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: white;
-  background-color: #272b30;
+  background-color: theme-color(background);
 }
 
 hr {
@@ -27,7 +36,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   color: white;
 }
 
-.small {
+.small, p, b {
   color: white;
 }
 
@@ -37,12 +46,20 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .form.field {
   color: white;
+  margin-left: 1rem;
+}
+
+.card-heading {
+  h1,h2,h3,h4,h5,h6 {
+    color:black;
+  }
 }
 //end "theme"
 
 .navbar {
-  background-color: #D3F3DE;
+  background-color: theme-color(navbar-col);
   width: 100%;
+  margin-bottom: 5rem;
   
   form {
     #search, #search-btn {
@@ -91,9 +108,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 #footer {
-  padding-top: 5px;
   margin-top: 65px;
   border-top: 1px solid #eee;
+  width: 100%;
   
   a {
     color: white;

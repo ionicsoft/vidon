@@ -4,7 +4,7 @@
     <br/>
 </div>
 
-<h3 style="color:white;">Search for friends here:</h3>
+<h3>Search for friends here:</h3>
 <div id="psearch">
     <%= form_tag(search_page_path, :method => "get", class: 'navbar-form') do %>  
   		<div class="input-group">
@@ -19,8 +19,8 @@
 <hr>
 
 <div id="pend_req">
-    <h3 style="color:white;">Pending Friend Requests</h3>
-    <hr>
+    <h3>Pending Friend Requests</h3>
+    <hr/>
     <% @requests.each do |frequest| %>
         <% requester = frequest.requester %>
         <div class="result_image">
@@ -42,13 +42,13 @@
         </div>
     <% end %>
     <% if @requests.none? %>
-        <p id="banner">No pending friend requests.</p>
+        <p>No pending friend requests.</p>
     <% end %>
 </div>
 
 <div id="friend_list">
-    <h3 style="color:white;">Friends List</h3>
-    <hr>
+    <h3>Friends List</h3>
+    <hr/>
     <% @friends.each do |friend| %>
         <div class="result_image">
             <% if friend.person.avatar.attached? %>
@@ -64,6 +64,6 @@
         </div>
     <% end %>
     <% if @friends.none? %>
-        <p id="banner">No friends yet.</p>
+        <p>No friends yet.</p>
     <% end %>
 </div>
