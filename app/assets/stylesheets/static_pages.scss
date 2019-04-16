@@ -4,10 +4,27 @@
 
 $highlight-white: #000;
 
-h1, #banner {
+// Customer Homepage
+.home-header {
   color: white;
 }
 
+// Friends page
+#friends-main {
+  background-color: white;
+  border-radius: 5px;
+  padding-top: 10px;
+}
+
+#friends-side {
+  background-color: white;
+  border-radius: 5px;
+  padding-top: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+// Guest Homepage
 .guest-fill {
   //background-color: #461A3B;
   background-color: #272b30;
