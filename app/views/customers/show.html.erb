@@ -17,14 +17,14 @@
     </div>
   </div>
   <div class="col-sm-8" id="profile-main">
-    <div class="row" id="customer-favorites">
+    <div class="grid" id="customer-favorites">
       <h3 id="banner">My Favorites</h3>
       <% favs = @customer.favorites %>
       <% if favs.any? %>
         <% favs[0..4].each do |fav| %>
-          <div class="panel panel-default">
-            <div class="panel-heading"><%= link_to fav.content.video.title, fav.content %></div>
-            <div class="panel-body">
+          <div class="card card-default">
+            <div class="card-heading"><%= link_to fav.content.video.title, fav.content %></div>
+            <div class="card-body">
               <p><%= fav.content.video.description %></p>
               <%= if (logged_in? and @customer == current_person.user) then button_to "Unfavorite", favorite_path(fav),  method: :delete, class: "btn btn-warning btn-sm" end %>
             </div>
@@ -35,7 +35,7 @@
       <% end %>
     </div>
     <hr>
-    <div class="row" id="customer-timeline">
+    <div class="grid" id="customer-timeline">
       <h3 id="banner">My Timeline</h3>
       <% if @customer.profile_comments.any? %>
         <% @customer.profile_comments.each do |comment| %>
@@ -49,8 +49,8 @@
     </div>
   </div>
   <div class="col-sm-4">
-    <div class="panel panel-default" id="profile-side">
-      <div class="panel-body" id="last-watched">
+    <div class="card card-default" id="profile-side">
+      <div class="card-body" id="last-watched">
         <h3>Last Watched</h3>
         <% last_sub = @customer.subscriptions.order("updated_at")
                                              .find_by("current_episode > 0") %>
@@ -69,7 +69,7 @@
         <% end %>
       </div>
       <hr>
-      <div class="panel-body" id="customer-ratings">
+      <div class="card-body" id="customer-ratings">
         <h3>My Ratings</h3>
         <% if @customer.show_ratings.any? %>
           <% @customer.show_ratings[0..4].each do |rating| %>

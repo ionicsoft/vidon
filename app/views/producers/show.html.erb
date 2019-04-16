@@ -6,15 +6,15 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-8" id="profile-main">
-    <div class="row" id="customer-favorites">
-      <h3 style="color:white;">Highest Rated Shows</h3>
+  <div class="col-sm-12" id="profile-main">
+    <div class="grid" id="customer-favorites">
+      <h3 id="temp" style="color:white;">Highest Rated Shows</h3>
       <% favs = @producer.shows %>
       <% if favs.any? %>
         <% favs[0..4].each do |rating| %>
-          <div class="panel panel-default">
-            <div class="panel-heading"><%= link_to rating.name %></div>
-            <div class="panel-body"><%= rating.description %></div>
+          <div class="card card-default">
+            <div class="card-heading font-weight-bold"><%= link_to rating.name %></div>
+            <div class="card-body"><%= rating.description %></div>
           </div>
         <% end %>
       <% else %>
