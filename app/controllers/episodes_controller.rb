@@ -23,6 +23,10 @@ class EpisodesController < ApplicationController
 
   # GET /episodes/1/edit
   def edit
+    if !@episode.show.producer.correct_producer(@current_person.user)
+      flash[:danger] = "Content does not belong to current producer."
+      redirect_to root_url
+    end
   end
 
   # POST /episodes

@@ -72,7 +72,7 @@ class ProducersController < ApplicationController
       @producer = Producer.find(params[:id])
     end
     
-    # Check is logged in producer matches
+    # Check if logged in producer matches
     def correct_producer
       redirect_to(root_url) unless current_user?(@producer)
     end
