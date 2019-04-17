@@ -7,11 +7,16 @@ $theme-colors: (
   "background": #272b30
 );
 
-
 @import "bootstrap";
 @import "font-awesome";
 
-//Start "theme"
+// Force vertical scrollbar to always be visible so page doesn't
+// shift when navagating to long pages
+html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}
+
 body { 
   padding-top: 70px;
   height: 100%;

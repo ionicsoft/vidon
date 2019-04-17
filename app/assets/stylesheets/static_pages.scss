@@ -32,6 +32,13 @@ $highlight-white: #000;
     left: 15px;
     right: 15px;
     bottom: 15px;
+    small {
+      background-color: darkcyan;
+      padding: 1px 6px;
+      margin-bottom: 5px;
+      display: inline-block;
+      border-radius: 5px;
+    }
   }
 }
 
@@ -91,21 +98,6 @@ $highlight-white: #000;
   border-radius:5px;
   padding: 1em;
   margin: 0 0 1em 0;
-}
-
-// Friends page
-#friends-main {
-  background-color: white;
-  border-radius: 5px;
-  padding-top: 10px;
-}
-
-#friends-side {
-  background-color: white;
-  border-radius: 5px;
-  padding-top: 10px;
-  margin-top: 10px;
-  padding-bottom: 10px;
 }
 
 // Guest Homepage

@@ -1,6 +1,7 @@
 <div class="container">
-  <h3>My Shows</h3>
-  <hr/>
+  <p id="notice"><%= notice %></p>
+  <h3 id="banner">My Shows</h3>
+  <hr>
   <% current_person.user.subscriptions.each do |sub| %>
     <div class="row subscription">
       <div class="col-sm-2">
