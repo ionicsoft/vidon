@@ -15,21 +15,21 @@
     <div class="panel panel-default">
       <div class="panel-heading"><h3>Show information:</h3></div>
       <div class="panel-body">
-        <div class="field">
+        <div class="form-group">
           <%= form.label :promo_image, style: 'color: black;' %>
           <%= form.file_field :promo_image, id: :show_promo_image,
             accept: "image/png,image/gif,image/jpeg", direct_upload: true,
             class: "direct-upload" %>
         </div>
-        <div class="field">
+        <div class="form-group">
           <%= form.label :name, style: 'color: black;' %>
-          <%= form.text_field :name, id: :show_name %>
+          <%= form.text_field :name, id: :show_name, class: "form-control" %>
           <%= form.hidden_field :producer_id, value: current_person.user.id %>
         </div>
         
-        <div class="field">
+        <div class="form-group">
           <%= form.label :description, style: 'color: black;' %>
-          <%= form.text_field :description, id: :show_description %>
+          <%= form.text_field :description, id: :show_description, class: "form-control" %>
         </div>
       </div>
     </div>

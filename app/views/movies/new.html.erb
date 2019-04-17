@@ -1,5 +1,14 @@
-<h1>New Movie</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-5">
+      <div class="card card-default">
+        <h1 id="card-text" class="card-header">Create New Movie</h1>
+        <div class="card-body">
+          <%= render 'form', movie: @movie %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= render 'form', movie: @movie %>
 
-<%= link_to 'Back', pro_shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>

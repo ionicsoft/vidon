@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h3 id="banner">My Shows</h3>
+      <h3>My Shows</h3>
       <hr>
       <% current_person.user.shows.each do |theshow| %>
         <div class="row subscription">
@@ -13,8 +13,8 @@
             <% end %>
           </div>
           <div class="col-sm-8">
-            <b id="sm-text"><%= theshow.name %></b>
-            <p id="sm-text"><%= theshow.description %></p>
+            <b><%= theshow.name %></b>
+            <p><%= theshow.description %></p>
           </div>
           <div class="col-sm-2">
             <%= link_to "View Show", theshow, class: "btn btn-primary btn-block btn-sm" %>
@@ -25,7 +25,7 @@
   </div>
   <div class="row mt-3">
     <div class="col">
-      <h3 id="banner">My Movies</h3>
+      <h3>My Movies</h3>
         <hr>
         <% current_person.user.movies.each do |themovie| %>
           <div class="row subscription">
@@ -37,8 +37,8 @@
               <% end %>
             </div>
             <div class="col-sm-8">
-              <b id="sm-text"><%= themovie.video.title %></b>
-              <p id="sm-text"><%= themovie.video.description %></p>
+              <b><%= themovie.video.title %></b>
+              <p><%= themovie.video.description %></p>
             </div>
             <div class="col-sm-2">
               <%= link_to "View Movie", themovie, class: "btn btn-primary btn-block btn-sm" %>
