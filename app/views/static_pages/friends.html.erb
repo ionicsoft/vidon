@@ -11,7 +11,7 @@
                 <%= image_tag(get_avatar(friend.person), :alt => "Avatar",
                   size: "70x70", class: "mr-3 avatar-img") %>
                 <div class="media-body">
-                  <%= content_tag :h4, friend.person.full_name, class: "mt-0" %>
+                  <%= content_tag :h4, friend.person.full_name, class: "mt-0 text-body" %>
                   <%= link_to "Remove", "#{friends_path}/#{friend.id}",
                     method: :delete, class: "btn btn-warning btn-sm pull-right" %>
                 </div>
@@ -46,7 +46,7 @@
                 <%= image_tag(get_avatar(requester.person), :alt => "Avatar",
                   size: "70x70", class: "mr-3 avatar-img") %>
                 <div class="media-body">
-                  <%= content_tag :h4, requester.person.full_name, class: "mt-0" %>
+                  <%= content_tag :h4, requester.person.full_name, class: "mt-0 text-body" %>
                   <%= form_with(model: frequest) do |form| %>
                     <%= form.submit "Accept", class: "btn btn-info btn-sm" %>
                     <%= link_to "Decline", "#{friend_requests_path}/#{frequest.id}", method: :delete, class: "btn btn-warning btn-sm" %>
