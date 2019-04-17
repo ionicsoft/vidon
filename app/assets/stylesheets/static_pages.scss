@@ -4,9 +4,76 @@
 
 $highlight-white: #000;
 
+// Browse page
+.showcard {
+  // padding: 0;
+  img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .shadow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-image: linear-gradient(to bottom, transparent, #0006);
+  }
+  
+  .show-title {
+    color: white;
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+  }
+}
+
 // Customer Homepage
 .home-header {
   color: white;
+}
+
+#customer-home {
+  .jumbotron {
+    background-position: center;
+    background-size: cover;
+    h2, h5 {
+      color: white;
+      background-color: #2228;
+    }
+  }
+}
+
+.scrolling-wrapper {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  .card {
+    margin-bottom:1em;
+    width: 220;
+    display: inline-block;
+    h5 {
+      padding:0.4rem 1rem;
+    }
+    img {
+      width: 220px;
+      height: 180px;
+      object-fit: cover;
+    }
+  }
+}
+
+// Subscriptions page
+.subscription {
+  background-color:lightblue;
+  border-radius:5px;
+  padding: 1em;
+  margin: 0 0 1em 0;
 }
 
 // Friends page

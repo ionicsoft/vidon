@@ -29,12 +29,4 @@ class Person < ApplicationRecord
     user_type == "Producer"
   end
   
-  # Returns an link for the avatar if attached, or a placeholder
-  def get_avatar
-    if avatar.attached?
-      url_for avatar
-    else
-      "default_profile.jpg"
-    end
-  end
 end

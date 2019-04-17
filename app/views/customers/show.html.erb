@@ -1,83 +1,97 @@
-<div class="container" id="customer-profile">
-  <div class="navbar navbar-default" id="customer-header">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <h2><%= @customer.person.full_name %></h2>
-        <% if logged_in? and current_person.customer? and current_person.user.can_friend?(@customer) %>
-          <%= form_with(scope: :friend_request, url: friend_requests_path) do |form| %>
-              <%= form.hidden_field :customer_id, value: @customer.id %>
-              <%= form.hidden_field :requester_id, value: current_person.user.id %>
-              <%= form.submit "Add Friend", class: "btn btn-info" %>
+<div class="container">
+  <div class="row">
+    <div class="col" id="profile-header">
+      <div class="card card-default">
+        <div class="card-body">
+          <%= image_tag get_avatar(@customer.person), :alt => "Avatar", size: "140x140" %>
+          <h4><%= @customer.person.full_name %></h4>
+          <% if logged_in? and current_person.customer? and current_person.user.can_friend?(@customer) %>
+            <%= form_with(scope: :friend_request, url: friend_requests_path) do |form| %>
+                <%= form.hidden_field :customer_id, value: @customer.id %>
+                <%= form.hidden_field :requester_id, value: current_person.user.id %>
+                <%= form.submit "Add Friend", class: "btn btn-info btn-sm" %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-      <div id="customer-nav-text">
-        <small>Subscriber since <%= @customer.created_at.strftime "%B %Y" %></small>
+          <div id="profile-date">
+            <small>Subscriber since <%= @customer.created_at.strftime "%B %Y" %></small>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-8" id="profile-main">
-    <div class="grid" id="customer-favorites">
-      <h3 id="banner">My Favorites</h3>
-      <% favs = @customer.favorites %>
-      <% if favs.any? %>
-        <% favs[0..4].each do |fav| %>
+  <div class="row mt-3">
+    <div class="col-8">
+      <div class="row">
+        <div class="col" id="profile-favorites">
           <div class="card card-default">
-            <div class="card-heading"><%= link_to fav.content.video.title, fav.content %></div>
             <div class="card-body">
-              <p><%= fav.content.video.description %></p>
-              <%= if (logged_in? and @customer == current_person.user) then button_to "Unfavorite", favorite_path(fav),  method: :delete, class: "btn btn-warning btn-sm" end %>
+              <h4>My Favorites</h4>
+              <hr>
+              <% favs = @customer.favorites %>
+              <% if favs.any? %>
+                <% favs[0..4].each do |fav| %>
+                  <div class="card card-default">
+                    <div class="card-body">
+                      <h4><%= link_to fav.content.video.title, fav.content %></h4>
+                      <%= if (logged_in? and @customer == current_person.user) then button_to "Unfavorite", favorite_path(fav), method: :delete, class: "btn btn-warning btn-sm pull-right" end %>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <small id="sm-text">I like nothing!</small>
+              <% end %>
             </div>
           </div>
-        <% end %>
-      <% else %>
-        <small id="sm-text">I like nothing!</small>
-      <% end %>
-    </div>
-    <hr>
-    <div class="grid" id="customer-timeline">
-      <h3 id="banner">My Timeline</h3>
-      <% if @customer.profile_comments.any? %>
-        <% @customer.profile_comments.each do |comment| %>
-          <%= render comment %>
-        <% end %>
-      <% end %>
-      <div>
-        <hr>
-        <%= render 'comment_form' %>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col" id="profile-comments">
+          <div class="card card-default">
+            <div class="card-body">
+              <h4>My Timeline</h4>
+              <hr>
+              <% if @customer.profile_comments.any? %>
+                <% @customer.profile_comments.each do |comment| %>
+                  <%= render comment %>
+                <% end %>
+              <% end %>
+              <div>
+                <hr>
+                <%= render 'comment_form' %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="card card-default" id="profile-side">
-      <div class="card-body" id="last-watched">
-        <h3>Last Watched</h3>
-        <% last_sub = @customer.subscriptions.order("updated_at")
-                                             .find_by("current_episode > 0") %>
-        <% unless last_sub.nil?  %>
-          <% ep = last_sub.show.episodes[last_sub.current_episode-1] %>
-          <div class="col-sm-4">
-            <h4><%= link_to last_sub.show.name, last_sub.show %></h4>
-          </div>
-          <div class="col-sm-8">
-            <small><%= "Season #{ep.season}, Episode #{ep.episode}" %></small>
-            <h5><%= ep.video.title %></h5>
-            <p class="text-justify"><%= ep.video.description %></p>
-          </div>
-        <% else %>
-          <small id="sm-text">Oh no! They haven't watched anything!</small>
-        <% end %>
-      </div>
-      <hr>
-      <div class="card-body" id="customer-ratings">
-        <h3>My Ratings</h3>
-        <% if @customer.show_ratings.any? %>
-          <% @customer.show_ratings[0..4].each do |rating| %>
-            <%= render rating %>
+    <div class="col-4">
+      <div class="card card-default">
+        <div class="card-body">
+          <h4>Last Watched</h4>
+          <% last_sub = @customer.subscriptions.order("updated_at").find_by("current_episode > 0") %>
+          <% if last_sub %>
+            <% ep = last_sub.show.episodes[last_sub.current_episode-1] %>
+            <div class="col-sm-4">
+              <h4><%= link_to last_sub.show.name, last_sub.show %></h4>
+            </div>
+            <div class="col-sm-8">
+              <small><%= "Season #{ep.season}, Episode #{ep.episode}" %></small>
+              <h5><%= ep.video.title %></h5>
+              <p class="text-justify"><%= ep.video.description %></p>
+            </div>
+          <% else %>
+            <p class="card-text">Oh no! They haven't watched anything!</p>
           <% end %>
-        <% else %>
-          <small id="sm-text">No ratings yet.</small>
-        <% end %>
+          <hr>
+          <h4>My Ratings</h4>
+          <% if @customer.show_ratings.any? %>
+            <% @customer.show_ratings[0..4].each do |rating| %>
+              <%= render rating %>
+            <% end %>
+          <% else %>
+            <p class="card-text">No ratings yet.</p>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
