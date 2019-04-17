@@ -2,6 +2,13 @@
 @import "bootstrap";
 @import "font-awesome";
 
+// Force vertical scrollbar to always be visible so page doesn't
+// shift when navagating to long pages
+html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}
+
 body { 
   padding-top: 70px;
   height: 100%;
