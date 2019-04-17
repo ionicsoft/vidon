@@ -28,6 +28,13 @@ $highlight-white: #000;
     left: 15px;
     right: 15px;
     bottom: 15px;
+    small {
+      background-color: darkcyan;
+      padding: 1px 6px;
+      margin-bottom: 5px;
+      display: inline-block;
+      border-radius: 5px;
+    }
   }
 }
 
