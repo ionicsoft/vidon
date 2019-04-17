@@ -6,11 +6,11 @@
       <% @friends.each do |friend| %>
         <div class="media">
           <%= link_to friend do %>
-            <%= image_tag(friend.person.get_avatar, :alt => "Avatar",
+            <%= image_tag(get_avatar(friend.person), :alt => "Avatar",
               size: "70x70", class: "mr-3 avatar-img") %>
             <div class="media-body">
               <%= content_tag :h4, friend.person.full_name, class: "mt-0" %>
-              <%= link_to "Delete friend", "#{friends_path}/#{friend.id}",
+              <%= link_to "Remove", "#{friends_path}/#{friend.id}",
                 method: :delete, class: "btn btn-warning btn-sm pull-right" %>
             </div>
           <% end %>
@@ -37,15 +37,17 @@
         <% @requests.each do |frequest| %>
           <div class="media">
             <% requester = frequest.requester %>
-            <%= image_tag(requester.person.get_avatar, :alt => "Avatar",
-              size: "70x70", class: "mr-3 avatar-img") %>
-            <div class="media-body">
-              <%= content_tag :h4, requester.person.full_name, class: "mt-0" %>
-              <%= form_with(model: frequest) do |form| %>
-                <%= form.submit "Add Friend", class: "btn btn-info btn-sm" %>
-                <%= link_to "Delete friend", "#{friend_requests_path}/#{frequest.id}", method: :delete, class: "btn btn-warning btn-sm" %>
-              <% end %>
-            </div>
+            <%= link_to requester do %>
+              <%= image_tag(get_avatar(requester.person), :alt => "Avatar",
+                size: "70x70", class: "mr-3 avatar-img") %>
+              <div class="media-body">
+                <%= content_tag :h4, requester.person.full_name, class: "mt-0" %>
+                <%= form_with(model: frequest) do |form| %>
+                  <%= form.submit "Accept", class: "btn btn-info btn-sm" %>
+                  <%= link_to "Decline", "#{friend_requests_path}/#{frequest.id}", method: :delete, class: "btn btn-warning btn-sm" %>
+                <% end %>
+              </div>
+            <% end %>
           </div>
         <% end %>
         <% if @requests.none? %>

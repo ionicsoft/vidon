@@ -44,8 +44,8 @@ body {
 }
 
 .video-playlist {
-    padding-right:0px;
-    .panel-body{
+    // padding-right:0px;
+    .card-body{
         padding: 0;
     }
     .media, .media-body{
@@ -55,4 +55,11 @@ body {
 
 .review-buttons {
     margin-top: -2px;
+}
+
+.video-comment {
+    margin-bottom: 10px;
+    .media-left {
+        margin-right: 5px;
+    }
 }

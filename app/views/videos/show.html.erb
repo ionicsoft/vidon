@@ -1,14 +1,9 @@
 <div class="container">
-  <p id="notice well"><%= notice %></p>
-  <% if @video.episode? %>
-    <div class="col-sm-9 video-main">
-  <% elsif @video.movie? %>
-    <div class="col-sm-12 video-main">
-  <% end %>
-    <div class="row">
+  <div class="row video-main mb-4">
+    <div class="col">
       <div class="video-player">
         <video id= "example1" class="video-js vjs-default-skin vjs-16-9"
-            controls autoplay preload="auto" width="640" height="264" 
+            controls preload="auto" width="640" height="264" 
             <%= if @video.thumbnail.attached? then "poster=\"#{ url_for @video.thumbnail }\"" end %>
             data-setup= '{}'>
           <source src="<%= url_for(@video.clip) %>" type="video/mp4">
@@ -16,58 +11,63 @@
         </video>
       </div>
     </div>
-    <div class="row well video-description">
-      <div class="video-title">
-        <h3>
-          <%= @video.title %>
-          <%= if @video.episode? then content_tag :small, @video.content.season_episode end %>
-        <div class="review-buttons pull-right">
-        <% @favorite = @video.content.favorites.find_by(customer_id: current_person.user.id) %>
-        <% if @favorite.nil? %>
-          <%= button_to "Favorite", favorites_path, params: { favorite: { content_id: @video.content_id, content_type: @video.content_type } }, class: "btn btn-primary btn-sm" %>
-        <% else %>
-          <%= button_to "Unfavorite", favorite_path(@favorite),  method: :delete, class: "btn btn-warning btn-sm" %>
-        <% end %>
-      </div>
-        </h3>
-        
-      </div>
-      
-      <p><%= @video.description %></p>
-    </div>
-    <div class="row well video-comments">
-      <h4>Comments</h4>
-      <% if @video.video_comments.any? %>
-        <% @video.video_comments.each do |comment| %>
-          <%= render comment %>
-        <% end %>
-      <% else %>
-        <h5>No comments.</small>
-        <hr>
-      <% end %>
-      <div id="comment-form">
-        <%= render 'comment_form' %>
-      </div>
-    </div>
   </div>
-  <% if @video.episode? %>
-    <div class="col-sm-3 video-playlist">
-      <div class="panel panel-default">
-        <div class="panel-heading text-center"><b><%= link_to @video.content.show.name, @video.content.show %></b></div>
-        <div class="panel-body">
-          <% @video.content.show.episodes.order(:absolute_episode).each do |episode| %>
-            <%= link_to episode.video do %>
-              <%= content_tag :div, class: "media", style: (if episode.video == @video then "background-color: #ddd" end) do %>
-                <div class="media-body">
-                  <h4 class="media-heading"><%= episode.video.title %></h4>
-                  <small><%= episode.season_episode %></small>
-                  <p><%= episode.video.description %></p>
-                </div>
+  <div class="row video-description">
+    <div class="col-9">
+      <div class="card card-default mb-3">
+        <div class="card-body">
+          <div class="video-title">
+            <h3>
+              <%= @video.title %>
+              <%= if @video.episode? then content_tag :small, @video.content.season_episode end %>
+            <div class="review-buttons pull-right">
+              <% @favorite = @video.content.favorites.find_by(customer_id: current_person.user.id) %>
+              <% if @favorite.nil? %>
+                <%= button_to "Favorite", favorites_path, params: { favorite: { content_id: @video.content_id, content_type: @video.content_type } }, class: "btn btn-primary btn-sm" %>
+              <% else %>
+                <%= button_to "Unfavorite", favorite_path(@favorite),  method: :delete, class: "btn btn-warning btn-sm" %>
               <% end %>
+            </div>
+            </h3>
+          </div>
+          <p><%= @video.description %></p>
+        </div>
+      </div>
+      <div class="card card-default">
+        <div class="card-body">
+          <h4>Comments</h4>
+          <% if @video.video_comments.any? %>
+            <% @video.video_comments.each do |comment| %>
+              <%= render comment %>
             <% end %>
+          <% else %>
+            <small>No comments.</small>
           <% end %>
+          <div id="comment-form">
+            <%= render 'comment_form' %>
+          </div>
         </div>
       </div>
     </div>
- <% end %>
+    <% if @video.episode? %>
+      <div class="col-3 video-playlist">
+        <div class="card card-default">
+          <h5 class="card-header"><%= link_to @video.content.show.name, @video.content.show %></h5>
+          <div class="card-body">
+            <% @video.content.show.episodes.order(:absolute_episode).each do |episode| %>
+              <%= link_to episode.video do %>
+                <%= content_tag :div, class: "media", style: (if episode.id == @video.content_id then "background-color: #ddd" end) do %>
+                  <div class="media-body">
+                    <h4 class="media-heading"><%= episode.video.title %></h4>
+                    <small><%= episode.season_episode %></small>
+                    <p><%= episode.video.description %></p>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+   <% end %>
+   </div>
 </div>

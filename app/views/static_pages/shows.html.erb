@@ -2,7 +2,7 @@
   <h3 id="banner">My Shows</h3>
   <hr>
   <% current_person.user.subscriptions.each do |sub| %>
-    <div class="row well">
+    <div class="row subscription">
       <div class="col-sm-2">
         <% if sub.show.promo_image.attached? %>
           <%= image_tag(url_for(sub.show.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
@@ -33,7 +33,9 @@
       </div>
     </div>
   <% end %>
-  <div class="col-sm-12 text-center">
-    <%= link_to "Find new shows!", shows_path, class: "btn btn-primary btn-lg" %>
+  <div class="row justify-content-center">
+    <div class="col-3">
+      <%= link_to "Find new shows!", shows_path, class: "btn btn-primary btn-lg btn-block" %>
+    </div>
   </div>
 </div>
