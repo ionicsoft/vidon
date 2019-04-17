@@ -2,7 +2,7 @@
   <h3>My Shows</h3>
   <hr/>
   <% current_person.user.shows.each do |theshow| %>
-    <div class="row well">
+    <div class="row subscription">
       <div class="col-sm-2">
         <% if theshow.promo_image.attached? %>
           <%= image_tag(url_for(theshow.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
@@ -23,7 +23,7 @@
   <h3>My Movies</h3>
   <hr/>
   <% current_person.user.movies.each do |themovie| %>
-    <div class="row well">
+    <div class="row subscription">
       <div class="col-sm-2">
         <% if themovie.promo_image.attached? %>
           <%= image_tag(url_for(themovie.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>

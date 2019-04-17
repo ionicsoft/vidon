@@ -4,6 +4,10 @@
 
 $highlight-white: #000;
 
+.small, p, b {
+  color: black;
+}
+
 // Browse page
 .showcard {
   // padding: 0;
@@ -29,6 +33,19 @@ $highlight-white: #000;
     right: 15px;
     bottom: 15px;
   }
+}
+
+//Customer Header
+#profile-header {
+  width: 100%;
+}
+.cust-name {
+  font-size: 60px;
+  margin-top: 4rem;
+}
+
+#profile-date {
+  margin-top: 5.5rem;
 }
 
 // Customer Homepage

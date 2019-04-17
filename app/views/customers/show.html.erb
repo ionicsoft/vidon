@@ -1,19 +1,26 @@
 <div class="container">
-  <div class="row">
-    <div class="col" id="profile-header">
-      <div class="card card-default">
-        <div class="card-body">
-          <%= image_tag get_avatar(@customer.person), :alt => "Avatar", size: "140x140" %>
-          <h4><%= @customer.person.full_name %></h4>
-          <% if logged_in? and current_person.customer? and current_person.user.can_friend?(@customer) %>
-            <%= form_with(scope: :friend_request, url: friend_requests_path) do |form| %>
-                <%= form.hidden_field :customer_id, value: @customer.id %>
-                <%= form.hidden_field :requester_id, value: current_person.user.id %>
-                <%= form.submit "Add Friend", class: "btn btn-info btn-sm" %>
-            <% end %>
-          <% end %>
-          <div id="profile-date">
-            <small>Subscriber since <%= @customer.created_at.strftime "%B %Y" %></small>
+  <div class="col" id="profile-header">
+    <div class="card card-default">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <%= image_tag get_avatar(@customer.person), :alt => "Avatar", size: "200x200" %>
+          </div>
+          <div class="col-sm-7">
+            <h4 id="card-text" class="cust-name"><%= @customer.person.full_name %></h4>
+              <% if logged_in? and current_person.customer? and current_person.user.can_friend?(@customer) %>
+                <%= form_with(scope: :friend_request, url: friend_requests_path) do |form| %>
+                    <%= form.hidden_field :customer_id, value: @customer.id %>
+                    <%= form.hidden_field :requester_id, value: current_person.user.id %>
+                    <%= form.submit "Add Friend", class: "btn btn-info btn-sm" %>
+                <% end %>
+              <% end %>
+              <hr width="120%">
+          </div>
+          <div class="col-sm-2">
+            <div id="profile-date">
+              <small>Subscriber since <%= @customer.created_at.strftime "%B %Y" %></small>
+            </div>
           </div>
         </div>
       </div>
@@ -25,7 +32,7 @@
         <div class="col" id="profile-favorites">
           <div class="card card-default">
             <div class="card-body">
-              <h4>My Favorites</h4>
+              <h4 id="card-text">My Favorites</h4>
               <hr>
               <% favs = @customer.favorites %>
               <% if favs.any? %>
@@ -48,7 +55,7 @@
         <div class="col" id="profile-comments">
           <div class="card card-default">
             <div class="card-body">
-              <h4>My Timeline</h4>
+              <h4 id="card-text">My Timeline</h4>
               <hr>
               <% if @customer.profile_comments.any? %>
                 <% @customer.profile_comments.each do |comment| %>
@@ -67,7 +74,7 @@
     <div class="col-4">
       <div class="card card-default">
         <div class="card-body">
-          <h4>Last Watched</h4>
+          <h4 id="card-text">Last Watched</h4>
           <% last_sub = @customer.subscriptions.order("updated_at").find_by("current_episode > 0") %>
           <% if last_sub %>
             <% ep = last_sub.show.episodes[last_sub.current_episode-1] %>
@@ -83,7 +90,7 @@
             <p class="card-text">Oh no! They haven't watched anything!</p>
           <% end %>
           <hr>
-          <h4>My Ratings</h4>
+          <h4 id="card-text">My Ratings</h4>
           <% if @customer.show_ratings.any? %>
             <% @customer.show_ratings[0..4].each do |rating| %>
               <%= render rating %>

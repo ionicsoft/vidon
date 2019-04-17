@@ -18,14 +18,14 @@
             <%= link_to sub.show do %>
               <div class="card">
                 <%= image_tag url_for(sub.show.promo_image), class: "card-img-top" if sub.show.promo_image.attached? %>
-                <h5 class="card-header"><%= truncate sub.show.name, length: 16 %></h5>
+                <h5 id="card-text" class="card-header"><%= truncate sub.show.name, length: 16 %></h5>
               </div>
             <% end %>
           <% end %>
         <% else %>
           <div class="card card-default">
             <div class="card-body">
-              <h3><% link_to "Find some shows!", browse_path %></h3>
+              <h3 id="card-text"><% link_to "Find some shows!", browse_path %></h3>
             </div>
           </div>
         <% end %>
@@ -41,7 +41,7 @@
           <%= link_to show do %>
             <div class="card">
               <%= image_tag url_for(show.promo_image), class: "card-img-top" if show.promo_image.attached? %>
-              <h5 class="card-header"><%= truncate show.name, length: 16 %></h5>
+              <h5 id="card-text" class="card-header"><%= truncate show.name, length: 16 %></h5>
             </div>
           <% end %>
         <% end %>
@@ -57,7 +57,7 @@
           <%= link_to show do %>
             <div class="card">
               <%= image_tag url_for(show.promo_image), class: "card-img-top" if show.promo_image.attached? %>
-              <h5 class="card-header"><%= truncate show.name, length: 16 %></h5>
+              <h5 id="card-text" class="card-header"><%= truncate show.name, length: 16 %></h5>
             </div>
           <% end %>
         <% end %>
