@@ -9,6 +9,34 @@ $highlight-white: #000;
   color: white;
 }
 
+#customer-home {
+  .jumbotron {
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+.scrolling-wrapper {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  .card {
+    margin-bottom:1em;
+    width: 220;
+    display: inline-block;
+    h5 {
+      padding:0.4rem 1rem;
+    }
+    img {
+      width: 220px;
+      height: 180px;
+      object-fit: cover;
+    }
+  }
+}
+
 // Subscriptions page
 .subscription {
   background-color:lightblue;
