@@ -17,3 +17,13 @@
 body {
   margin: 0;
 }
+
+/* Fix modals shifting page to the left */
+.modal-open {
+  padding-right: 0 !important;
+}
+
+.navbar {
+  padding-right: 1rem !important;
+}
+/* End modal fix */

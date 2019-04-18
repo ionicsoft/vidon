@@ -27,6 +27,14 @@ class Video < ApplicationRecord
     end
   end
   
+  # Returns the next episode or the show if not found
+  def next_video_or_show
+    ep = next_video
+    if ep.nil?
+      content.show
+    end
+  end
+  
   # Returns the previous video in a playlist
   def prev_video
     if episode?
