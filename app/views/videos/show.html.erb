@@ -2,7 +2,7 @@
   <div class="row video-main mb-4">
     <div class="col">
       <div class="video-player">
-        <video id= "example1" class="video-js vjs-default-skin vjs-16-9"
+        <video id="main-video-player" class="video-js vjs-default-skin vjs-16-9"
             controls preload="auto" width="640" height="264" 
             <%= if @video.thumbnail.attached? then "poster=\"#{ url_for @video.thumbnail }\"" end %>
             data-setup= '{}'>
