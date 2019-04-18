@@ -9,7 +9,19 @@ class Episode < ApplicationRecord
 
   accepts_nested_attributes_for :video, allow_destroy: true
   
+  # Returns a formatted string describing the season and episode
   def season_episode
     "Season #{season}, Ep. #{episode}"
   end
+  
+  # Returns the next episode in the series if it exists
+  def next_ep
+    Episode.find_by(show_id: show_id, absolute_episode: absolute_episode+1)
+  end
+  
+  # Returns the previous episode in the series if it exists
+  def prev_ep
+    Episode.find_by(show_id: show_id, absolute_episode: absolute_episode-1)
+  end
+    
 end

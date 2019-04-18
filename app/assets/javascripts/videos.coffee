@@ -2,9 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# Detect when video ends
+video_ended = ->
+  # console.log("video is over!")
+  document.getElementById('button_next').click()
+
+# VideoJS-Turbolinks support
 change = ->
     for player in document.getElementsByClassName 'video-js'
         video = videojs('main-video-player')
+        video.on('ended', video_ended)
         # console.log("Change, assigning video")
 
 before_load = ->
