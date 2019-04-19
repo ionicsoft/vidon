@@ -15,11 +15,11 @@
     </p>
     
     <div class="show_description">
-      <h3><%= show.name %></h3>
-      <p>
+      <h3 id="sm-text"><%= show.name %></h3>
+      <p id="sm-text">
         <%= show.description %>
         <br/>
-        <%= link_to 'Check Out', show %>
+        <%= link_to 'Check Out', show, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
       </p>
     </div>
   </li>

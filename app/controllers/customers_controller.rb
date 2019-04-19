@@ -1,5 +1,9 @@
 class CustomersController < ApplicationController
+  # Load customer from database
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  # Check authorization
+  before_action :logged_in_customer, only: [:edit, :update, :destroy]
+  before_action :correct_customer, only: [:edit, :update, :destroy]
 
   # GET /customers
   # GET /customers.json
@@ -62,11 +66,19 @@ class CustomersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
 
   private
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
       @customer = Customer.find(params[:id])
+    end
+
+    # Check is logged in customer matches
+    def correct_customer
+      redirect_to(root_url) unless current_user?(@customer)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

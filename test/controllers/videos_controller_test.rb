@@ -3,6 +3,7 @@ require 'test_helper'
 class VideosControllerTest < ActionDispatch::IntegrationTest
   setup do
     @video = videos(:one)
+    @producer = @video.content.show.producer.person
   end
 
   test "should get index" do
@@ -11,6 +12,7 @@ class VideosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
+    log_in_as @producer
     get new_video_url
     assert_response :success
   end
@@ -29,6 +31,7 @@ class VideosControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should get edit" do
+    log_in_as @producer
     get edit_video_url(@video)
     assert_response :success
   end
@@ -39,6 +42,7 @@ class VideosControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should destroy video" do
+    log_in_as @producer
     assert_difference('Video.count', -1) do
       delete video_url(@video)
     end

@@ -12,4 +12,8 @@ class Episode < ApplicationRecord
   def season_episode
     "Season #{season}, Ep. #{episode}"
   end
+  
+  def valid_producer?(producer)
+    show.valid_producer?(producer)
+  end
 end

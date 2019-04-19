@@ -31,6 +31,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
+    log_in_as(@customer.person)
     get edit_customer_url(@customer)
     assert_response :success
   end
@@ -43,6 +44,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy customer" do
+    log_in_as(@customer.person)
     assert_difference('Customer.count', -1) do
       delete customer_url(@customer)
     end

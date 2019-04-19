@@ -1,55 +1,54 @@
-<h3>Search Results</h3>  
-
-    <div class="container">
-    <br/>
-    <ul class="search_results">
-    <% if @results.blank? %>
-        <p>Sorry, no results match your search.</p>
-    <% end %>
-    <% @results.each do |result| %>  
-        <li>
-            <% if result.is_a?(Customer) %>
-                <p class="result_image">
-                    <% if result.person.avatar.attached? %>
-                      <%= image_tag(url_for(result.person.avatar), :alt => "Avatar", size: "100x100") %>
-                    <% else %>
-                      <%= image_tag("homepage/01.jpg", :alt => "Avatar", size: "100x100") %>
-                    <% end %>
-                </p>
-                <div class="result_description">
-                    <h3><%= result.person.full_name %></h3>
-                    <br/>
-                    <%= link_to 'View page', result %>
-                </div>
-            <% else %>
-        <p class="result_image">
-            <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 150px; width: 150px;") %>
-        </p>
-          
-        <div class="result_description">
-            <% if result.is_a?(Show) %>
-                <h3><%= result.name %></h3>
-        <p>
-          <%= result.description %>
-                <br/>
-                <%= link_to 'View page', result %>
-        </p>
-            <% end %>
-            <% if result.is_a?(Movie) %>
-                <h3><%= result.video.title %></h3>
-        <p>
-                <%= result.video.description %>
-                <br/>
-                <%= link_to 'View page', result %>
-        </p>
-    <% end %>
+<div class="container">
+  <div class="row justify-content-center">
+    <% unless params[:search].nil? %>
+    <div class="col-3" id="search-filters">
+      <div class="card card-default">
+        <h5 class="card-header">Search filters</h5>
+        <div class="card-body">
+          <p>todo.</p>
         </div>
-            <% end %>
-        </li>
-    <% end %>
-    </ul>
+      </div>
     </div>
-    
-
-
-
+    <% end %>
+    <div class="col-9" id="search-results">
+      <div class="card card-default">
+        <div class="card-body">
+          <h5>
+            <% unless params[:search].nil? %>
+              <%= "Search results for \"#{params[:search]}\"" %>
+            <% else %>
+              <%= "Search results for \"#{params[:fsearch]}\"" %>
+            <% end %>
+          </h5>
+          <hr>
+          <div class="row pt-2 m-0">
+            <% @results.each do |result| %>
+              <% if result.is_a?(Customer) %>
+                <div class="col-4 showcard p-0">
+                  <%= link_to result do %>
+                    <%= image_tag url_for(get_avatar result.person) %>
+                    <div class="shadow"></div>
+                    <div class="show-title">
+                      <h5><%= result.person.full_name %></h5>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="col-4 showcard p-0">
+                  <%= link_to result do %>
+                    <%= image_tag url_for(result.promo_image) if result.promo_image.attached? %>
+                    <div class="shadow"></div>
+                    <div class="show-title">
+                      <small><%= result.class.name %></small>
+                      <h5><%= result.title %></h5>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

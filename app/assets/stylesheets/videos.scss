@@ -2,8 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+    background-color: #272b30;
+}
+
 #video-player {
-    max-width: 640px;
+    max-width: 85%;
     text-align: left;
     margin: 0px auto;
     background: #222;
@@ -40,8 +44,8 @@
 }
 
 .video-playlist {
-    padding-right:0px;
-    .panel-body{
+    // padding-right:0px;
+    .card-body{
         padding: 0;
     }
     .media, .media-body{
@@ -51,4 +55,11 @@
 
 .review-buttons {
     margin-top: -2px;
+}
+
+.video-comment {
+    margin-bottom: 10px;
+    .media-left {
+        margin-right: 5px;
+    }
 }

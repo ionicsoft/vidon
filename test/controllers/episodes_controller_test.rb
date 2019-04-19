@@ -24,6 +24,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show episode" do
+    log_in_as(@episode.show.producer.person)
     get episode_url(@episode)
     assert_response :success
   end
@@ -39,6 +40,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy episode" do
+    log_in_as(@episode.show.producer.person)
     assert_difference('Episode.count', -1) do
       delete episode_url(@episode)
     end
