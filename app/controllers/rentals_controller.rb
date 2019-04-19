@@ -1,4 +1,7 @@
 class RentalsController < ApplicationController
+  #Authorization
+  before_action :logged_in_customer
+  
   def create
     @rental = Rental.new(rental_params)
     @rental[:customer_id] = current_person.user.id

@@ -21,4 +21,8 @@ class Movie < ApplicationRecord
   def description
     video.description
   end
+  
+  def valid_producer?(producer)
+    producer == self.producer
+  end
 end

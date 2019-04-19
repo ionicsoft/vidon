@@ -1,5 +1,9 @@
 class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy]
+  # Check authorization
+  before_action :logged_in_any, only: [:show]
+  before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
+  before_action :correct_producer, only: [:edit, :update, :destroy]
 
   # GET /episodes
   # GET /episodes.json
@@ -66,6 +70,11 @@ class EpisodesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_episode
       @episode = Episode.find(params[:id])
+    end
+    
+    # Check producer has permission to edit
+    def correct_producer
+      redirect_to root_url unless @episode.valid_producer? current_person.user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

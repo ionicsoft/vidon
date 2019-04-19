@@ -14,4 +14,9 @@ class Video < ApplicationRecord
   def movie?
     content_type == "Movie"
   end
+  
+  # Returns true if producer has edit permission
+  def valid_producer?(producer)
+    content.valid_producer?(producer)
+  end
 end

@@ -1,5 +1,7 @@
 class ProfileCommentsController < ApplicationController
   before_action :set_profile_comment, only: [:show, :edit, :update, :destroy]
+  # Authorization
+  before_action :logged_in_customer
 
   # GET /profile_comments
   # GET /profile_comments.json
