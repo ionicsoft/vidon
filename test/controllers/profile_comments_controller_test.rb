@@ -3,14 +3,17 @@ require 'test_helper'
 class ProfileCommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @profile_comment = profile_comments(:one)
+    @customer = Customer.first.person
   end
 
   test "should get index" do
+    log_in_as(@customer)
     get profile_comments_url
     assert_response :success
   end
 
   test "should get new" do
+    log_in_as(@customer)
     get new_profile_comment_url
     assert_response :success
   end
@@ -25,11 +28,13 @@ class ProfileCommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show profile_comment" do
+    log_in_as(@customer)
     get profile_comment_url(@profile_comment)
     assert_response :success
   end
 
   test "should get edit" do
+    log_in_as(@customer)
     get edit_profile_comment_url(@profile_comment)
     assert_response :success
   end
@@ -41,6 +46,7 @@ class ProfileCommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy profile_comment" do
+    log_in_as(@customer)
     assert_difference('ProfileComment.count', -1) do
       delete profile_comment_url(@profile_comment)
     end

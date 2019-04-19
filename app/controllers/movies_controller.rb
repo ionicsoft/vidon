@@ -3,6 +3,7 @@ class MoviesController < ApplicationController
   # Authorization
   before_action :logged_in_any, only: [:show]
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
+  before_action :correct_producer, only: [:edit, :update, :destroy]
 
   # GET /movies
   # GET /movies.json
@@ -23,10 +24,6 @@ class MoviesController < ApplicationController
 
   # GET /movies/1/edit
   def edit
-    if !@movie.producer.correct_producer(@current_person.user)
-      flash[:danger] = "Content does not belong to current producer."
-      redirect_to root_url
-    end
   end
 
   # POST /movies
@@ -73,6 +70,11 @@ class MoviesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params[:id])
+    end
+
+    # Verify movie belongs to current producer
+    def correct_producer
+      redirect_to root_url unless @movie.valid_producer? current_person.user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

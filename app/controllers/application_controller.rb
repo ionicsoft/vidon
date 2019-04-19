@@ -15,29 +15,29 @@ class ApplicationController < ActionController::Base
   
     # Check if customer is logged in, else redirect
     def logged_in_customer
-      unless logged_in? and current_person.customer?
+      if logged_in?
         if current_person.producer?
           flash[:danger] = "Content not available for producers."
           redirect_back fallback_location: root_url
-        else
-          store_location
-          flash[:danger] = "Please log in."
-          redirect_to login_url
-        end
+        end # Else customer is logged in and do nothing
+      else
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
       end
     end
     
     # Check if producer is logged in, else redirect
     def logged_in_producer
-      unless logged_in? and current_person.producer?
+      if logged_in?
         if current_person.customer?
           flash[:danger] = "Content not available for customers."
           redirect_back fallback_location: root_url
-        else
-          store_location
-          flash[:danger] = "Please log in."
-          redirect_to login_url
-        end
+        end # Else producer is logged in and do nothing
+      else
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to login_url
       end
     end
 end

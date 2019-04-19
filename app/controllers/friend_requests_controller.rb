@@ -2,6 +2,7 @@ class FriendRequestsController < ApplicationController
   before_action :set_request, only: [:destroy, :update]
   # Authorization
   before_action :logged_in_customer
+  before_action :correct_customer, only: [:update, :destroy]
   
   def create
     @request = FriendRequest.new(request_params)
@@ -27,10 +28,17 @@ class FriendRequestsController < ApplicationController
   end
   
   private
+    # Load friend request from database
     def set_request
       @request = FriendRequest.find(params[:id])
     end
     
+    # Verify friend request belongs to current customer
+    def correct_customer
+      @request.requester == current_person.user or @request.customer == current_person.user
+    end
+    
+    # Don't trust parameters from the internet
     def request_params
       params.require(:friend_request).permit(:customer_id, :requester_id)
     end

@@ -6,6 +6,7 @@ one:
   first_name: Robert
   last_name: Jones
   user: one (Customer)
+  password_digest: <%= Person.digest('password') %>
 
 two:
   username: rick
@@ -13,6 +14,7 @@ two:
   first_name: Richard
   last_name: Anderson
   user: two (Customer)
+  password_digest: <%= Person.digest('password') %>
 
 three:
   username: joe
@@ -20,6 +22,7 @@ three:
   first_name: Joe
   last_name: Anderson
   user: three (Customer)
+  password_digest: <%= Person.digest('password') %>
 
 four:
   username: ann
@@ -27,6 +30,7 @@ four:
   first_name: Ann
   last_name: Anderson
   user: four (Customer)
+  password_digest: <%= Person.digest('password') %>
 
 five:
   username: laura
@@ -34,6 +38,7 @@ five:
   first_name: Laura
   last_name: Likesdogs
   user: one (Producer)
+  password_digest: <%= Person.digest('password') %>
 
 six:
   username: dawn
@@ -41,3 +46,4 @@ six:
   first_name: Dawn
   last_name: Anderson
   user: two (Producer)
+  password_digest: <%= Person.digest('password') %>
