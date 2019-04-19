@@ -21,6 +21,6 @@
     </div>
   <% end %>
   <div class="col-sm-12 text-center">
-    <%= link_to "Find new movies!", movies_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to "Find new movies!", browse_path(params: {movies: true}), class: "btn btn-primary btn-lg" %>
   </div>
 </div>

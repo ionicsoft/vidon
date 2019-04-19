@@ -17,7 +17,7 @@
       <div class="card card-default mb-3">
         <div class="card-body">
           <div class="video-title">
-            <h3>
+            <h3 class="text-body">
               <%= @video.title %>
               <%= if @video.episode? then content_tag :small, @video.content.season_episode end %>
             <div class="review-buttons pull-right">
@@ -35,7 +35,7 @@
       </div>
       <div class="card card-default">
         <div class="card-body">
-          <h4>Comments</h4>
+          <h4 class="text-body">Comments</h4>
           <% if @video.video_comments.any? %>
             <% @video.video_comments.each do |comment| %>
               <%= render comment %>
@@ -58,7 +58,7 @@
               <%= link_to episode.video do %>
                 <%= content_tag :div, class: "media", style: (if episode.id == @video.content_id then "background-color: #ddd" end) do %>
                   <div class="media-body">
-                    <h4 class="media-heading"><%= episode.video.title %></h4>
+                    <h4 class="media-heading text-body"><%= episode.video.title %></h4>
                     <small><%= episode.season_episode %></small>
                     <p><%= episode.video.description %></p>
                   </div>
