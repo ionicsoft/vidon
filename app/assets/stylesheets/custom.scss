@@ -1,12 +1,73 @@
-@import "bootstrap-sprockets";
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+
+$theme-colors: (
+  "primary": #0074d9,
+  "danger": #ff4136,
+  "navbar-col": #D3F3DE,
+  "background": #272b30
+);
+
 @import "bootstrap";
+@import "font-awesome";
+
+// Force vertical scrollbar to always be visible so page doesn't
+// shift when navagating to long pages
+html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}
 
 body { 
   padding-top: 70px;
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: white;
+  background-color: theme-color(background);
 }
 
+hr {
+  margin-top: 21px;
+  margin-bottom: 21px;
+  border: 0;
+  border-top: 1px solid #464545;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: inherit;
+  font-weight: 400;
+  line-height: 1.1;
+  color: white;
+}
+
+.small, p, b {
+  color: white;
+}
+
+.col-sm-12 {
+  width: 100%;
+}
+
+.form.field {
+  color: black;
+  margin-left: 1rem;
+}
+
+#card-text {
+  color: black;
+}
+//end "theme"
+
 .navbar {
-  background-color: #D3F3DE;
+  background-color: theme-color(navbar-col);
+  width: 100%;
+  
+  form {
+    #search, #search-btn {
+      font-size: 13px;
+    }
+  }
 }
 
 .navbar-header {
@@ -28,17 +89,17 @@ body {
 }
 
 .navbar-brand {
-  font-family: "Lucida Console", Monaco, monospace;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   
   img {
-    margin-top: -9px;
+    margin-top: -6px;
     display: inline-block;
     vertical-align: top;
   }
 }
 
 .nav-text {
-  font-family: "Lucida Console", Monaco, monospace;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #company {
@@ -49,16 +110,16 @@ body {
 }
 
 #footer {
-  padding-top: 5px;
   margin-top: 65px;
   border-top: 1px solid #eee;
+  width: 100%;
   
   a {
-    color: black;
+    color: white;
   }
   
   a:hover, a:active {
-    color: white;
+    color: #EBE8E7;
   }
   
   small {

@@ -2,17 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.checkbox {
-  span {
-    font-weight: normal;
-    margin-left: 20px;
-  }
-  input {
-    margin-left: 0 !important;
-  }
-}
 .login-img {
   width: 100%;
-  height: auto;
+  display: inline;
   border-radius: 5px;
 }

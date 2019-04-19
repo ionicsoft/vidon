@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
-
 <div class="container">
+  <p id="notice"><%= notice %></p>
 <div>
-  <h1 class="show_title">
+  <h1 class="show_title" style="color:black;">
     <%= @show.name %>
     <% if @show.promo_image.attached? %>
         <%= image_tag(url_for(@show.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
@@ -31,13 +30,13 @@
       <br />
     </p>
     <% end %>
-    <p>
+    <p id="sm-text">
       <strong>Description:</strong>
       <%= @show.description %>
     </p>
     
     <% unless @show.producer.nil? %>
-    <p>
+    <p id="sm-text">
       <strong>Producer:</strong>
       <%= @show.producer.company_name %>
     </p>
@@ -45,11 +44,11 @@
     
     <% if current_person.customer? %>
       <p>
-        <%= link_to 'Return to shows', shows_path %>
+        <%= link_to 'Return to shows', shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
       </p>
     <% else %>
       <p>
-        <%= link_to 'Return', pro_shows_path %>
+        <%= link_to 'Return', pro_shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
       </p>
     <% end %>
     
@@ -57,7 +56,7 @@
 </div>  
 
 <div class="episodes_list">
-  <h3>Episodes</h3>
+  <h3 id="sm-text">Episodes</h3>
   <ul>
     <% @show.episodes.each do |episode| %>
     <li>
@@ -70,14 +69,14 @@
       </p>
     
       <div class="episodes_description">
-        <h3><%= episode.episode %> <%= episode.video.title %></h3>
-        <p>
+        <h3 id="sm-text"><%= episode.episode %> <%= episode.video.title %></h3>
+        <p id="sm-text">
           <%= episode.video.description %>
           <br/>
           <% if current_person.customer? %>
-            <%= link_to 'Watch', episode.video %>
+            <%= link_to 'Watch', episode.video, class: "btn btn-primary btn-large" %>
           <% elsif current_person.user == @show.producer %>
-            <%= link_to 'Delete', episode, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'Delete Episode', episode, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
           <% end %>
           
         </p>
@@ -86,9 +85,9 @@
     </li>
     <% end %>
     <% if current_person.producer? and current_person.user == @show.producer %>
-      <%= link_to 'Add Episode', new_episode_path(show_id: @show.id) %>
-      <%= link_to 'Edit Show', edit_show_path %>
-      <%= link_to 'Delete Show', @show, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Add Episode', new_episode_path(show_id: @show.id), class: "btn btn-primary btn-large" %>
+      <%= link_to 'Edit Show', edit_show_path, class: "btn btn-primary btn-large" %>
+      <%= link_to 'Delete Show', @show, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
   </ul>
 </div>

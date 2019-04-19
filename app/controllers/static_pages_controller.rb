@@ -20,7 +20,7 @@ class StaticPagesController < ApplicationController
     elsif !params[:fsearch].blank?
       friend_search
     else
-      redirect_to(shows_path)
+      redirect_to(browse_path)
     end
   end
   

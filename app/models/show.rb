@@ -13,4 +13,9 @@ class Show < ApplicationRecord
   def valid_producer?(producer)
     producer == self.producer
   end
+  
+  # Polymorphism
+  def title
+    name
+  end
 end
