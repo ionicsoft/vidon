@@ -31,7 +31,18 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   test "should get customer signup" do
     get root_url
     click_on 'Sign up today'
-    assert_response :success
+    assert_redirected_to new_customer_url
   end
-
+  
+  test "should get producer signup" do
+    visit root_url
+    click_on 'Producer? Sign up today'
+    assert_redirected_to new_producer_url
+  end
+  
+  test "should return home" do
+    visit root_url
+    click_on 'Vidon'
+    assert_redirected_to root_url
+  end
 end

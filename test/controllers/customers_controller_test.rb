@@ -51,4 +51,50 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to customers_url
   end
+  
+  test "should get browse" do
+    log_in_as(@customer.person)
+    click_on 'Browse'
+    assert_response :success
+  end
+  
+  test "should get shows" do
+    log_in_as(@customer.person)
+    click_on 'My Shows'
+    assert_redirected_to shows_url
+  end
+  
+  test "should get rentals" do
+    log_in_as(@customer.person)
+    click_on 'My Rentals'
+    assert_redirected_to my_rentals_url
+  end
+  
+  test "should get friends" do
+    log_in_as(@customer.person)
+    click_on @customer.username
+    click_on 'Friends'
+    assert_redirected_to friends_url
+  end
+  
+  test "should get profile" do
+    log_in_as(@customer.person)
+    click_on @customer.username
+    click_on 'Profile'
+    assert_redirected_to customer_url(@customer)
+  end
+  
+  test "should get settings" do
+    log_in_as(@customer.person)
+    click_on @customer.username
+    click_on 'Settings'
+    assert_redirected_to edit_customer_url(@customer)
+  end
+  
+  test "should log out" do
+    log_in_as(@customer.person)
+    click_on @customer.username
+    click_on 'Log Out'
+    assert_redirected_to root_url
+  end
 end

@@ -60,4 +60,31 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to producers_url
   end
+  
+  test "should get shows" do
+    log_in_as(@producer.person)
+    click_on 'My Shows'
+    assert_redirected_to pro_show_path
+  end
+  
+  test "should get profile" do
+    log_in_as(@producer.person)
+    click_on @producer.company_name
+    click_on 'Profile'
+    assert_redirected_to producer_url(@producer)
+  end
+  
+  test "should get settings" do
+    log_in_as(@producer.person)
+    click_on @producer.company_name
+    click_on 'Settings'
+    assert_redirected_to edit_producer_url(@producer)
+  end
+  
+  test "should log out" do
+    log_in_as(@producer.person)
+    click_on @producer.company_name
+    click_on 'Log out'
+    assert_redirected_to root_url
+  end
 end
