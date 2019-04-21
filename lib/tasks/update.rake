@@ -6,6 +6,8 @@ namespace :update do
     Customer.where(renewal_date: Date.current).find_each do |customer|
       customer.subscriptions.where(cancel: true).destroy_all
       customer.renewal_date += 30.days
+      @temp = Invoice.all.where(payment_id: customer.payment.id)
+      @temp.destroy_all
       Invoice.create(:payment_id => customer.payment.id, :amount => 1000, :description => "Subscription Renewal")
       customer.save
     end
