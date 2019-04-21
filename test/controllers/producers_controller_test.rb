@@ -3,6 +3,9 @@ require 'test_helper'
 class ProducersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @producer = producers(:one)
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
+    end
   end
 
   test "should get index" do

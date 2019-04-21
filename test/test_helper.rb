@@ -5,6 +5,7 @@ require "minitest/reporters"
 Minitest::Reporters.use!
 require 'capybara/rails'
 require 'capybara/minitest'
+require 'capybara/rspec'
 
 
 class ActiveSupport::TestCase

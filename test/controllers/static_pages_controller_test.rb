@@ -25,7 +25,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   test "should get login" do
     get root_url
     click_on 'Login'
-    assert_response :success
+    assert_redirected_to login_url
   end
   
   test "should get customer signup" do

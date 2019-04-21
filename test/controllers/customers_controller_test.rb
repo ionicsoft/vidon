@@ -3,6 +3,9 @@ require 'test_helper'
 class CustomersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @customer = customers(:one)
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
+    end
   end
 
   test "should get index" do
@@ -72,28 +75,28 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   
   test "should get friends" do
     log_in_as(@customer.person)
-    click_on @customer.username
+    click_on @customer.person.username
     click_on 'Friends'
     assert_redirected_to friends_url
   end
   
   test "should get profile" do
     log_in_as(@customer.person)
-    click_on @customer.username
+    click_on @customer.person.username
     click_on 'Profile'
     assert_redirected_to customer_url(@customer)
   end
   
   test "should get settings" do
     log_in_as(@customer.person)
-    click_on @customer.username
+    click_on @customer.person.username
     click_on 'Settings'
     assert_redirected_to edit_customer_url(@customer)
   end
   
   test "should log out" do
     log_in_as(@customer.person)
-    click_on @customer.username
+    click_on @customer.person.username
     click_on 'Log Out'
     assert_redirected_to root_url
   end

@@ -25,6 +25,7 @@ group :development do
   gem 'listen',                '>= 3.1.5', '< 3.2'
   gem 'spring',                '>= 2.0.2'
   gem 'spring-watcher-listen', '~> 2.0.1'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :test do
@@ -36,6 +37,7 @@ group :test do
   gem 'guard-minitest',           '>= 2.4.6'
   gem 'selenium-webdriver'
   gem 'geckodriver-helper', '~> 0.0.3'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :production do

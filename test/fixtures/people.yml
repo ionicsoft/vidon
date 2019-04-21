@@ -7,7 +7,6 @@ one:
   last_name: Jones
   user: one (Customer)
   password_digest: <%= Person.digest('password') %>
-  avatar: default_profile.jpg
 
 two:
   username: rick
