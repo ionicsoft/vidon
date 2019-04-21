@@ -18,34 +18,43 @@ class Customer < ApplicationRecord
   accepts_nested_attributes_for :person, allow_destroy: true
   accepts_nested_attributes_for :payment, allow_destroy: true
 
+  # Set default attributes for a customer when created
   def defaults_set
     self.slots ||= 10
     self.renewal_date ||= 30.days.from_now
   end
   
+  # Looks for customers based on their username
   def self.search(search)  
    where("lower(people.username) LIKE :search", search: "%#{search.downcase}%").uniq
   end
   
+  # Returns true if the customer can be added to the customer's friend list
   def can_friend?(customer)
     self != customer && !has_friend?(customer) and customer.friend_requests.find_by(requester_id: self.id).nil?
   end
   
+  # Returns true if the friend is already in the customers friend list
   def has_friend?(friend)
     friends.include?(friend)
   end
   
+  # Removes the specified friend (Customer) from their friends list
   def remove_friend(friend)
     friends.destroy(friend)
   end
+  
+  # Returns true if the customer has open slots for subscription
   def open_slots?
     subscriptions.count < slots
   end
   
+  # Returns true if the customer is already subscribed to the show
   def has_subscription?(show)
     !(subscriptions.find_by show_id: show.id).nil?
   end
   
+  # Returns true if the customer is able to subscribe to the show
   def can_subscribe?(show)
     open_slots? && !has_subscription?(show)
   end

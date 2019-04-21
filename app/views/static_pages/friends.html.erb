@@ -1,56 +1,63 @@
-<div id="friend_header">
-    <h1>Friends</h1>
-</div>
-
-<div id="person_search">
-    <%= form_tag(search_page_path, :method => "get", class: 'navbar-form navbar-right') do %>  
-  		<div class="input-group">
-        <%= search_field_tag :fsearch, params[:fsearch], placeholder: "Username", class: "form-control" %>  
-        	<div class="input-group-btn">
-                <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
-        	</div>
-  		</div>
-    <% end %>
-</div>
-
-<div id="pend_req">
-    <h1>Pending Friend Requests</h1>
-    <% @requests.each do |frequest| %>
-        <% requester = frequest.requester %>
-        <div class="result_image">
-            <% if requester.person.avatar.attached? %>
-                <%= image_tag(url_for(requester.person.avatar), :alt => "Avatar", size: "100x100") %>
-            <% else %>
-                <%= image_tag("homepage/01.jpg", :alt => "Avatar", size: "100x100") %>
-            <% end %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-7 pr-0" id="friends-main">
+      <div class="card card-default">
+        <div class="card-body">
+          <h3 id="card-text">Your friends</h3>
+          <hr>
+          <% @friends.each do |friend| %>
+            <div class="media mb-2">
+              <%= link_to friend do %>
+                <%= image_tag(get_avatar(friend.person), :alt => "Avatar",
+                  size: "70x70", class: "mr-3 avatar-img") %>
+                <div class="media-body">
+                  <%= content_tag :h4, friend.person.full_name, class: "mt-0 text-body" %>
+                  <%= link_to "Remove", "#{friends_path}/#{friend.id}",
+                    method: :delete, class: "btn btn-warning btn-sm pull-right" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+          <% if @friends.none? %>
+              <p>No friends yet.</p>
+          <% end %>
         </div>
-        <div class="result_description">
-            <h3><%= link_to requester.person.full_name, requester %></h3>
-            <br/>
+      </div>
+    </div>
+    <div class="col-5">
+      <div id="psearch">
+        <%= form_tag(search_page_path, :method => "get", class: 'navbar-form') do %>  
+          <div class="input-group">
+          <%= search_field_tag :fsearch, params[:fsearch], placeholder: "Search for friends", class: "form-control" %>  
+          	<div class="input-group-btn">
+              <%= button_tag fa_icon("search"), class: "btn btn-info", name: nil %>  
+          	</div>
+        		</div>
+        <% end %>
+      </div>
+      <div class="card card-default mt-3">
+        <div class="card-body">
+          <h3 id="card-text">Friend Requests</h3>
+          <hr>
+          <% @requests.each do |frequest| %>
+            <div class="media mb-2">
+              <% requester = frequest.requester %>
+              <%= image_tag(get_avatar(requester.person), :alt => "Avatar",
+                size: "70x70", class: "mr-3 avatar-img") %>
+              <div class="media-body">
+                <%= link_to (content_tag :h4, requester.person.full_name, class: "mt-0 text-body"), requester %>
+                <%= form_with(model: frequest) do |form| %>
+                  <%= form.submit "Accept", class: "btn btn-info btn-sm" %>
+                  <%= link_to "Decline", "#{friend_requests_path}/#{frequest.id}", method: :delete, class: "btn btn-warning btn-sm" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <% if @requests.none? %>
+            <p>No pending friend requests.</p>
+          <% end %>
         </div>
-        <div class="friend_buttons">
-            <%= form_with(model: frequest) do |form| %>
-              <%= form.submit "Add Friend", class: "btn btn-info" %>
-            <% end %>
-            <%= link_to "Delete friend", "#{friend_requests_path}/#{frequest.id}", method: :delete, class: "btn btn-warning" %>
-        </div>
-    <% end %>
-</div>
-
-<div id="friend_list">
-    <h1>Friends List</h1>
-    <% @friends.each do |friend| %>
-        <div class="result_image">
-            <% if friend.person.avatar.attached? %>
-                <%= image_tag(url_for(friend.person.avatar), :alt => "Avatar", size: "100x100") %>
-            <% else %>
-                <%= image_tag("homepage/01.jpg", :alt => "Avatar", size: "100x100") %>
-            <% end %>
-        </div>
-        <div class="result_description">
-            <h3><%= link_to friend.person.full_name, friend %></h3>
-            <br/>
-            <%= link_to "Delete friend", "#{friends_path}/#{friend.id}", method: :delete, class: "btn btn-warning" %>
-        </div>
-    <% end %>
+      </div>
+    </div>
+  </div>
 </div>

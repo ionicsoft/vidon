@@ -6,6 +6,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
+    log_in_as(@person)
     get people_url
     assert_response :success
   end
@@ -24,11 +25,13 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should show person" do
+    log_in_as(@person)
     get person_url(@person)
     assert_response :success
   end
 
   test "should get edit" do
+    log_in_as(@person)
     # get edit_person_url(@person)
     # assert_response :success
   end
@@ -39,6 +42,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should destroy person" do
+    log_in_as(@person)
     assert_difference('Person.count', -1) do
       delete person_url(@person)
     end
