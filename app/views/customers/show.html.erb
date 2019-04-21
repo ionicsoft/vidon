@@ -13,6 +13,7 @@
       </div>
       <div id="customer-nav-text">
         <small>Subscriber since <%= @customer.created_at.strftime "%B %Y" %></small>
+        <%= link_to "Click here to view invoice", invoice_path %>
       </div>
     </div>
   </div>
