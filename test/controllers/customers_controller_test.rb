@@ -3,6 +3,13 @@ require 'test_helper'
 class CustomersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @customer = customers(:one)
+    @customer2 = customers(:two)
+    @show = shows(:one)
+    @show2 = shows(:two)
+    @movie = movies(:one)
+    @movie2 = movies(:two)
+    @comment = profile_comments(:one)
+    @fav = favorites(:one)
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
@@ -91,7 +98,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@customer.person)
     click_on @customer.person.username
     click_on 'Settings'
-    assert_redirected_to edit_customer_url(@customer)
+    assert_redirected_to edit_customer_path(@customer)
   end
   
   test "should log out" do
@@ -99,5 +106,174 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on @customer.person.username
     click_on 'Log Out'
     assert_redirected_to root_url
+  end
+  
+  test "should get subscription" do
+    log_in_as(@customer.person)
+    click_on 'My Shows'
+    click_on 'Episodes'
+    assert_redirected_to show_url(@show)
+  end
+  
+  test "should get recommendation" do
+    log_in_as(@customer.person)
+  end
+  
+  test "should get recently updated" do
+    log_in_as(@customer.person)
+  end
+  
+  test "should get show from browse" do
+    log_in_as(@customer.person)
+    click_on 'Browse'
+    click_on @show.name
+    assert_redirected_to show_url(@show)
+  end
+  
+  test "should get movie from browse" do
+    log_in_as(@customer.person)
+    click_on 'Browse'
+    click_on 'Movies'
+    click_on @movie.video.title
+    assert_redirected_to movie_url(@movie)
+  end
+  
+  test "should get movie tab" do
+    log_in_as(@customer.person)
+    click_on 'Browse'
+    click_on 'Movies'
+    assert_response :success
+  end
+  
+  test "should cancel subscription" do
+    log_in_as(@customer.person)
+    click_on 'My Shows'
+    click_on 'Cancel'
+    find 'Renew'
+  end
+  
+  test "should get browse from my shows" do
+    log_in_as(@customer.person)
+    click_on 'Find new shows!'
+    assert_redirected_to browse_url
+  end
+  
+  test "should get browse from rentals" do
+    log_in_as(@customer.person)
+    click_on 'My Rentals'
+    click_on 'Find new movies!'
+    assert_redirected_to browse_url
+  end
+  
+  test "should play subscription" do
+    log_in_as(@customer.person)
+    click_on 'Episodes'
+    click_on 'Play'
+    assert_redirected_to show_video_url(@show.video)
+  end
+  
+  test "should play rental" do
+    log_in_as(@customer.person)
+    click_on 'My Rentals'
+    click_on 'Play'
+    assert_redirected_to video_url(@movie.video)
+  end
+  
+  test "should see friends" do
+    log_in_as(@customer.person)
+    click_on @customer.person.username
+    click_on 'Friends'
+    click_on @customer2.person.username
+    assert_redirected_to customer_url(@customer2)
+  end
+  
+  test "should search for people" do
+    log_in_as(@customer.person)
+    click_on @customer.person.username
+    click_on 'Friends'
+    click_on 'Search'
+  end
+  
+  test "should get show from rating" do
+    
+  end
+  
+  test "should get customer from comment" do
+    log_in_as(@customer.person)
+    click_on @customer.person.username
+    click_on 'Profile'
+    click_on @comment.commentor.person.username
+    assert_redirected_to customer_url(@customer2)
+  end
+  
+  test "should get show from favorites" do
+    log_in_as(@customer.person)
+    click_on @customer.person.username
+    click_on 'Profile'
+    click_on @fav.content.name
+    assert_redirected_to show_url(@show)
+  end
+  
+  test "should subscribe when click subscribe" do
+    log_in_as(@customer.person)
+    click_on 'Browse'
+    click_on @show2.name
+    assert_difference("Subscription.count") do
+      click_on 'Subscribe'
+    end
+  end
+  
+  test "should watch episode from subscription" do
+    log_in_as(@customer.person)
+    click_on 'Episodes'
+    click_on 'Watch'
+    assert_redirected_to video_url(@show.video)
+  end
+  
+  test "should rent movie" do
+    log_in_as(@customer.person)
+    click_on 'Browse'
+    click_on 'Movies'
+    click_on @movie.video.title
+    assert_difference("Rental.count") do
+      click_on 'Rent'
+    end
+  end
+  
+  test "should watch movie from page" do
+    log_in_as(@customer.person)
+    click_on 'Browse'
+    click_on 'Movies'
+    click_on @movie.video.title
+    click_on 'Watch'
+    assert_redirected_to video_url(@movie.video)
+  end
+  
+  test "should search for show" do
+  end
+  
+  test "should favorite movie" do
+    log_in_as(@customer.person)
+    click_on 'Browse'
+    click_on 'Movies'
+    click_on @movie2.video.title
+    assert_difference("Favorite.count") do
+      click_on 'Favorite'
+    end
+  end
+  
+  test "should post movie comment" do
+  end
+  
+  test "should favorite episode" do
+    log_in_as(@customer.person)
+    click_on 'Episodes'
+    click_on 'Watch'
+    assert_difference("Favorite.count") do
+      click_on 'Favorite'
+    end
+  end
+  
+  test "should post episode comment" do
   end
 end

@@ -22,14 +22,39 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
   
+  test "should get browse" do
+    get browse_url
+    assert_response :success
+  end
+  
+  test "should get friends" do
+    get friends_url
+    assert_response :success
+  end
+  
+  test "should get my rentals" do
+    get my_rentals_url
+    assert_response :success
+  end
+  
+  test "should get search" do
+    get search_url
+    assert_response :success
+  end
+  
+  test "should get shows" do
+    get shows_url
+    assert_response :success
+  end
+  
   test "should get login" do
-    get root_url
+    visit root_url
     click_on 'Login'
     assert_redirected_to login_url
   end
   
   test "should get customer signup" do
-    get root_url
+    visit root_url
     click_on 'Sign up today'
     assert_redirected_to new_customer_url
   end

@@ -3,6 +3,7 @@ require 'test_helper'
 class ProducersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @producer = producers(:one)
+    @show = shows(:one)
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
@@ -81,7 +82,7 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@producer.person)
     click_on @producer.company_name
     click_on 'Settings'
-    assert_redirected_to edit_producer_url(@producer)
+    assert_redirected_to edit_producer_path(@producer)
   end
   
   test "should log out" do
@@ -89,5 +90,52 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
     click_on @producer.company_name
     click_on 'Log out'
     assert_redirected_to root_url
+  end
+  
+  test "should get show content page" do
+    log_in_as(@producer.person)
+    click_on 'View Show'
+    assert_redirected_to show_url(@show)
+  end
+  
+  test "should get movie content page" do
+    log_in_as(@producer.person)
+    click_on 'View Movie'
+    assert_redirected_to movie_url
+  end
+  
+  test "should get add show form" do
+    log_in_as(@producer.person)
+    click_on 'Add New Show'
+    assert_redirected_to new_show_url
+  end
+  
+  test "should get add movie form" do
+    log_in_as(@producer.person)
+    click_on 'Add New Movie'
+    assert_redirected_to new_movie_url
+  end
+  
+  test "should get add episode form" do
+    log_in_as(@producer.person)
+    click_on 'View Show'
+    click_on 'Add Episode'
+    assert_redirected_to new_episode_url
+  end
+  
+  test "should get show from profile" do
+    log_in_as(@producer.person)
+    click_on @producer.company_name
+    click_on 'Profile'
+    click_on 'Show'
+    assert_redirected_to show_show_url
+  end
+  
+  test "should get movie from profile" do
+    log_in_as(@producer.person)
+    click_on @producer.company_name
+    click_on 'Profile'
+    click_on 'Movie'
+    assert_redirected_to show_movie_url
   end
 end
