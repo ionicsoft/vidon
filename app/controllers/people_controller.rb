@@ -1,5 +1,8 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
+  # Authorization
+  before_action :logged_in_any
+  before_action :correct_person, only: [:edit, :update, :destroy]
 
   # GET /people
   # GET /people.json
@@ -66,6 +69,11 @@ class PeopleController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])
+    end
+    
+    # Verify current user has permission to edit
+    def correct_person
+      redirect_to root_url unless current_person == @person
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,5 +1,5 @@
-<div class="media profile-comment">
-  <div class="media-left">
+<div class="media profile-comment mb-2">
+  <div class="media-left pr-2">
     <% if profile_comment.customer.person.avatar.attached? %>
       <%= image_tag(url_for(profile_comment.customer.person.avatar), :alt => "Avatar", size: "58x58") %>
     <% else %>

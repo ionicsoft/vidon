@@ -3,14 +3,17 @@ require 'test_helper'
 class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @subscription = subscriptions(:one)
+    @customer = Customer.first.person
   end
 
   test "should get index" do
+    log_in_as @customer
     get subscriptions_url
     assert_response :success
   end
 
   test "should get new" do
+    log_in_as @customer
     get new_subscription_url
     assert_response :success
   end
@@ -24,11 +27,13 @@ class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should show subscription" do
+    log_in_as @customer
     get subscription_url(@subscription)
     assert_response :success
   end
 
   test "should get edit" do
+    log_in_as @customer
     get edit_subscription_url(@subscription)
     assert_response :success
   end
@@ -39,6 +44,7 @@ class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should destroy subscription" do
+    log_in_as @customer
     assert_difference('Subscription.count', -1) do
       delete subscription_url(@subscription)
     end

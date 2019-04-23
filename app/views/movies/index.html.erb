@@ -15,12 +15,12 @@
     </p>
     
     <div class="movie_description">
-      <h3><%= movie.video.title %></h3>
-      <p>
+      <h3 id="sm-text"><%= movie.video.title %></h3>
+      <p id="sm-text">
         <%= movie.video.description %>
         <br/>
-        <%= link_to 'Check Out', movie %>
-        <%= if movie.producer == current_person.user then link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } end %>
+        <%= link_to 'Check Out', movie, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+        <%= if movie.producer == current_person.user then link_to 'Destroy', movie, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } end %>
       </p>
     </div>
   </li>

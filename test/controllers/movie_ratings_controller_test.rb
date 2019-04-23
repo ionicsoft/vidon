@@ -3,14 +3,17 @@ require 'test_helper'
 class MovieRatingsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @movie_rating = movie_ratings(:one)
+    @customer = Customer.first.person
   end
 
   test "should get index" do
+    log_in_as(@customer)
     get movie_ratings_url
     assert_response :success
   end
 
   test "should get new" do
+    log_in_as(@customer)
     get new_movie_rating_url
     assert_response :success
   end
@@ -24,21 +27,25 @@ class MovieRatingsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should show movie_rating" do
+    log_in_as(@customer)
     get movie_rating_url(@movie_rating)
     assert_response :success
   end
 
   test "should get edit" do
+    log_in_as(@customer)
     get edit_movie_rating_url(@movie_rating)
     assert_response :success
   end
 
   test "should update movie_rating" do
+    log_in_as(@customer)
     patch movie_rating_url(@movie_rating), params: { movie_rating: { movie_id: @movie_rating.movie_id, rating: @movie_rating.rating, customer_id: @movie_rating.customer_id } }
     assert_redirected_to movie_rating_url(@movie_rating)
   end
 
   test "should destroy movie_rating" do
+    log_in_as(@customer)
     assert_difference('MovieRating.count', -1) do
       delete movie_rating_url(@movie_rating)
     end

@@ -1,4 +1,12 @@
 <div class="container">
-  <h1 class="text-center">Sign up</h1>
-  <%= render 'form', producer: @producer %>
+  <div class="row justify-content-center">
+    <div class="col-5">
+      <div class="card card-default">
+        <h1 id="card-text" class="card-header">Sign up</h1>
+        <div class="card-body">
+          <%= render 'form', producer: @producer %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

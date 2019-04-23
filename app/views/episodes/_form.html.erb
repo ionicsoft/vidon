@@ -12,50 +12,45 @@
   <% end %>
 
   <%= form.fields_for :video, episode.video do |video_fields| %>
-    <div class="panel panel-default">
-      <div class="panel-heading"><h3>Episode information:</h3></div>
-      <div class="panel-body">
-        <div class="field">
+      <h3>Episode information:</h3>
+        <div class="form-group">
           <%= form.label :season %>
           <%= form.number_field :season, id: :episode_season %>
           <%= form.hidden_field :show_id, value: @show.id %>
         </div>
         
-        <div class="field">
+        <div class="form-group">
           <%= form.label :episode %>
-          <%= form.number_field :episode, id: :episode_episode %>
+          <%= form.number_field :episode, id: :episode_episode, class: "form-control" %>
         </div>
         
-        <div class="field">
+        <div class="form-group">
           <%= video_fields.label :thumbnail %>
           <%= video_fields.file_field :thumbnail, id: :video_thumbnail,
             accept: "image/png,image/gif,image/jpeg", direct_upload: true,
             class: "direct-upload" %>
         </div>
         
-        <div class="field">
+        <div class="form-group">
           <%= form.label :absolute_episode %>
-          <%= form.number_field :absolute_episode, id: :episode_absolute_episode %>
+          <%= form.number_field :absolute_episode, id: :episode_absolute_episode, class: "form-control" %>
         </div>
         
-        <div class="field">
+        <div class="form-group">
           <%= video_fields.label :clip %>
           <%= video_fields.file_field :clip, id: :video_clip, direct_upload: true,
           class: "direct-upload", accept: "video/mp4" %>
         </div>
         
-        <div class="field">
+        <div class="form-group">
           <%= video_fields.label :title %>
-          <%= video_fields.text_field :title, id: :video_title %>
+          <%= video_fields.text_field :title, id: :video_title, class: "form-control" %>
         </div>
 
-        <div class="field">
+        <div class="form-group">
           <%= video_fields.label :description %>
-          <%= video_fields.text_field :description, id: :video_description %>
+          <%= video_fields.text_field :description, id: :video_description, class: "form-control" %>
         </div>
-        
-      </div>
-    </div>
   <% end %>
 
   <div class="actions">

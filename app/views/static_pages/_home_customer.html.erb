@@ -1,47 +1,67 @@
-<div class="container">
-<% if current_person.user_type == "Customer" %>
-<div class="row" id="showbox">
-  <% if current_person.user.subscriptions.count > 0 %>
-    <h1>Your latest shows!</h1>
-    <% current_person.user.subscriptions[0..4].each do |sub| %>
-      <div class="row well vcenter" style="padding: 15px">
-        <div class="col-sm-3 text-center">
-          <h3><%= sub.show.name %></h3>
-        </div>
-        <div class="col-sm-6">
-          <% ep = sub.show.episodes[sub.current_episode] %>
-          <b><%= ep.video.title %></b>
-          <p><%= ep.video.description[0..100] %></p>
-        </div>
-        <div class="col-sm-3 text-center ">
-          <%= link_to "Watch S#{ep.season}E#{ep.episode}", ep.video, class: "btn btn-primary" %>
-        </div>
-      </div>
-    <% end %>
-  <% else %>
-    <h1>You have no subscriptions!</h1>
-    <p><%= link_to "Browse new shows!", browse_path, class: "btn btn-primary" %></p>
-  <% end %>
-</div>
-<div class="row">
-  <h1>Your recommendations!</h1>
-  <% Show.all.each do |show| %>
-    <div class="row well vcenter" style="padding: 15px">
-      <div class="col-sm-3 text-center">
-        <h3><%= show.name %></h3>
-      </div>
-      <div class="col-sm-6">
-        <p><%= show.description %></p>
-      </div>
-      <div class="col-sm-3 text-center">
-        <%= link_to "Check it out!", show, class: "btn btn-info" %>
+<div class="container" id="customer-home">
+  <div class="row">
+    <div class="col">
+      <% @show = Show.first %>
+      <div class="jumbotron" style="background-image: url('<%= url_for @show.promo_image %>')">
+        <h2 class="display-4"><%= @show.name %></h2>
+        <h5>Season 1, Ep. 2</h5>
+        <%= link_to "Play Next", @show.episodes.first.video, class: "btn btn-primary" %>
       </div>
     </div>
-  <% end %>
-</div>
-<% else %>
-<div class="row">
-  <h1>Sorry no producer info yet.</h1>
-</div>
-<% end %>
+  </div>
+  <div class="row" id="home-subscriptions">
+    <div class="col">
+      <div class="home-header"><h3>Your Subscriptions</h3></div>
+      <div class="scrolling-wrapper">
+        <% if current_person.user.subscriptions.any? %>
+          <% current_person.user.subscriptions.each do |sub| %>
+            <%= link_to sub.show do %>
+              <div class="card">
+                <%= image_tag url_for(sub.show.promo_image), class: "card-img-top" if sub.show.promo_image.attached? %>
+                <h5 id="card-text" class="card-header"><%= truncate sub.show.name, length: 16 %></h5>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= link_to browse_path do %>
+          <div class="card">
+            <%= image_tag "homepage/04.jpg", class: "card-img-top" %>
+            <h5 id="card-text" class="card-header">Find some shows!</h5>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row" id="home-recommendations">
+    <div class="col">
+      <div class="home-header"><h3>Your Recommendations</h3></div>
+      <div class="scrolling-wrapper">
+        <% Show.all.each do |show| %>
+          <%= link_to show do %>
+            <div class="card">
+              <%= image_tag url_for(show.promo_image), class: "card-img-top" if show.promo_image.attached? %>
+              <h5 id="card-text" class="card-header"><%= truncate show.name, length: 16 %></h5>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row" id="home-recent">
+    <div class="col">
+      <div class="home-header"><h3>Recently Updated</h3></div>
+      <div class="scrolling-wrapper">
+        <% Show.order(updated_at: :desc).limit(10).each do |show| %>
+          <%= link_to show do %>
+            <div class="card">
+              <%= image_tag url_for(show.promo_image), class: "card-img-top" if show.promo_image.attached? %>
+              <h5 id="card-text" class="card-header"><%= truncate show.name, length: 16 %></h5>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

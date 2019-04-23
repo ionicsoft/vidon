@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Vidon</title>
     <%= csrf_meta_tags %>
 
@@ -10,38 +11,24 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-light navbar-bg-light navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
+    <header>
+      <nav class="navbar navbar-light navbar-expand-sm fixed-top">
+        <div class="container">
           <%= link_to root_path, class: "navbar-brand" do %>
-            <%= image_tag("logo-small.png", size: "40x40") %>
+            <%= image_tag "logo-small.png", size: "30x30" %>
             <span>Vidon</span>
           <% end %>
-          <!--<h1 id="company" class="nav-text"><%= link_to "Vidon", root_path %></h1>-->
-        </div>
-        
-        <% if logged_in? and current_person.customer? %>
-  		  <%= form_tag(search_page_path, :method => "get",   
-              class: 'navbar-form navbar-right') do %>  
-  		    <div class="input-group">
-            <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>  
-    		    <div class="input-group-btn">
-              <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
-    		    </div>
-  		    </div>
-        <% end %>
-        <% end %>
-  		  
-  		  <ul class="nav navbar-nav navbar-right nav-text">
-  		    <% if logged_in? %>
-            <% if current_person.customer? %>
-              <li><%= link_to "Browse", browse_path, class: "nav-link" %></li>
-              <li><%= link_to "My Shows", my_shows_path, class: "nav-link" %></li>
-              <li><%= link_to "My Rentals", my_rentals_path, class: "nav-link" %></li>
-            <% elsif current_person.producer?%>
-              <li><%= link_to "My Shows", pro_shows_path, class: "nav-link" %></li>
+          
+          <div class="collapse navbar-collapse justify-content-end">
+            <% if logged_in? %>
+              <% if current_person.customer? %>
+                <%= render 'navbar_customer' %>
+              <% else %>
+                <%= render 'navbar_producer' %>
+              <% end %>
+            <% else %>
+              <%= render 'navbar_guest' %>
             <% end %>
-
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= current_person.first_name %> <b class="caret"></b></a>
@@ -62,13 +49,16 @@
   		  </ul>
 		  </div>
     </nav>
+    </header>
     <%= yield %>
-    <footer id="footer" class="fixed-bottom">
-      <small><%= link_to "i/onicSoft", "https://sites.google.com/view/ionicsoft" %></small>
-      <ul>
-        <li><%= link_to "About", about_path %></li>
-        <li><%= link_to "Contact", contact_path %></li>
-      </ul>
+    <footer id="footer">
+      <div class="container">
+        <small><%= link_to "i/onicSoft", "https://sites.google.com/view/ionicsoft" %></small>
+        <ul>
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "Contact", contact_path %></li>
+        </ul>
+      </div>
     </footer>
     <script src='https://vjs.zencdn.net/7.4.1/video.js'></script>
   </body>
