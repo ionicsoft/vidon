@@ -35,7 +35,7 @@ class CustomersController < ApplicationController
     respond_to do |format|
       if @customer.save
         log_in(@customer.person)
-        Invoice.create(:payment_id => @customer.payment.id, :amount => "$10.00", :description => "Vidon Monthly Subscription Fee")
+        Invoice.create(:payment_id => @customer.payment.id, :amount => 10.00, :description => "Vidon Monthly Subscription Fee")
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else

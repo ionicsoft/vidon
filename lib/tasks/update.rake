@@ -6,9 +6,10 @@ namespace :update do
     Customer.where(renewal_date: Date.current).find_each do |customer|
       customer.subscriptions.where(cancel: true).destroy_all
       customer.renewal_date += 30.days
-      @temp = Invoice.all.where(payment_id: customer.payment.id)
-      @temp.destroy_all
-      Invoice.create(:payment_id => customer.payment.id, :amount => "10.00", :description => "Vidon Monthly Subscription Fee")
+      #@temp = Invoice.all.where(payment_id: customer.payment.id)
+      #@temp.destroy_all
+      @sum = ((customer.slots - 10) * 1.5) + 10
+      Invoice.create(:payment_id => customer.payment.id, :amount => @sum, :description => "Vidon Monthly Subscription Fee")
       customer.save
     end
     puts "#{Time.now} - Done."

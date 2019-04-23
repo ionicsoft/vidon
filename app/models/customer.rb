@@ -49,6 +49,11 @@ class Customer < ApplicationRecord
     subscriptions.count < slots
   end
   
+  # Returns number of available slow slots.
+  def open_slots
+    slots - subscriptions.count
+  end
+  
   # Returns true if the customer is already subscribed to the show
   def has_subscription?(show)
     !(subscriptions.find_by show_id: show.id).nil?
