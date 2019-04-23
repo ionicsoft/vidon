@@ -47,6 +47,7 @@ class SubscriptionsController < ApplicationController
         if params[:purchase] == true
           if @subscription.save
             # Purchase another slot
+            Invoice.create(:payment_id => @customer.payment.id, :amount => 1.50, :description => "Additional subscription slot")
             @customer.slots += 1
             @customer.save
             redirect_to @show
