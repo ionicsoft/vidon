@@ -75,7 +75,7 @@
         
         <div class="form-group">
           <%= payment_fields.label :expiration %>
-          <%= payment_fields.date_select :expiration, discard_day: true, :start_year => Time.now.year, id: :payment_expiration, class: "form-control" %>
+          <%= payment_fields.date_select :expiration, discard_day: true, :order => [:month,:year], :use_month_numbers => true, :start_year => Time.now.year, id: :payment_expiration, class: "form-control" %>
         </div>
       </div>
     </div>
