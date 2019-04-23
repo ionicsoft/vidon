@@ -7,10 +7,10 @@
           <hr>
           <% @charges = Invoice.all.where(payment_id: current_person.user.payment.id)%>
           <% @charges.each do |charge| %>
-            <div class="media mb-2">
+            <div class="row">
                 <p><%= charge.description %></p>
                 <b><%= charge.amount %></b>
-                <p><%= charge.created_at %></p>
+                <p><%= charge.created_at.strftime("%m/%d/%y") %></p>
             </div>
           <% end %>
         </div>

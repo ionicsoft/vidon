@@ -74,17 +74,17 @@
 
         <div class="form-group">
           <%= payment_fields.label :card_num %>
-          <%= payment_fields.number_field :card_num, id: :payment_card_num, class: "form-control" %>
+          <%= payment_fields.text_field :card_num, id: :payment_card_num, class: "form-control" %>
         </div>
 
         <div class="form-group">
           <%= payment_fields.label :cvc %>
-          <%= payment_fields.number_field :cvc, id: :payment_cvc, class: "form-control" %>
+          <%= payment_fields.text_field :cvc, id: :payment_cvc, class: "form-control" %>
         </div>
         
         <div class="form-group">
           <%= payment_fields.label :expiration %>
-          <%= payment_fields.date_field :expiration, :placeholder => 'dd/mm/yyyy', id: :payment_expiration, class: "form-control datepicker" %>
+          <%= payment_fields.date_select :expiration, discard_day: true, :start_year => Time.now.year, id: :payment_expiration, class: "form-control" %>
         </div>
       </div>
     </div>

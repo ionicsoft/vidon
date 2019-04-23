@@ -8,7 +8,7 @@ namespace :update do
       customer.renewal_date += 30.days
       @temp = Invoice.all.where(payment_id: customer.payment.id)
       @temp.destroy_all
-      Invoice.create(:payment_id => customer.payment.id, :amount => 1000, :description => "Subscription Renewal")
+      Invoice.create(:payment_id => customer.payment.id, :amount => "10.00", :description => "Vidon Monthly Subscription Fee")
       customer.save
     end
     puts "#{Time.now} - Done."

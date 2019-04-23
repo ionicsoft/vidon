@@ -50,6 +50,7 @@
                   <li><%= link_to "Friends", friends_path %></li>
                 <% end %>
                 <li><%= link_to "Profile", current_person.user %></li>
+                <li><%= link_to "View Invoice", invoice_path, class: "dropdown-item" %></li>
                 <li><%= link_to "Settings", edit_person_path(current_person) %></li>
                 <li role="seperator" class="divider"></li>
                 <li><%= link_to "Log out", logout_path, method: :delete %></li>

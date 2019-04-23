@@ -6,7 +6,7 @@ class RentalsController < ApplicationController
     
     if @rental.save
       @mov = Movie.find(@rental.movie_id)
-      Invoice.create(:payment_id => current_person.user.payment.id, :amount => 50, :description => "Movie Rental: " + @mov.video.title)
+      Invoice.create(:payment_id => current_person.user.payment.id, :amount => "$0.50", :description => "Movie Rental: " + @mov.video.title)
       redirect_to session.delete(:return_to), notice: 'Movie rental was successfully created.'
     else
       redirect_to session.delete(:return_to), notice: 'Movie rental failed to be created.'

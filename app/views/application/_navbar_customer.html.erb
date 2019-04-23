@@ -1,0 +1,28 @@
+<ul class="navbar-nav">
+  <li class="nav-item">
+    <%= link_to "Browse", browse_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Shows", my_shows_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item">
+    <%= link_to "My Rentals", my_rentals_path, class: "nav-link" %>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+      <%= current_person.first_name %>
+    </a>
+    <div class="dropdown-menu">
+      <%= link_to "Friends", friends_path, class: "dropdown-item" %>
+      <%= link_to "Profile", current_person.user, class: "dropdown-item" %>
+      <%= link_to "View Invoice", invoice_path, class: "dropdown-item" %>
+      <%= link_to "Settings", edit_person_path(current_person), class: "dropdown-item" %>
+      <div class="dropdown-divider"></div>
+      <%= link_to "Log out", logout_path, method: :delete, class: "dropdown-item" %>
+    </div>
+  </li>
+</ul>
+<%= form_tag(search_page_path, :method => "get", class: 'form-inline my-2 my-lg-0') do %>
+  <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control mr-sm-2" %>
+  <%= button_tag fa_icon("search"), :class => 'btn btn-info my-2 my-sm-0', :name => nil, id: "search-btn" %>
+<% end %>
