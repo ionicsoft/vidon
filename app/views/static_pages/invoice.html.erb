@@ -4,15 +4,23 @@
       <div class="card card-default">
         <div class="card-body">
           <h3 id="card-text">Your charges</h3>
-          <hr>
-          <% @charges = Invoice.all.where(payment_id: current_person.user.payment.id)%>
-          <% @charges.each do |charge| %>
-            <div class="row">
-              <div class="col-8"><p><%= charge.description %></p></div>
-                <div class="col-2"><b><%= charge.amount %></b></div>
-                <div class="col-2"><p><%= charge.created_at.strftime("%m/%d/%y") %></p></div>
-            </div>
-          <% end %>
+          <table class="table table-hover">
+            <thead>
+              <th scope="col">Description</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Date</th>
+            </thead>
+            <tbody>
+              <% @charges = Invoice.all.where(payment_id: current_person.user.payment.id).order(created_at: :desc) %>
+              <% @charges.each do |charge| %>
+                <tr scope="row">
+                  <td><%= charge.description %></td>
+                  <td><%= number_to_currency charge.amount %></td>
+                  <td><%= charge.created_at.strftime("%m/%d/%y") %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div></div></div>
