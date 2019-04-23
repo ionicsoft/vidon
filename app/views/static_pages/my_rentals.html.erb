@@ -1,5 +1,5 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
+  <%= render "flash_notice" %>
   <h3 id="banner">My Rentals</h3>
   <hr>
   <% current_person.user.rentals.each do |rental| %>
@@ -21,6 +21,6 @@
     </div>
   <% end %>
   <div class="col-sm-12 text-center">
-    <%= link_to "Find new movies!", movies_path, class: "btn btn-primary btn-lg" %>
+    <%= link_to "Find new movies!", browse_path(params: {movies: true}), class: "btn btn-primary btn-lg" %>
   </div>
 </div>

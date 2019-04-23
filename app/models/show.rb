@@ -9,6 +9,11 @@ class Show < ApplicationRecord
   validates :description, presence: true
   has_one_attached :promo_image
   
+  # Returns true if producer has edit permission
+  def valid_producer?(producer)
+    producer == self.producer
+  end
+  
   # Polymorphism
   def title
     name

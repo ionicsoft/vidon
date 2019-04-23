@@ -70,14 +70,31 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   }
 }
 
-.navbar-header {
-  a:link, a:visited {
-    color: black;
-  }
+// .navbar-header {
+//   a:link, a:visited {
+//     color: black;
+//   }
   
-  a:hover, a:active {
+//   a:hover, a:active {
+//     color: white;
+//     background: black;
+//   }
+// }
+
+.navbar-nav {
+  .nav-item {
+    .nav-link:link, .nav-link:visited {
+      
+    }
+    .nav-link:hover, .nav-link:active {
+      color: white;
+    }
+  }
+}
+
+.navbar-brand:hover, .navbar-brand:active {
+  span {
     color: white;
-    background: black;
   }
 }
 

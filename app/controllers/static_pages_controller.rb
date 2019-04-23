@@ -1,4 +1,7 @@
 class StaticPagesController < ApplicationController
+  #Authorization
+  before_action :logged_in_customer, only: [:shows, :search, :friends, :friend_search]
+  
   def home
   end
 

@@ -1,5 +1,5 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
+  <%= render "flash_notice" %>
 <div>
   <h1 class="show_title" style="color:black;">
     <%= @show.name %>
@@ -44,7 +44,7 @@
     
     <% if current_person.customer? %>
       <p>
-        <%= link_to 'Return to shows', shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+        <%= link_to 'Return to shows', browse_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
       </p>
     <% else %>
       <p>

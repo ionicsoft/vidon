@@ -24,4 +24,7 @@ class Episode < ApplicationRecord
     Episode.find_by(show_id: show_id, absolute_episode: absolute_episode-1)
   end
     
+  def valid_producer?(producer)
+    show.valid_producer?(producer)
+  end
 end

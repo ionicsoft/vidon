@@ -14,8 +14,13 @@
  *= require_self
  */
 
+/* Overrides */
 body {
   margin: 0;
+}
+
+.alert-dismissible .close {
+  padding: 0.5rem 1.25rem;
 }
 
 /* Fix modals shifting page to the left */

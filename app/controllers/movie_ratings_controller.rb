@@ -1,5 +1,8 @@
 class MovieRatingsController < ApplicationController
   before_action :set_movie_rating, only: [:show, :edit, :update, :destroy]
+  #Authorization
+  before_action :logged_in_any, only: [:show]
+  before_action :logged_in_customer, only: [:create, :edit, :update, :destroy]
 
   # GET /movie_ratings
   # GET /movie_ratings.json

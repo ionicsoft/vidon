@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render "flash_notice" %>
   <div class="row justify-content-center">
     <div class="col-7 pr-0" id="friends-main">
       <div class="card card-default">
@@ -6,7 +7,7 @@
           <h3 id="card-text">Your friends</h3>
           <hr>
           <% @friends.each do |friend| %>
-            <div class="media">
+            <div class="media mb-2">
               <%= link_to friend do %>
                 <%= image_tag(get_avatar(friend.person), :alt => "Avatar",
                   size: "70x70", class: "mr-3 avatar-img") %>
@@ -40,19 +41,17 @@
           <h3 id="card-text">Friend Requests</h3>
           <hr>
           <% @requests.each do |frequest| %>
-            <div class="media">
+            <div class="media mb-2">
               <% requester = frequest.requester %>
-              <%= link_to requester do %>
-                <%= image_tag(get_avatar(requester.person), :alt => "Avatar",
-                  size: "70x70", class: "mr-3 avatar-img") %>
-                <div class="media-body">
-                  <%= content_tag :h4, requester.person.full_name, class: "mt-0 text-body" %>
-                  <%= form_with(model: frequest) do |form| %>
-                    <%= form.submit "Accept", class: "btn btn-info btn-sm" %>
-                    <%= link_to "Decline", "#{friend_requests_path}/#{frequest.id}", method: :delete, class: "btn btn-warning btn-sm" %>
-                  <% end %>
-                </div>
-              <% end %>
+              <%= image_tag(get_avatar(requester.person), :alt => "Avatar",
+                size: "70x70", class: "mr-3 avatar-img") %>
+              <div class="media-body">
+                <%= link_to (content_tag :h4, requester.person.full_name, class: "mt-0 text-body"), requester %>
+                <%= form_with(model: frequest) do |form| %>
+                  <%= form.submit "Accept", class: "btn btn-info btn-sm" %>
+                  <%= link_to "Decline", "#{friend_requests_path}/#{frequest.id}", method: :delete, class: "btn btn-warning btn-sm" %>
+                <% end %>
+              </div>
             </div>
           <% end %>
           <% if @requests.none? %>

@@ -1,5 +1,7 @@
 class FriendsController < ApplicationController
   before_action :set_friend, only: :destroy
+  # Authorization
+  before_action :logged_in_customer
   
   def destroy
     current_person.user.remove_friend(@friend)

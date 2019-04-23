@@ -1,5 +1,5 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
+  <%= render "flash_notice" %>
   <% unless @movie.video.nil? %>
   <h1 class="movie_title" style="color:black;">
     <%= @movie.video.title %>
@@ -45,7 +45,7 @@
     
     <p>
       <% if current_person.customer? %>
-        <%= link_to 'Return to movies', movies_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+        <%= link_to 'Return to movies', browse_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
       <% elsif current_person.producer? and @movie.producer == current_person.user %>
         <%= link_to 'Return', pro_shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
       <% end %>

@@ -1,4 +1,5 @@
 <div class="container" id="customer-home">
+  <%= render "flash_notice" %>
   <div class="row">
     <div class="col">
       <% @show = Show.first %>
@@ -22,11 +23,11 @@
               </div>
             <% end %>
           <% end %>
-        <% else %>
-          <div class="card card-default">
-            <div class="card-body">
-              <h3 id="card-text"><% link_to "Find some shows!", browse_path %></h3>
-            </div>
+        <% end %>
+        <%= link_to browse_path do %>
+          <div class="card">
+            <%= image_tag "homepage/04.jpg", class: "card-img-top" %>
+            <h5 id="card-text" class="card-header">Find some shows!</h5>
           </div>
         <% end %>
       </div>

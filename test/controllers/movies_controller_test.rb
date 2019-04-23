@@ -3,6 +3,8 @@ require 'test_helper'
 class MoviesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @movie = movies(:one)
+    @customer = Customer.first.person
+    @producer = @movie.producer.person
   end
 
   test "should get index" do
@@ -16,6 +18,7 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create movie" do
+    log_in_as(@producer)
     assert_difference('Movie.count') do
       post movies_url, params: { movie: { producer_id: @movie.producer_id } }
     end
@@ -34,11 +37,13 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update movie" do
+    log_in_as(@producer)
     patch movie_url(@movie), params: { movie: { producer_id: @movie.producer_id } }
     assert_redirected_to movie_url(@movie)
   end
 
   test "should destroy movie" do
+    log_in_as(@producer)
     assert_difference('Movie.count', -1) do
       delete movie_url(@movie)
     end
