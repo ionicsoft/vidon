@@ -16,6 +16,7 @@ class Customer < ApplicationRecord
   after_initialize :defaults_set
   
   accepts_nested_attributes_for :person, allow_destroy: true
+  accepts_nested_attributes_for :payment, allow_destroy: true
 
   # Set default attributes for a customer when created
   def defaults_set
@@ -46,6 +47,11 @@ class Customer < ApplicationRecord
   # Returns true if the customer has open slots for subscription
   def open_slots?
     subscriptions.count < slots
+  end
+  
+  # Returns number of available slow slots.
+  def open_slots
+    slots - subscriptions.count
   end
   
   # Returns true if the customer is already subscribed to the show

@@ -20,6 +20,7 @@ class CustomersController < ApplicationController
   def new
     @customer = Customer.new
     @customer.person = Person.new
+    @customer.payment = Payment.new
   end
 
   # GET /customers/1/edit
@@ -34,6 +35,7 @@ class CustomersController < ApplicationController
     respond_to do |format|
       if @customer.save
         log_in(@customer.person)
+        Invoice.create(:payment_id => @customer.payment.id, :amount => 10.00, :description => "Vidon Monthly Subscription Fee")
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
@@ -85,6 +87,6 @@ class CustomersController < ApplicationController
     def customer_params
       params.require(:customer).permit(:person_attributes => [:avatar, 
         :username, :password, :password_confirmation, :email, :first_name,
-        :last_name])
+        :last_name], :payment_attributes => [:card_name, :card_num, :cvc, :expiration])
     end
 end

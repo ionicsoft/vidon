@@ -12,7 +12,7 @@
   <% end %>
   
   <%= form.fields_for :person, producer.person do |person_fields| %>
-      <h3>Account information:</h3>
+      <h3 id="card-text">Account information:</h3>
         <div class="form-group">
           <%= person_fields.label :avatar %>
           <%= person_fields.file_field :avatar, id: :person_avatar,
@@ -37,7 +37,7 @@
           <%= person_fields.password_field :password_confirmation, id: :person_password_confirmation, class: "form-control" %>
         </div>
 
-      <h3>Company information:</h3>
+      <h3 id="card-text">Company information:</h3>
         <div class="form-group">
           <%= person_fields.label :email %>
           <%= person_fields.text_field :email, id: :person_email, class: "form-control" %>

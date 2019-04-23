@@ -1,8 +1,9 @@
 class Payment < ApplicationRecord
   belongs_to :customer
+  has_many :invoices, dependent: :destroy
   validates :card_name, presence: true
-  validates :card_num, presence: true, length: { is: 16 }
-  validates :cvc, presence: true, numericality: { less_than: 1000 }
+  validates :card_num, presence: true, length: { is: 16 }, numericality: { greater_than: 0, only_integer: true, message: "is invalid" }
+  validates :cvc, presence: true, length: { is: 3 }, numericality: { greater_than: 0, only_integer: true, message: "is invalid" }
   validates :expiration, presence: true
   validate :expiration_date_cannot_be_in_the_past
 
