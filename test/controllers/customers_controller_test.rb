@@ -276,4 +276,14 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   
   test "should post episode comment" do
   end
+  
+  test "should login user" do
+    #this one works - use this syntax
+    visit root_url
+    click_on 'Login'
+    assert_selector "h1", "Login"
+    fill_in "Username", with: @customer.person.username
+    fill_in "Password", with: @customer.person.password
+    click_on "Login", class: "btn-primary"
+  end
 end
