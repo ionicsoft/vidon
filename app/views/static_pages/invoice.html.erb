@@ -8,9 +8,9 @@
           <% @charges = Invoice.all.where(payment_id: current_person.user.payment.id)%>
           <% @charges.each do |charge| %>
             <div class="row">
-                <p><%= charge.description %></p>
-                <b><%= charge.amount %></b>
-                <p><%= charge.created_at.strftime("%m/%d/%y") %></p>
+              <div class="col-8"><p><%= charge.description %></p></div>
+                <div class="col-2"><b><%= charge.amount %></b></div>
+                <div class="col-2"><p><%= charge.created_at.strftime("%m/%d/%y") %></p></div>
             </div>
           <% end %>
         </div>
