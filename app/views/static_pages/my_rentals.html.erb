@@ -1,5 +1,5 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
+  <%= render "flash_notice" %>
   <h3 id="banner">My Rentals</h3>
   <hr>
   <% current_person.user.rentals.each do |rental| %>

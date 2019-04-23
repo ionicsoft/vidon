@@ -1,5 +1,5 @@
 <div class="container">
-  <p id="notice"><%= notice %></p>
+  <%= render "flash_notice" %>
   <% unless @movie.video.nil? %>
   <h1 class="movie_title" style="color:black;">
     <%= @movie.video.title %>
