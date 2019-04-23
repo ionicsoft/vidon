@@ -15,12 +15,47 @@
     <p>
       <ul class="show_navbar_nav">
         <li>
-          <% if current_person.user.can_subscribe?(@show) %>
-            <%= form_with(model: Subscription.new) do |form| %>
-              <%= form.hidden_field :customer_id, value: current_person.user.id %>
-              <%= form.hidden_field :show_id, value: @show.id %>
-              <%= form.submit "Subscribe", class: "btn btn-info" %>
-            <% end %>
+          <% if !current_person.user.has_subscription?(@show) %>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+              Subscribe
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title text-body" id="exampleModalLabel">Subscribe to <%= @show.name %></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <% if current_person.user.open_slots? %>
+                    <div class="modal-body text-body">
+                      You have <span class="text-warning"><%= current_person.user.open_slots %></span> available subscription slots remaining.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <%= button_to "Subscribe", subscriptions_path,
+                        params: { subscription: { customer_id:
+                        current_person.user.id, show_id: @show.id} },
+                        class:"btn btn-primary" %>
+                    </div>
+                  <% else %>
+                    <div class="modal-body text-body">
+                      You do not have any available subscription slots. You can 
+                      purchase an additional slot for $2. Select "Purchase" to 
+                      add a new slot and subscribe to this show.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <%= button_to "Purchase", subscriptions_path,
+                        params: { subscription: { customer_id:
+                        current_person.user.id, show_id: @show.id}, purchase: true },
+                        class:"btn btn-warning" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
           <% end %>
         </li>
         <li>

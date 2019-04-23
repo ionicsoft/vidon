@@ -53,6 +53,33 @@
       <%= person_fields.text_field :last_name, id: :person_last_name, class: "form-control" %>
     </div>
   <% end %>
+  
+  <%= form.fields_for :payment, customer.payment do |payment_fields| %>
+    <div class="panel panel-default">
+      <div class="panel-heading  text-center"><h3>Payment Information</h3></div>
+      <div class="panel-body">
+        <div class="form-group">
+          <%= payment_fields.label :card_name %>
+          <%= payment_fields.text_field :card_name, id: :payment_card_name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= payment_fields.label :card_num %>
+          <%= payment_fields.number_field :card_num, id: :payment_card_num, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= payment_fields.label :cvc %>
+          <%= payment_fields.number_field :cvc, id: :payment_cvc, class: "form-control" %>
+        </div>
+        
+        <div class="form-group">
+          <%= payment_fields.label :expiration %>
+          <%= payment_fields.date_field :expiration, :placeholder => 'dd/mm/yyyy', id: :payment_expiration, class: "form-control datepicker" %>
+        </div>
+      </div>
+    </div>
+    <% end %>
 
   <div class="actions">
     <%= form.submit "Submit!", class: "btn btn-primary btn-block"%>

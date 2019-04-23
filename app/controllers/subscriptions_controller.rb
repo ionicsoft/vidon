@@ -27,15 +27,30 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions.json
   def create
     @subscription = Subscription.new(subscription_params)
+    @customer = @subscription.customer
+    @show = @subscription.show
     
-    if @subscription.customer.can_subscribe?(@subscription.show)
-      respond_to do |format|
+    # Verify current customer
+    if current_person.user != @customer
+      return
+    end
+    
+    # Check if customer already has sub
+    if !@customer.has_subscription?(@show)
+      # Check if customer can subscribe without purchase
+      if @customer.open_slots?
         if @subscription.save
-          format.html { redirect_to @subscription.show, notice: 'Subscription was successfully added.' }
-          format.json { render :show, status: :created, location: @subscription }
-        else
-          format.html { render :new }
-          format.json { render json: @subscription.errors, status: :unprocessable_entity }
+          redirect_to @show
+        end
+      else
+        # Check if customer wants to purchase
+        if params[:purchase] == true
+          if @subscription.save
+            # Purchase another slot
+            @customer.slots += 1
+            @customer.save
+            redirect_to @show
+          end
         end
       end
     end

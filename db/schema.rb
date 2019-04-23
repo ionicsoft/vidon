@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_12_222124) do
+ActiveRecord::Schema.define(version: 2019_04_21_202026) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 2019_04_12_222124) do
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_friendships_on_customer_id"
     t.index ["friend_id"], name: "index_friendships_on_friend_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer "payment_id"
+    t.integer "amount"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "movie_actors", force: :cascade do |t|

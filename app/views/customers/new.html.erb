@@ -4,6 +4,11 @@
       <div class="card card-default">
         <h1 id="card-text" class="card-header">Sign up</h1>
         <div class="card-body">
+          <script>
+      $( document ).ready(function() {
+      $('.datepicker').datepicker({format: 'dd/mm/yyyy'});
+      });
+    </script>
           <%= render 'form', customer: @customer %>
         </div>
       </div>

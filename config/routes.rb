@@ -34,4 +34,5 @@ Rails.application.routes.draw do
   delete  '/friends/:id', to: 'friends#destroy'
   get     '/my_rentals',  to: 'static_pages#my_rentals'
   post    '/movies/:id/rent', to: 'rentals#create'
+  get     '/invoice', to: 'static_pages#invoice'
 end
