@@ -4,7 +4,7 @@
     <div class="col">
       <div class="video-player">
         <video id="main-video-player" class="video-js vjs-default-skin vjs-16-9"
-            controls preload="auto" width="640" height="264" 
+            controls autoplay preload="auto" width="640" height="264" 
             <%= if @video.thumbnail.attached? then "poster=\"#{ url_for @video.thumbnail }\"" end %>
             data-setup= '{}'>
           <source src="<%= url_for(@video.clip) %>" type="video/mp4">
@@ -55,6 +55,10 @@
         <div class="card card-default">
           <h5 class="card-header"><%= link_to @video.content.show.name, @video.content.show %></h5>
           <div class="card-body">
+            <div class="btn-group btn-block" role="group">
+              <%= link_to fa_icon("chevron-left"), @video.prev_video, class: "btn btn-outline-secondary text-body", id: "button_prev" %>
+              <%= link_to fa_icon("chevron-right"), @video.next_video_or_show, class: "btn btn-outline-secondary text-body", id: "button_next" %>
+            </div>
             <% @video.content.show.episodes.order(:absolute_episode).each do |episode| %>
               <%= link_to episode.video do %>
                 <%= content_tag :div, class: "media", style: (if episode.id == @video.content_id then "background-color: #ddd" end) do %>
@@ -69,6 +73,33 @@
           </div>
         </div>
       </div>
-   <% end %>
-   </div>
+  <% end %>
+  </div>
 </div>
+<% if @video.episode? and !@video.next_video.nil?%>
+<div class="modal fade" id="autoplayModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-body" id="autoplayModalLabel">Playing next video...</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Great video! Give us a rating or wait a bit for the next one!</p>
+        <div class="text-center" id="autoplayModalLoading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Waiting...</span>
+          </div>
+          <h3 class="text-body" id="autoplayModalTimer">10</h3>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Stop</button>
+        <%= link_to "Play now", @video.next_video, type: "button", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

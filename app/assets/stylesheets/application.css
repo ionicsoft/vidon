@@ -22,3 +22,13 @@ body {
 .alert-dismissible .close {
   padding: 0.5rem 1.25rem;
 }
+
+/* Fix modals shifting page to the left */
+.modal-open {
+  padding-right: 0 !important;
+}
+
+.navbar {
+  padding-right: 1rem !important;
+}
+/* End modal fix */
