@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_235009) do
     t.datetime "updated_at", null: false
     t.integer "slots"
     t.date "renewal_date"
+    t.integer "subscriptions_count"
   end
 
   create_table "episodes", force: :cascade do |t|
