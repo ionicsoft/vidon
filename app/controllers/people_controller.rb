@@ -7,13 +7,14 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all
+    @people = Person.where(activated: true).paginate(page: params[:page])
   end
 
   # GET /people/1
   # GET /people/1.json
   def show
     @person = Person.find(params[:id])
+    redirect_to root_url and return unless @person.activated
   end
 
   # GET /people/new
@@ -32,8 +33,11 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.' }
-        format.json { render :show, status: :created, location: @person }
+        @person.send_activation_email
+        flash[:info] = "Please check your email to activate your account."
+        #redirect_to root_url
+        format.html { redirect_to root_url, notice: 'Person was successfully created.' }
+        format.json { render :show, status: :created, location: root_url }
       else
         format.html { render :new }
         format.json { render json: @person.errors, status: :unprocessable_entity }

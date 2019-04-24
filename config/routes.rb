@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :shows
   resources :subscriptions
   resources :customers
+  resources :account_activations, only: [:edit]
   resources :payments
   resources :producers
   resources :friend_requests
