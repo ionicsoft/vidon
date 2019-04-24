@@ -2,12 +2,12 @@
 
 one:
   show: one
-  genre: Comedy
+  genre: 3
 
 two:
   show: one
-  genre: Romance
+  genre: 5
 
 three:
   show: two
-  genre: Action
+  genre: 6
