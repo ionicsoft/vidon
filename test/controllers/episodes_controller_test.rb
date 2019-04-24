@@ -5,6 +5,7 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     @episode = episodes(:one)
   end
 
+  #Begin coverage testing
   test "should get index" do
     get episodes_url
     assert_response :success

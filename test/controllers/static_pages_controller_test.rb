@@ -7,6 +7,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
   
+  #Begin coverage testing
   test "should get home" do
     get root_url
     assert_response :success
@@ -29,7 +30,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   
   test "should get friends" do
     get friends_url
-    assert_response :success
+    assert_response :redirect
   end
   
   test "should get my rentals" do
@@ -47,27 +48,28 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
   
+  #Begin use cases
   test "should get login" do
     visit root_url
     click_on 'Login'
-    assert_redirected_to login_url
+    assert_selector "h1", "Login"
   end
   
   test "should get customer signup" do
     visit root_url
     click_on 'Sign up today'
-    assert_redirected_to new_customer_url
+    assert_selector "h1", "Sign up"
   end
   
   test "should get producer signup" do
     visit root_url
     click_on 'Producer? Sign up today'
-    assert_redirected_to new_producer_url
+    assert_selector "h1", "Sign up"
   end
   
   test "should return home" do
     visit root_url
     click_on 'Vidon'
-    assert_redirected_to root_url
+    assert_selector "span", "Vidon"
   end
 end

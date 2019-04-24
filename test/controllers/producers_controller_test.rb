@@ -9,6 +9,7 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  #Begin coverage testing
   test "should get index" do
     get producers_url
     assert_response :success
@@ -65,62 +66,63 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to producers_url
   end
   
+  #Begin use cases
   test "should get shows" do
     log_in_as(@producer.person)
     click_on 'My Shows'
-    assert_redirected_to pro_show_path
+    assert_selector "h3", "My Shows"
   end
   
   test "should get profile" do
     log_in_as(@producer.person)
     click_on @producer.company_name
     click_on 'Profile'
-    assert_redirected_to producer_url(@producer)
+    assert_selector "h2", @producer.company_name
   end
   
   test "should get settings" do
     log_in_as(@producer.person)
     click_on @producer.company_name
     click_on 'Settings'
-    assert_redirected_to edit_producer_path(@producer)
+    assert_selector "h1", "Edit Information"
   end
   
   test "should log out" do
     log_in_as(@producer.person)
     click_on @producer.company_name
     click_on 'Log out'
-    assert_redirected_to root_url
+    assert_selector "h2", "Say hello to subscriptions."
   end
   
   test "should get show content page" do
     log_in_as(@producer.person)
     click_on 'View Show'
-    assert_redirected_to show_url(@show)
+    assert_selector "h1", @show.name
   end
   
   test "should get movie content page" do
     log_in_as(@producer.person)
     click_on 'View Movie'
-    assert_redirected_to movie_url
+    assert_selector "h1", @movie.video.title
   end
   
   test "should get add show form" do
     log_in_as(@producer.person)
     click_on 'Add New Show'
-    assert_redirected_to new_show_url
+    assert_selector "h1", "Create Show"
   end
   
   test "should get add movie form" do
     log_in_as(@producer.person)
     click_on 'Add New Movie'
-    assert_redirected_to new_movie_url
+    assert_selector "h1", "Create Movie"
   end
   
   test "should get add episode form" do
     log_in_as(@producer.person)
     click_on 'View Show'
     click_on 'Add Episode'
-    assert_redirected_to new_episode_url
+    assert_selector "h1", "Create Episode"
   end
   
   test "should get show from profile" do
@@ -128,7 +130,7 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
     click_on @producer.company_name
     click_on 'Profile'
     click_on 'Show'
-    assert_redirected_to show_show_url
+    assert_selector "h1", @show.name
   end
   
   test "should get movie from profile" do
@@ -136,6 +138,6 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
     click_on @producer.company_name
     click_on 'Profile'
     click_on 'Movie'
-    assert_redirected_to show_movie_url
+    assert_selector "h1", @movie.video.title
   end
 end
