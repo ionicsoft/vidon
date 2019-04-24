@@ -22,7 +22,7 @@ class Video < ApplicationRecord
     if episode?
       episode = content.next_ep
       unless episode.nil?
-        episode.video
+        return episode.video
       end
     end
   end
@@ -31,7 +31,9 @@ class Video < ApplicationRecord
   def next_video_or_show
     ep = next_video
     if ep.nil?
-      content.show
+      return content.show
+    else
+      return ep
     end
   end
   
