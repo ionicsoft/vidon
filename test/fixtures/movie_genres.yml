@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  genre: Comedy
+  genre: 2
   movie: one
 
 two:
-  genre: Romance
+  genre: 4
   movie: one
 
 three:
-  genre: Action
+  genre: 5
   movie: two

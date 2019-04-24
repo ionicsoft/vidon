@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_23_034324) do
+ActiveRecord::Schema.define(version: 2019_04_23_235009) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_034324) do
   end
 
   create_table "movie_genres", force: :cascade do |t|
-    t.string "genre"
+    t.integer "genre"
     t.integer "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_034324) do
 
   create_table "show_genres", force: :cascade do |t|
     t.integer "show_id"
-    t.string "genre"
+    t.integer "genre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["show_id"], name: "index_show_genres_on_show_id"
