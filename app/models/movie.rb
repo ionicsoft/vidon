@@ -10,10 +10,6 @@ class Movie < ApplicationRecord
   
   accepts_nested_attributes_for :video, allow_destroy: true
   
-  def self.search(search)  
-   where("lower(videos.title) LIKE :search", search: "%#{search.downcase}%").uniq   
-  end
-  
   def title
     video.title
   end
