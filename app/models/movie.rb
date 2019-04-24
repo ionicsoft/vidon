@@ -7,6 +7,7 @@ class Movie < ApplicationRecord
   has_many :rentals, dependent: :destroy
   has_many :favorites, as: :content, dependent: :destroy
   has_one_attached :promo_image
+  ratyrate_rateable 'rating'
   
   accepts_nested_attributes_for :video, allow_destroy: true
   

@@ -8,6 +8,7 @@ class Show < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   has_one_attached :promo_image
+  ratyrate_rateable 'rating'
   
   # Returns true if producer has edit permission
   def valid_producer?(producer)

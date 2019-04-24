@@ -9,6 +9,7 @@ class Person < ApplicationRecord
     belongs_to :user, polymorphic: true, dependent: :destroy
     has_one_attached :avatar
     has_secure_password
+    ratyrate_rater
     
     validates :username, presence: true,
                          length: { minimum: 3, maximum: 32 },

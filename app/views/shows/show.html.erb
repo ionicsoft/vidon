@@ -65,6 +65,19 @@
       <br />
     </p>
     <% end %>
+    
+    <div class="row">
+      <div class="small-2 large-2 columns">
+        <%= imdb_style_rating_for @show, current_person.customer%>
+      </div>
+      <br>
+      <div class="small-2 large-2 columns">
+        <% if current_person.customer? >
+          Rating: <%= rating_for @show, "rating" %>
+        <% end %>
+      </div>  
+    </div> 
+    
     <p id="sm-text">
       <strong>Description:</strong>
       <%= @show.description %>
