@@ -46,12 +46,12 @@ class Customer < ApplicationRecord
   
   # Returns true if the customer has open slots for subscription
   def open_slots?
-    subscriptions.count < slots
+    subscriptions.size < slots
   end
   
   # Returns number of available slow slots.
   def open_slots
-    slots - subscriptions.count
+    slots - subscriptions.size
   end
   
   # Returns true if the customer is already subscribed to the show

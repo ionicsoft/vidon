@@ -1,5 +1,5 @@
 class Episode < ApplicationRecord
-  belongs_to :show
+  belongs_to :show, touch: true
   has_one :video, as: :content
   has_many :favorites, as: :content, dependent: :destroy
   

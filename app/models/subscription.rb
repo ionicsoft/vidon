@@ -1,5 +1,5 @@
 class Subscription < ApplicationRecord
-  belongs_to :customer
+  belongs_to :customer, counter_cache: true
   belongs_to :show
   validates :current_episode, numericality: { greater_than_or_equal_to: 0 }
   after_initialize :defaults_set
