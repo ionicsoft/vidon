@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_23_235009) do
+ActiveRecord::Schema.define(version: 2019_04_24_210428) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_235009) do
 
   create_table "invoices", force: :cascade do |t|
     t.integer "payment_id"
-    t.decimal "amount"
+    t.decimal "amount", precision: 5, scale: 2
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
