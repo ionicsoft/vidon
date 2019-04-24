@@ -1,7 +1,7 @@
 class FavoritesController < ApplicationController
   # Authorization
   before_action :logged_in_customer
-  before_action :correct_customer
+  before_action :correct_customer, only: [:destroy]
   
   # Create new favorite for current customer
   def create
