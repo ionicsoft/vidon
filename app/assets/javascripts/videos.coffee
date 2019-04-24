@@ -20,6 +20,10 @@ video_ended = ->
     $('#autoplayModal').on('hidden.bs.modal', () ->
         clearInterval(interval)
     )
+    $('#auto-next').on('click', () ->
+        clearInterval(interval)
+        document.getElementById('button_next').click()
+    )
 
 # VideoJS-Turbolinks support
 change = ->

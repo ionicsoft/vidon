@@ -97,7 +97,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Stop</button>
-        <%= link_to "Play now", @video.next_video, type: "button", class: "btn btn-primary" %>
+        <%= link_to "Play now", @video.next_video, type: "button", class: "btn btn-primary", "data-dismiss": "modal", id: "auto-next" %>
       </div>
     </div>
   </div>
