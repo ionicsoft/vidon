@@ -17,9 +17,9 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create episode" do
-    # assert_difference('Episode.count') do
-    #   post episodes_url, params: { episode: { absolute_episode: @episode.absolute_episode, episode: @episode.episode, season: @episode.season, show_id: @episode.show_id } }
-    # end
+    assert_difference('Episode.count', 1) do
+      post episodes_url, params: { episode: { absolute_episode: @episode.absolute_episode, episode: @episode.episode, season: @episode.season, show_id: @episode.show_id } }
+    end
 
     # assert_redirected_to episode_url(Episode.last)
   end

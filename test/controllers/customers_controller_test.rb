@@ -271,12 +271,19 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     assert_selector "h5", @show.name
   end
   
+  test "should search for movie" do
+    log_in_as(@customer.person)
+    fill_in "search", with: "mys"
+    click_on "search", class: "btn-primary"
+    assert_selector "h5", @movie.video.title
+  end
+  
   test "should favorite movie" do
     log_in_as(@customer.person)
     click_on 'Browse'
     click_on 'Movies'
     click_on @movie2.video.title
-    assert_difference("Favorite.count") do
+    assert_difference("Favorite.count", 1) do
       click_on 'Favorite', class: "btn-primary"
     end
   end
@@ -286,7 +293,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on 'My Rentals'
     click_on 'Play'
     fill_in "comment", with: "This is great!"
-    assert_difference("VideoComment.count") do
+    assert_difference("VideoComment.count", 1) do
       click_on 'Post', class: "btn-primary"
     end
   end
@@ -296,7 +303,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on 'My Shows'
     click_on 'Episodes'
     click_on 'Watch'
-    assert_difference("Favorite.count") do
+    assert_difference("Favorite.count", 1) do
       click_on 'Favorite', class: "btn-primary"
     end
   end
@@ -307,7 +314,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on 'Episodes'
     click_on 'Play'
     fill_in "comment", with: "This is great!"
-    assert_difference("VideoComment.count") do
+    assert_difference("VideoComment.count", 1) do
       click_on 'Post', class: "btn-primary"
     end
   end
