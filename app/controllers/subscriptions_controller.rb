@@ -32,6 +32,7 @@ class SubscriptionsController < ApplicationController
     
     # Verify current customer
     if current_person.user != @customer
+      redirect_to root_url
       return
     end
     
@@ -40,21 +41,23 @@ class SubscriptionsController < ApplicationController
       # Check if customer can subscribe without purchase
       if @customer.open_slots?
         if @subscription.save
-          redirect_to @show
+          flash.notice = "Subscription added!"
         end
       else
         # Check if customer wants to purchase
-        if params[:purchase] == true
+        if params[:purchase] == "true"
           if @subscription.save
             # Purchase another slot
             Invoice.create(:payment_id => @customer.payment.id, :amount => 1.50, :description => "Additional subscription slot")
             @customer.slots += 1
             @customer.save
-            redirect_to @show
+            flash.notice = "Subscription purchased!"
           end
         end
       end
     end
+    
+    redirect_to @show
   end
 
   # PATCH/PUT /subscriptions/1
