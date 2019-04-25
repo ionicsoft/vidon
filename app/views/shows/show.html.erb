@@ -70,6 +70,33 @@
       <%= @show.description %>
     </p>
     
+    <% if current_person.customer? %>
+      <p id="sm-text">
+        <strong>Genres:</strong>
+        <% @genres = ShowGenre.all.where(show_id: @show.id)%>
+        <% @genres.each do |genre| %>
+          <% if genre == @genres.last %>
+            <%= genre.genre %>
+          <% else %>
+            <%= genre.genre + ", "%>
+          <% end %>
+        <% end %>
+      </p>
+      
+      <p id="sm-text">
+        <strong>Actors:</strong>
+        <% @actors = ShowActor.all.where(show_id: @show.id)%>
+        <% @actors.each do |actor| %>
+          <% if actor == @actors.last %>
+            <%= actor.name %>
+          <% else %>
+            <%= actor.name + ", "%>
+          <% end %>
+        <% end %>
+      </p>
+    
+    <% end %>
+    
     <% unless @show.producer.nil? %>
     <p id="sm-text">
       <strong>Producer:</strong>
@@ -86,9 +113,53 @@
         <%= link_to 'Return', pro_shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
       </p>
     <% end %>
-    
-  </h2>
-</div>  
+    </h2>
+</div> 
+
+<% if current_person.producer? and @show.producer == current_person.user %>
+    <div class="col" id="profile-comments">
+      <div class="card card-default">
+        <div class="card-body">
+          <h4 id="card-text">Actors</h4>
+          <hr>
+          <% if @show.show_actors.any? %>
+            <% @show.show_actors.each do |actor| %>
+              <div class="mb2">
+                <small style="color:black;"><%= actor.name %></small>
+                <%= link_to 'Edit', edit_show_actor_path, class: "btn btn-primary btn-large" %>
+                <%= link_to 'Delete', actor, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
+          <% end %>
+          <div>
+            <hr>
+            <%= render 'show_actor_form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col" id="profile-comments">
+      <div class="card card-default">
+        <div class="card-body">
+          <h4 id="card-text">Genres</h4>
+          <hr>
+          <% if @show.show_genres.any? %>
+            <% @show.show_genres.each do |genre| %>
+              <div class="mb2">
+                <small style="color:black;"><%= genre.genre %></small>
+                <%= link_to 'Edit', edit_show_genre_path, class: "btn btn-primary btn-large" %>
+                <%= link_to 'Delete', genre, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
+          <% end %>
+          <div>
+            <hr>
+            <%= render 'show_genre_form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
 
 <div class="episodes_list">
   <h3 id="sm-text">Episodes</h3>
@@ -116,14 +187,16 @@
           
         </p>
       </div>
-      
     </li>
     <% end %>
+    
     <% if current_person.producer? and current_person.user == @show.producer %>
       <%= link_to 'Add Episode', new_episode_path(show_id: @show.id), class: "btn btn-primary btn-large" %>
       <%= link_to 'Edit Show', edit_show_path, class: "btn btn-primary btn-large" %>
       <%= link_to 'Delete Show', @show, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
+    
+    
   </ul>
 </div>
 </div>
