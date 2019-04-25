@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_24_210428) do
+ActiveRecord::Schema.define(version: 2019_04_25_053449) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -236,6 +236,16 @@ ActiveRecord::Schema.define(version: 2019_04_24_210428) do
     t.integer "content_id"
     t.string "content_type"
     t.index ["content_id", "content_type"], name: "index_videos_on_content_id_and_content_type"
+  end
+
+  create_table "watch_histories", force: :cascade do |t|
+    t.integer "progress", default: 0
+    t.integer "customer_id"
+    t.integer "video_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_watch_histories_on_customer_id"
+    t.index ["video_id"], name: "index_watch_histories_on_video_id"
   end
 
 end

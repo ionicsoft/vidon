@@ -14,6 +14,10 @@ class VideosController < ApplicationController
   # GET /videos/1
   # GET /videos/1.json
   def show
+    if current_person.customer?
+      @watch_history = WatchHistory.find_or_create_by video: @video, customer: current_person.user
+      @watch_history.touch
+    end
   end
 
   # GET /videos/new

@@ -15,6 +15,7 @@
     <div class="dropdown-menu">
       <%= link_to "Friends", friends_path, class: "dropdown-item" %>
       <%= link_to "Profile", current_person.user, class: "dropdown-item" %>
+      <%= link_to "History", watch_histories_path, class: "dropdown-item" %>
       <%= link_to "View Invoice", invoice_path, class: "dropdown-item" %>
       <%= link_to "Settings", edit_person_path(current_person), class: "dropdown-item" %>
       <div class="dropdown-divider"></div>
