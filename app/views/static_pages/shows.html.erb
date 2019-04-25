@@ -1,40 +1,47 @@
 <div class="container">
   <%= render "flash_notice" %>
-  <h3 id="banner">My Shows</h3>
-  <hr>
-  <% current_person.user.subscriptions.each do |sub| %>
-    <div class="row subscription">
-      <div class="col-sm-2">
-        <% if sub.show.promo_image.attached? %>
-          <%= image_tag(url_for(sub.show.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
-        <% else %>
-          <%= image_tag("nullPhoto.png", :alt => "Thumbnail", :style => "height: 100px; width: 100px;") %>
-        <% end %>
-      </div>
-      <div class="col-sm-8">
-        <b><%= sub.show.name %></b>
-        <p><%= sub.show.description %></p>
-        <% if sub.cancel? %>
-          <p class="text-warning">This subscription will not renew.</p>
-        <% end %>
-      </div>
-      <div class="col-sm-2">
-        <%= link_to "Episodes", sub.show, class: "btn btn-primary btn-block btn-sm" %>
-        <% if sub.cancel? %>
-          <%= form_with(model: sub) do |form| %>
-            <%= form.hidden_field :cancel, value: false %>
-            <%= form.submit "Renew", class: "btn btn-info btn-block btn-sm" %>
-          <% end %>
-        <% else %>
-          <%= form_with(model: sub) do |form| %>
-            <%= form.hidden_field :cancel, value: true %>
-            <%= form.submit "Cancel", class: "btn btn-danger btn-block btn-sm" %>
-          <% end %>
-        <% end %>
+  <div class="row">
+    <div class="col">
+      <div class="card card-default">
+        <div class="card-body">
+          <h3 class="text-body">My Shows</h3>
+          <div class="row">
+            <% current_person.user.subscriptions.each do |sub| %>
+              <div class="col-4 subscription">
+                <%= link_to sub.show do %>
+                <% if sub.show.promo_image.attached? %>
+                  <%= image_tag(url_for(sub.show.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+                <% else %>
+                  <%= image_tag("nullPhoto.png", :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+                <% end %>
+                <p>
+                  <b><%= sub.show.name %></b> <%= content_tag :small, "This subscription will not renew", class: "text-secondary" if sub.cancel? %>
+                  <br>
+                  Watched <%= pluralize sub.current_episode, "episode" %>.
+                </p>
+                <% end %>
+                <div class="sub-buttons">
+                  <%= link_to "Episode list", sub.show, class: "btn btn-info btn-block btn-sm mb-1" %>
+                  <% if sub.cancel? %>
+                    <%= form_with(model: sub) do |form| %>
+                      <%= form.hidden_field :cancel, value: false %>
+                      <%= form.submit "Renew subscription", class: "btn btn-outline-dark btn-block btn-sm" %>
+                    <% end %>
+                  <% else %>
+                    <%= form_with(model: sub) do |form| %>
+                      <%= form.hidden_field :cancel, value: true %>
+                      <%= form.submit "Cancel subscription", class: "btn btn-outline-danger btn-block btn-sm" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
-  <% end %>
-  <div class="row justify-content-center">
+  </div>
+  <div class="row justify-content-center mt-3">
     <div class="col-3">
       <%= link_to "Find new shows!", browse_path, class: "btn btn-primary btn-lg btn-block" %>
     </div>

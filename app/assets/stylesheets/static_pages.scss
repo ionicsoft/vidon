@@ -100,11 +100,22 @@ $highlight-white: #000;
 }
 
 // Subscriptions page
+
 .subscription {
-  background-color:lightblue;
-  border-radius:5px;
-  padding: 1em;
-  margin: 0 0 1em 0;
+  img {
+    margin-top: 15px;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.subscription:nth-child(odd) {
+  background-color: lightgrey;
+}
+
+.sub-buttons {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 // Guest Homepage
