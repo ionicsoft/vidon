@@ -35,6 +35,32 @@
       <%= @movie.video.description %>
     </p>
     
+    <% if current_person.customer? %>
+      <p id="sm-text">
+        <strong>Genres:</strong>
+        <% @genres = MovieGenre.all.where(movie_id: @movie.id)%>
+        <% @genres.each do |genre| %>
+          <% if genre == @genres.last %>
+            <%= genre.genre %>
+          <% else %>
+            <%= genre.genre + ", "%>
+          <% end %>
+        <% end %>
+      </p>
+      
+      <p id="sm-text">
+        <strong>Actors:</strong>
+        <% @actors = MovieActor.all.where(movie_id: @movie.id)%>
+        <% @actors.each do |actor| %>
+          <% if actor == @actors.last %>
+            <%= actor.name %>
+          <% else %>
+            <%= actor.name + ", "%>
+          <% end %>
+        <% end %>
+      </p>
+      <% end %>
+    
     <% end %>
     <% unless @movie.producer.nil? %>
     
@@ -43,6 +69,50 @@
       <%= @movie.producer.company_name %>
     </p>
     
+    <% if current_person.producer? and @movie.producer == current_person.user %>
+    <div class="col" id="profile-comments">
+      <div class="card card-default">
+        <div class="card-body">
+          <h4 id="card-text">Actors</h4>
+          <hr>
+          <% if @movie.movie_actors.any? %>
+            <% @movie.movie_actors.each do |actor| %>
+              <div class="mb2">
+                <small style="color:black;"><%= actor.name %></small>
+                <%= link_to 'Edit', edit_movie_actor_path, class: "btn btn-primary btn-large" %>
+                <%= link_to 'Delete', actor, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
+          <% end %>
+          <div>
+            <hr>
+            <%= render 'movie_actor_form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col" id="profile-comments">
+      <div class="card card-default">
+        <div class="card-body">
+          <h4 id="card-text">Genres</h4>
+          <hr>
+          <% if @movie.movie_genres.any? %>
+            <% @movie.movie_genres.each do |genre| %>
+              <div class="mb2">
+                <small style="color:black;"><%= genre.genre %></small>
+                <%= link_to 'Edit', edit_movie_genre_path, class: "btn btn-primary btn-large" %>
+                <%= link_to 'Delete', genre, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+            <% end %>
+          <% end %>
+          <div>
+            <hr>
+            <%= render 'movie_genre_form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
     <p>
       <% if current_person.customer? %>
         <%= link_to 'Return to movies', browse_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
@@ -50,11 +120,11 @@
         <%= link_to 'Return', pro_shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
       <% end %>
     </p>
-  </h2>
-   <% if current_person.producer? and @movie.producer == current_person.user %>
+    <% if current_person.producer? and @movie.producer == current_person.user %>
       <%= link_to 'Delete Movie', @movie, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
   <% end %>
+  </h2>
 </div>
 
 
