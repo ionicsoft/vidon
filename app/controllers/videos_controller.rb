@@ -1,7 +1,7 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
   #Authorization
-  before_action :logged_in_any, only: [:show]
+  before_action :check_permission, only: [:show]
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
@@ -70,6 +70,29 @@ class VideosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_video
       @video = Video.find(params[:id])
+    end
+    
+    def check_permission
+      if logged_in_customer
+        @customer = Customer.find(current_person.user.id)
+        if @video.episode
+          @episode = Episode.find_by(content_id: @video.id)
+          @show = Show.find(@episode.show_id)
+          unless @customer.has_subscription(@show)
+            flash[:danger] = "Must subscribe first to view content"
+            redirect_back fallback_location: show_url(@show)
+          end
+        else
+          @mov = Movie.find_by(content_id: @video.id)
+          unless @customer.rentals.find_by(movie_id: @mov.id)
+            flash[:danger] = "Must rent first to view content"
+            redirect_back fallback_location: movie_url(@movie)
+          end
+        end
+      else
+        flash[:danger] = "Must login as customer to watch content"
+        redirect_to root_url
+      end
     end
     
     # Check current user has permision to edit
