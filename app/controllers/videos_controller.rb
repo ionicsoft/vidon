@@ -1,7 +1,7 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
   #Authorization
-  before_action :logged_in_any
+  before_action :logged_in_any, only: [:show]
   before_action :check_permission, only: [:show]
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
@@ -73,17 +73,24 @@ class VideosController < ApplicationController
       @video = Video.find(params[:id])
     end
     
+    # Check if user has permission to view video
     def check_permission
-      @customer = Customer.find(current_person.user.id)
-      if @video.episode?
-        unless @customer.has_subscription?(@video.content_parent)
-          flash[:danger] = "Must subscribe first to view content"
-          redirect_to @video.content_parent
-        end
+      if current_person.producer?
+        # Check if video is owned by producer
+        correct_producer
       else
-        unless @customer.rentals.find_by(movie_id: @video.content_parent.id)
-          flash[:danger] = "Must rent first to view content"
-          redirect_to @video.content_parent
+        # Check if customer has a valid subscription or rental
+        @customer = current_person.user
+        if @video.episode?
+          unless @customer.has_subscription?(@video.content_parent)
+            flash[:danger] = "Must subscribe first to view content"
+            redirect_to @video.content_parent
+          end
+        else
+          unless @customer.rentals.find_by(movie_id: @video.content_parent.id)
+            flash[:danger] = "Must rent first to view content"
+            redirect_to @video.content_parent
+          end
         end
       end
     end
