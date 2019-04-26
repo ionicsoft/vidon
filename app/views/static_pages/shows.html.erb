@@ -6,7 +6,7 @@
         <div class="card-body">
           <h3 class="text-body">My Shows</h3>
           <div class="row">
-            <% current_person.user.subscriptions.each do |sub| %>
+            <% current_person.user.subscriptions.includes(show: {promo_image_attachment: :blob}).each do |sub| %>
               <div class="col-4 subscription">
                 <%= link_to sub.show do %>
                 <% if sub.show.promo_image.attached? %>

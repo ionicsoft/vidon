@@ -27,6 +27,14 @@ class VideosController < ApplicationController
           sub.save
         end
       end
+      
+      # Set previous watch history as completed
+      prev = @video.prev_video
+      if !prev.nil?
+        last_watched = WatchHistory.find_or_create_by video: prev, customer: current_person.user
+        last_watched.completed = true
+        last_watched.save
+      end
     end
   end
 

@@ -93,7 +93,7 @@
 <div class="episodes_list">
   <h3 id="sm-text">Episodes</h3>
   <ul>
-    <% @show.episodes.each do |episode| %>
+    <% @show.episodes.includes(video: {thumbnail_attachment: :blob}).each do |episode| %>
     <li>
       <p class="episodes_list_image">
         <% if episode.video.thumbnail.attached? %>

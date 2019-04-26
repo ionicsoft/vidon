@@ -18,6 +18,24 @@ class Video < ApplicationRecord
     content_type == "Movie"
   end
   
+  # Return list of genres for content
+  def get_content_genres
+    if episode?
+      return content.show.show_genres
+    else
+      return content.movie_genres
+    end
+  end
+  
+  # Return either show or movie that video belongs to
+  def content_parent
+    if episode?
+      return content.show
+    else
+      return content
+    end
+  end
+  
   # Returns the next video in a playlist
   def next_video
     if episode?

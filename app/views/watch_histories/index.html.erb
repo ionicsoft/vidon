@@ -9,6 +9,7 @@
               <th scope="col">Video title</th>
               <th scope="col">Series</th>
               <th scope="col">Last viewed</th>
+              <th scope="col">Completed?</th>
             </thead>
             <tbody>
               <% @histories.each do |h| %>
@@ -16,6 +17,7 @@
                   <td><%= link_to h.video.title, h.video %></td>
                   <td><%= link_to h.video.content.show.title, h.video.content.show if h.video.episode? %></td>
                   <td><%= time_ago_in_words h.updated_at %> ago</td>
+                  <td><%= h.completed ? "Yes" : "No" %></td>
                 </tr>
               <% end %>
             </tbody>
