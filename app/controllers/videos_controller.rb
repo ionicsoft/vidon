@@ -75,18 +75,15 @@ class VideosController < ApplicationController
     def check_permission
       if logged_in_customer
         @customer = Customer.find(current_person.user.id)
-        if @video.episode
-          @episode = Episode.find_by(content_id: @video.id)
-          @show = Show.find(@episode.show_id)
-          unless @customer.has_subscription(@show)
+        if episode?
+          unless @customer.has_subscription(content_parent)
             flash[:danger] = "Must subscribe first to view content"
-            redirect_back fallback_location: show_url(@show)
+            redirect_to content_parent
           end
         else
-          @mov = Movie.find_by(content_id: @video.id)
-          unless @customer.rentals.find_by(movie_id: @mov.id)
+          unless @customer.rentals.find_by(content_parent)
             flash[:danger] = "Must rent first to view content"
-            redirect_back fallback_location: movie_url(@movie)
+            redirect_to content_parent
           end
         end
       else
