@@ -1,60 +1,78 @@
 <div class="container">
   <%= render "flash_notice" %>
-  <% unless @movie.video.nil? %>
-  <h1 class="movie_title" style="color:black;">
-    <%= @movie.video.title %>
-    <% if @movie.promo_image.attached? %>
-        <%= image_tag(url_for(@movie.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
-    <% else %>
-        <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
-    <% end %>
-  </h1>
-  
-  <h2 class="movie_description" style="color:white;">
-    
-    <% if logged_in? and current_person.customer? %>
-    <p>
-      <ul class="movie_navbar_nav">
-        <% unless @movie.rentals.find_by(customer_id: current_person.user.id) %>
+  <div class="row">
+    <div class="col-4">
+      <% if @movie.promo_image.attached? %>
+        <%= image_tag(url_for(@movie.promo_image), alt: "Promo image", class: "promo-art") %>
+      <% else %>
+        <%= image_tag("nullPhoto.png", alt: "Promo image", class: "promo-art") %>
+      <% end %>
+      <hr>
+      <div class="card card-default">
+        <div class="card-body">
+          <h4 class="text-body text-center">About</h4>
+          <hr>
+          <p>
+            <b>Genre</b>
+            <% @movie.movie_genres.each do |g| %>
+              <span class="badge badge-light">
+                <%= g.genre.titleize %>
+                <%= link_to fa_icon("times"), g, method: :delete, class: "text-danger" if current_person.producer? %>
+              </span>
+            <% end %>
+          </p>
+          <p>
+            <b>Actors</b>
+            <% @movie.movie_actors.each do |a| %>
+              <span class="badge badge-light">
+                <%= a.name %>
+                <%= link_to fa_icon("times"), a, method: :delete, class: "text-danger" if current_person.producer? %>
+              </span>
+            <% end %>
+          </p>
+          <% if current_person.producer? %>
+            <div class="bg-warning p-2 mx-4">
+              <h5 class="text-body text-center"><small>Edit tags</small></h5>
+              <%= form_with(model: MovieGenre.new, local: true) do |form| %>
+                <%= form.hidden_field :movie_id, :value => @movie.id %>
+                <%= form.select :genre, MovieGenre.genres.keys.map { |w| [w.titleize, w] }, {include_blank: 'Genre'}, class: "custom-select custom-select-sm mb-2 mr-2" %>
+                <%= form.submit "Add genre", class: "btn btn-primary btn-sm btn-block mb-2"%>
+              <% end %>
+              <%= form_with(model: MovieActor.new, local: true) do |form| %>
+                <%= form.hidden_field :movie_id, :value => @movie.id %>
+                <%= form.text_field :name, id: :movie_actor_name, placeholder: "Actor", class: "form-control form-control-sm mb-2 mr-2" %>
+                <%= form.submit "Add actor", class: "btn btn-primary btn-sm btn-block mb-2"%>
+              <% end %>
+            </div>
+          <% end %>
+          <hr>
+          <p><b>Produced by</b> <%= link_to @movie.producer.company_name, @movie.producer %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <%= content_tag :h1, @movie.title %>
+      <hr>
+      <!-- button for rent, watch edit and delete-->
+      <div class="btn-group mb-3">
+        <% if current_person.producer? %>
+          <%= link_to fa_icon('edit', text: 'Edit movie'), edit_movie_path, class: 'btn btn-secondary' %>
+          <%= link_to fa_icon('trash', text: 'Delete movie'), @movie, class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure? This cannot be undone.'} %>
+        <% elsif @movie.rentals.find_by customer: current_person.user %>
+          <%= link_to fa_icon('play', text: 'Watch'), @movie.video, class: "btn btn-primary" %>
+        <% else %>
           <%= form_with(scope: :rental, url: "#{url_for @movie}/rent") do |form| %>
             <%= form.hidden_field :movie_id, value: @movie.id %>
             <%= form.submit "Rent", class: "btn btn-info" %>
           <% end %>
-        <% else %>
-          <li class="navbar-item">
-          <%= link_to 'Watch', @movie.video, class: "btn btn-primary btn-large" %>
-        </li>
         <% end %>
-      </ul>
-      <br />
-    </p>
-    <% end %>
-    
-    <p id="sm-text">
-      <strong>Description:</strong>
-      <%= @movie.video.description %>
-    </p>
-    
-    <% end %>
-    <% unless @movie.producer.nil? %>
-    
-    <p id="sm-text">
-      <strong>Producer:</strong>
-      <%= @movie.producer.company_name %>
-    </p>
-    
-    <p>
-      <% if current_person.customer? %>
-        <%= link_to 'Return to movies', browse_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
-      <% elsif current_person.producer? and @movie.producer == current_person.user %>
-        <%= link_to 'Return', pro_shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
-      <% end %>
-    </p>
-  </h2>
-   <% if current_person.producer? and @movie.producer == current_person.user %>
-      <%= link_to 'Delete Movie', @movie, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
-  <% end %>
+      </div>
+      <div class="card card-default">
+        <div class="card-body">
+          <h3 class="text-body">Description</h3>
+          <p><%= @movie.description %></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-

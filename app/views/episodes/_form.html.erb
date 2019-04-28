@@ -12,48 +12,55 @@
   <% end %>
 
   <%= form.fields_for :video, episode.video do |video_fields| %>
-      <h3>Episode information:</h3>
-        <div class="form-group">
-          <%= form.label :season %>
-          <%= form.number_field :season, id: :episode_season %>
-          <%= form.hidden_field :show_id, value: @show.id %>
-        </div>
-        
-        <div class="form-group">
-          <%= form.label :episode %>
-          <%= form.number_field :episode, id: :episode_episode, class: "form-control" %>
-        </div>
-        
-        <div class="form-group">
-          <%= video_fields.label :thumbnail %>
-          <%= video_fields.file_field :thumbnail, id: :video_thumbnail,
-            accept: "image/png,image/gif,image/jpeg", direct_upload: true,
-            class: "direct-upload" %>
-        </div>
-        
-        <div class="form-group">
-          <%= form.label :absolute_episode %>
-          <%= form.number_field :absolute_episode, id: :episode_absolute_episode, class: "form-control" %>
-        </div>
-        
-        <div class="form-group">
-          <%= video_fields.label :clip %>
-          <%= video_fields.file_field :clip, id: :video_clip, direct_upload: true,
-          class: "direct-upload", accept: "video/mp4" %>
-        </div>
-        
-        <div class="form-group">
-          <%= video_fields.label :title %>
-          <%= video_fields.text_field :title, id: :video_title, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= video_fields.label :description %>
-          <%= video_fields.text_field :description, id: :video_description, class: "form-control" %>
-        </div>
+    <% if @show.nil? %>
+      <%= form.hidden_field :show_id %>
+    <% else %>
+      <%= form.hidden_field :show_id, value: @show.id %>
+    <% end %>
+    
+    <h5 class="text-body">Episode information:</h5>
+    <div class="form-row">
+      <div class="form-group col-auto">
+        <%= form.label :absolute_episode %>
+        <%= form.number_field :absolute_episode, id: :episode_absolute_episode, class: "form-control" %>
+      </div>
+      <div class="form-group col-auto">
+        <%= form.label :season %>
+        <%= form.number_field :season, id: :episode_season, class: "form-control" %>
+      </div>
+      <div class="form-group col-auto">
+        <%= form.label :episode %>
+        <%= form.number_field :episode, id: :episode_episode, class: "form-control" %>
+      </div>
+    </div>
+    <h5 class="text-body">Media:</h5>
+    <div class="form-row">
+      <div class="form-group col-auto">
+        <%= video_fields.label :thumbnail %>
+        <%= video_fields.file_field :thumbnail, id: :video_thumbnail,
+          accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+          class: "direct-upload" %>
+      </div>
+      <div class="form-group col-auto">
+        <%= video_fields.label :clip %>
+        <%= video_fields.file_field :clip, id: :video_clip, direct_upload: true,
+        class: "direct-upload", accept: "video/mp4" %>
+      </div>
+    </div>
+    <h5 class="text-body">Text:</h5>
+    <div class="form-row">
+      <div class="form-group col-5">
+        <%= video_fields.label :title %>
+        <%= video_fields.text_field :title, id: :video_title, class: "form-control" %>
+      </div>
+      <div class="form-group col-7">
+        <%= video_fields.label :description %>
+        <%= video_fields.text_area :description, id: :video_description, class: "form-control" %>
+      </div>
+    </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-block btn-primary" %>
   </div>
 <% end %>

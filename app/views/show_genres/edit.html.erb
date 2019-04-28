@@ -1,6 +1,12 @@
-<h1>Editing Show Genre</h1>
-
-<%= render 'form', show_genre: @show_genre %>
-
-<%= link_to 'Show', @show_genre %> |
-<%= link_to 'Back', show_genres_path %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-5">
+      <div class="card card-default">
+        <h1 id="card-text" class="card-header">Edit Information</h1>
+        <div class="card-body">
+          <%= render 'form', show_genre: @show_genre %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

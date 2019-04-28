@@ -1,0 +1,17 @@
+<% if logged_in? && current_person.producer? %>
+  <div class="panel panel-default">
+    <%= form_with(model: ShowGenre.new, local: true, class: "panel-body") do |form| %>
+    
+      <%= form.hidden_field :show_id, :value => @show.id %>
+    
+      <div class="form-group">
+        <%= form.label :genre %>
+        <%= form.select :genre, ShowGenre.genres.keys.map { |w| [w.humanize, w] }, {include_blank: ''}, class: "custom-select" %>
+      </div>
+    
+      <div class="actions">
+        <%= form.submit "Add genre", class: "btn btn-primary"%>
+      </div>
+    <% end %>
+  </div>
+<% end %>
