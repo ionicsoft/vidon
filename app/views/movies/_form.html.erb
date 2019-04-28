@@ -12,40 +12,35 @@
   <% end %>
   
   <%= form.fields_for :video, movie.video do |video_fields| %>
-      <h3>Movie information:</h3>
-        <div class="form-group">
-          <%= form.label :promo_image, style: 'color: black;' %>
-          <%= form.file_field :promo_image, id: :movie_promo_image,
-            accept: "image/png,image/gif,image/jpeg", direct_upload: true,
-            class: "direct-upload" %>
-            <%= form.hidden_field :producer_id, value: current_person.user.id %>
-        </div>
-        
-        <div class="form-group">
-          <%= video_fields.label :thumbnail, style: 'color: black;' %>
-          <%= video_fields.file_field :thumbnail, id: :video_thumbnail,
-            accept: "image/png,image/gif,image/jpeg", direct_upload: true,
-            class: "direct-upload" %>
-        </div>
-        
-        <div class="form-group">
-          <%= video_fields.label :clip, style: 'color: black;' %>
-          <%= video_fields.file_field :clip, id: :video_clip, direct_upload: true,
-          class: "direct-upload", accept: "video/mp4" %>
-        </div>
-        
-        <div class="form-group">
-          <%= video_fields.label :title, style: 'color: black;' %>
-          <%= video_fields.text_field :title, id: :video_title, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= video_fields.label :description, style: 'color: black;' %>
-          <%= video_fields.text_field :description, id: :video_description, class: "form-control" %>
-        </div>
+    <div class="form-group">
+      <%= video_fields.label :title, style: 'color: black;' %>
+      <%= video_fields.text_field :title, id: :video_title, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= video_fields.label :description, style: 'color: black;' %>
+      <%= video_fields.text_area :description, id: :video_description, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :promo_image, style: 'color: black;' %>
+      <%= form.file_field :promo_image, id: :movie_promo_image,
+        accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+        class: "direct-upload" %>
+        <%= form.hidden_field :producer_id, value: current_person.user.id %>
+    </div>
+    <hr>
+    <div class="form-group">
+      <%= video_fields.label :clip, style: 'color: black;' %>
+      <%= video_fields.file_field :clip, id: :video_clip, direct_upload: true,
+      class: "direct-upload", accept: "video/mp4" %>
+    </div>
+    <div class="form-group">
+      <%= video_fields.label :thumbnail, style: 'color: black;' %>
+      <%= video_fields.file_field :thumbnail, id: :video_thumbnail,
+        accept: "image/png,image/gif,image/jpeg", direct_upload: true,
+        class: "direct-upload" %>
+    </div>
   <% end %>
-
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary btn-block" %>
   </div>
 <% end %>

@@ -3,9 +3,9 @@
   <div class="row">
     <div class="col-4">
       <% if @show.promo_image.attached? %>
-        <%= image_tag(url_for(@show.promo_image), :alt => "Promo Image", :style => "height: auto; width: 100%; border-radius: 5px;") %>
+        <%= image_tag(url_for(@show.promo_image), alt: "Promo image", class: "promo-art") %>
       <% else %>
-        <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: auto; width: 100%;") %>
+        <%= image_tag("nullPhoto.png", alt: "Promo image", class: "promo-art") %>
       <% end %>
       <hr>
       <div class="card card-default">
