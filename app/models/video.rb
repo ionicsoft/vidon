@@ -66,6 +66,14 @@ class Video < ApplicationRecord
     end
   end
   
+  def content_parent
+    if episode?
+      return content.show
+    else
+      return content
+    end
+  end
+  
   # Returns true if producer has edit permission
   def valid_producer?(producer)
     content.valid_producer?(producer)

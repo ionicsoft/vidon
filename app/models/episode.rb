@@ -7,7 +7,7 @@ class Episode < ApplicationRecord
   validates :episode, presence: true, numericality: { greater_than: 0 }
   validates :absolute_episode, presence: true, numericality: { greater_than: 0 }
 
-  accepts_nested_attributes_for :video, allow_destroy: true
+  accepts_nested_attributes_for :video, update_only: true
   
   # Returns a formatted string describing the season and episode
   def season_episode

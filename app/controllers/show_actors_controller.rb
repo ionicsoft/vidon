@@ -29,10 +29,11 @@ class ShowActorsController < ApplicationController
   # POST /show_actors.json
   def create
     @show_actor = ShowActor.new(show_actor_params)
+    session[:return_to] ||= request.referer
 
     respond_to do |format|
       if @show_actor.save
-        format.html { redirect_to @show_actor, notice: 'Show actor was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Show actor was successfully created.' }
         format.json { render :show, status: :created, location: @show_actor }
       else
         format.html { render :new }
@@ -45,8 +46,9 @@ class ShowActorsController < ApplicationController
   # PATCH/PUT /show_actors/1.json
   def update
     respond_to do |format|
+      @show = Show.find(@show_actor.show_id)
       if @show_actor.update(show_actor_params)
-        format.html { redirect_to @show_actor, notice: 'Show actor was successfully updated.' }
+        format.html { redirect_to @show, notice: 'Show actor was successfully updated.' }
         format.json { render :show, status: :ok, location: @show_actor }
       else
         format.html { render :edit }
@@ -58,9 +60,10 @@ class ShowActorsController < ApplicationController
   # DELETE /show_actors/1
   # DELETE /show_actors/1.json
   def destroy
+    session[:return_to] ||= request.referer
     @show_actor.destroy
     respond_to do |format|
-      format.html { redirect_to show_actors_url, notice: 'Show actor was successfully destroyed.' }
+      format.html { redirect_to session.delete(:return_to), notice: 'Show actor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

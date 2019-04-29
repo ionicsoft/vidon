@@ -6,3 +6,11 @@
     </button>
   </div>
 <% end %>
+<% if flash[:danger] %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:danger] %>
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
+  </div>
+<% end %>

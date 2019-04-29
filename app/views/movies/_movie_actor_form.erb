@@ -1,0 +1,17 @@
+<% if logged_in? && current_person.producer? %>
+  <div class="panel panel-default">
+    <%= form_with(model: MovieActor.new, local: true, class: "panel-body") do |form| %>
+    
+      <%= form.hidden_field :movie_id, :value => @movie.id %>
+    
+      <div class="form-group">
+        <%= form.label :name %>
+        <%= form.text_area :name, id: :movie_actor_name, rows: "1", class: "form-control" %>
+      </div>
+    
+      <div class="actions">
+        <%= form.submit "Add actor", class: "btn btn-primary"%>
+      </div>
+    <% end %>
+  </div>
+<% end %>

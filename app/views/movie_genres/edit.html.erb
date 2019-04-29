@@ -1,6 +1,12 @@
-<h1>Editing Movie Genre</h1>
-
-<%= render 'form', movie_genre: @movie_genre %>
-
-<%= link_to 'Show', @movie_genre %> |
-<%= link_to 'Back', movie_genres_path %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-5">
+      <div class="card card-default">
+        <h1 id="card-text" class="card-header">Edit Information</h1>
+        <div class="card-body">
+          <%= render 'form', movie_genre: @movie_genre %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

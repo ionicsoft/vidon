@@ -16,8 +16,8 @@ class Customer < ApplicationRecord
   validates :slots, numericality: { greater_than_or_equal_to: 5 }
   after_initialize :defaults_set
   
-  accepts_nested_attributes_for :person, allow_destroy: true
-  accepts_nested_attributes_for :payment, allow_destroy: true
+  accepts_nested_attributes_for :person, update_only: true
+  accepts_nested_attributes_for :payment, update_only: true
 
   # Set default attributes for a customer when created
   def defaults_set
