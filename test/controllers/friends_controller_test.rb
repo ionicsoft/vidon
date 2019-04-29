@@ -5,12 +5,14 @@ class FriendsControllerTest < ActionDispatch::IntegrationTest
     @friend = friendships(:one)
     Capybara.register_driver :selenium do |app|
         Capybara::Selenium::Driver.new(app, :browser => :firefox)
-    end 
+    end
+    log_in_as_customer
   end
   
   test "should destroy friendship" do
     assert_difference('FriendRequest.count', -1) do
-        delete friendship_url(@friend)
+        #not sure how to remove friend here
+        delete friend_url(@friend)
     end 
   end
 end

@@ -23,6 +23,20 @@ class ActiveSupport::TestCase
   def log_in_as(person)
     session[:person_id] = person.id
   end
+  
+  def log_in_as_customer
+    visit login_path
+    fill_in('Username', with: 'bob')
+    fill_in('Password', with: 'password')
+    click_button 'Login'
+  end
+  
+  def log_in_as_producer
+    visit login_path
+    fill_in('Username', with: 'laura')
+    fill_in('Password', with: 'password')
+    click_button 'Login'
+  end
 end
 
 class ActionDispatch::IntegrationTest

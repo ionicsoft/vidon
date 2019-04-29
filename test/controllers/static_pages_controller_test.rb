@@ -2,6 +2,7 @@ require 'test_helper'
 
 class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @customer = customers(:one)
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
@@ -24,21 +25,26 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should get browse" do
+    log_in_as_customer
     get browse_url
     assert_response :success
   end
   
   test "should get friends" do
+    log_in_as_customer
     get friends_url
     assert_response :redirect
   end
   
   test "should get my rentals" do
-    get my_rentals_url
+    log_in_as_customer
+    get my_rentals_url(@customer)
     assert_response :success
   end
   
   test "should get search" do
+    log_in_as_customer
+    #search url is undefined?
     get search_url
     assert_response :success
   end
@@ -57,13 +63,15 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   
   test "should get customer signup" do
     visit root_url
+    #doesn't see this?
     click_on 'Sign up today'
     assert_selector "h1", "Sign up"
   end
   
   test "should get producer signup" do
     visit root_url
-    click_on 'Producer? Sign up today'
+    #doesn't see this?
+    click_on 'Producer? Sign up here'
     assert_selector "h1", "Sign up"
   end
   
