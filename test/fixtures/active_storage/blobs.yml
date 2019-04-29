@@ -1,0 +1,15 @@
+bobs_picture_blob:
+    key: 86GTjdh8QEphyegKt6WREMyd
+    filename: paw.jpg
+    content_type: image/jpeg
+    metadata: '{"identified":true}'
+    byte_size: 6768
+    checksum: ncmvaKQ39cEqOp959rtv8A==
+
+episode_blob:
+    key: mDdFaMdw3Xs6aEts5JJRLhE4
+    filename: flyingcircus.mp4
+    content_type: video/mp4
+    metadata: {"identified":true,"analyzed":true}
+    byte_size: 7043992
+    checksum: mSTnN82cGSLy/YJhp7eFfg==

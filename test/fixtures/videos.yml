@@ -6,31 +6,31 @@ one:
   content: one (Episode)
 
 two:
-  title: MyString
+  title: MyString2
   description: MyString
   content: two (Episode)
 
 three:
-  title: MyString
+  title: MyString3
   description: MyString
   content: three (Episode)
 
 four:
-  title: MyString
+  title: MyString4
   description: MyString
   content: Four (Episode)
 
 five:
-  title: MyString
+  title: MyString5
   description: MyString
   content: five (Episode)
 
 six:
-  title: MyString
+  title: MyString6
   description: MyString
   content: one (Movie)
 
 seven:
-  title: MyString
+  title: MyString7
   description: MyString
   content: two (Movie)
