@@ -1,0 +1,84 @@
+bobs_picture:
+    name: avatar
+    record: one (Person)
+    blob: bobs_picture_blob
+    
+ricks_picture:
+    name: avatar
+    record: two (Person)
+    blob: bobs_picture_blob
+    
+joes_picture:
+    name: avatar
+    record: three (Person)
+    blob: bobs_picture_blob
+    
+anns_picture:
+    name: avatar
+    record: four (Person)
+    blob: bobs_picture_blob
+    
+lauras_picture:
+    name: avatar
+    record: five (Person)
+    blob: bobs_picture_blob
+    
+dawns_picture:
+    name: avatar
+    record: six (Person)
+    blob: bobs_picture_blob
+    
+movie_picture:
+    name: promo_image
+    record: one (Movie)
+    blob: bobs_picture_blob
+    
+movie_picture2:
+    name: promo_image
+    record: two (Movie)
+    blob: bobs_picture_blob
+    
+show_picture:
+    name: promo_image
+    record: one (Show)
+    blob: bobs_picture_blob
+    
+show_picture2:
+    name: promo_image
+    record: two (Show)
+    blob: bobs_picture_blob
+    
+episode:
+    name: clip
+    record: one (Video)
+    blob: episode_blob
+    
+episode2:
+    name: clip
+    record: two (Video)
+    blob: episode_blob
+    
+episode3:
+    name: clip
+    record: three (Video)
+    blob: episode_blob
+    
+episode4:
+    name: clip
+    record: four (Video)
+    blob: episode_blob
+    
+episode5:
+    name: clip
+    record: five (Video)
+    blob: episode_blob
+    
+episode6:
+    name: clip
+    record: six (Video)
+    blob: episode_blob
+    
+episode7:
+    name: clip
+    record: seven (Video)
+    blob: episode_blob
