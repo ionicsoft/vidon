@@ -24,7 +24,7 @@ class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create subscription" do
     #does not create subscription
-    assert_difference('Subscription.count') do
+    assert_difference('Subscription.count', 1) do
       post subscriptions_url, params: { subscription: { current_episode: @subscription.current_episode, customer_id: @subscription.customer_id, show_id: @subscription.show_id } }
     end
 

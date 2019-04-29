@@ -17,6 +17,7 @@ class VideoCommentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     get new_video_comment_url
+    #assert_response :redirect
     assert_response :success
   end
 

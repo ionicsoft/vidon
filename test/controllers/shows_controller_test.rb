@@ -22,7 +22,7 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create show" do
     #does not create show
-    assert_difference('Show.count') do
+    assert_difference('Show.count', 1) do
       post shows_url, params: { show: { name: @show.name, producer_id: @show.producer_id, description: @show.description } }
     end
 
@@ -52,6 +52,6 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
       delete show_url(@show)
     end
 
-    assert_redirected_to pro_shows_path(@producer)
+    assert_redirected_to pro_shows_url(@producer)
   end
 end

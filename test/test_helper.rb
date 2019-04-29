@@ -30,7 +30,7 @@ class ActiveSupport::TestCase
     fill_in('Password', with: 'password')
     click_button 'Login'
   end
-
+  
   def log_in_as_producer
     visit login_path
     fill_in('Username', with: 'laura')
@@ -48,7 +48,7 @@ class ActionDispatch::IntegrationTest
                                           remember_me: remember_me } }
   end
   
-   # Make the Capybara DSL available in all integration tests
+  # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
   # Make `assert_*` methods behave like Minitest assertions
   include Capybara::Minitest::Assertions
