@@ -2,7 +2,7 @@
   <%= render "flash_notice" %>
   <div class="row video-main mb-4">
     <div class="col">
-      <div class="video-player">
+      <%= content_tag :div, id: "video_p", class: "video-player", data: ({progress: @watch_history.progress, url: url_for(@watch_history)} unless current_person.producer?) do %>
         <video id="main-video-player" class="video-js vjs-default-skin vjs-16-9"
             controls autoplay preload="auto" width="640" height="264" 
             <%= if @video.thumbnail.attached? then "poster=\"#{ url_for @video.thumbnail }\"" end %>
@@ -10,7 +10,7 @@
           <source src="<%= url_for(@video.clip) %>" type="video/mp4">
           <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
         </video>
-      </div>
+      <% end %>
     </div>
   </div>
   <div class="row video-description">
@@ -57,7 +57,7 @@
           <div class="card-body">
             <div class="btn-group btn-block" role="group">
               <%= link_to fa_icon("chevron-left"), @video.prev_video, class: "btn btn-outline-secondary text-body", id: "button_prev" %>
-              <%= link_to fa_icon("chevron-right"), @video.next_video_or_show, class: "btn btn-outline-secondary text-body", id: "button_next" %>
+              <%= link_to fa_icon("chevron-right"), url_for([@video.next_video_or_show, update: @watch_history.id]), class: "btn btn-outline-secondary text-body", id: "button_next" %>
             </div>
             <% @video.content.show.episodes.order(:absolute_episode).each do |episode| %>
               <%= link_to episode.video do %>

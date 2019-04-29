@@ -15,6 +15,28 @@ class VideosController < ApplicationController
   # GET /videos/1
   # GET /videos/1.json
   def show
+    if current_person.customer?
+      # Create or update watch history for customer
+      @watch_history = WatchHistory.find_or_create_by video: @video, customer: current_person.user
+      @watch_history.touch
+      
+      # Update subscription if needed
+      if @video.episode?
+        sub = current_person.user.subscriptions.find_by(show: @video.content.show)
+        if sub.current_episode < @video.content.absolute_episode
+          sub.current_episode = @video.content.absolute_episode
+          sub.save
+        end
+      end
+      
+      # Set previous watch history as completed
+      prev = @video.prev_video
+      if !prev.nil?
+        last_watched = WatchHistory.find_or_create_by video: prev, customer: current_person.user
+        last_watched.completed = true
+        last_watched.save
+      end
+    end
   end
 
   # GET /videos/new

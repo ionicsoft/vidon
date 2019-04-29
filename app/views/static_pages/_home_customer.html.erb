@@ -2,12 +2,20 @@
   <%= render "flash_notice" %>
   <div class="row">
     <div class="col">
-      <% @show = Show.first %>
-      <div class="jumbotron" style="background-image: url('<%= url_for @show.promo_image %>')">
-        <h2 class="display-4"><%= @show.name %></h2>
-        <h5>Season 1, Ep. 2</h5>
-        <%= link_to "Play Next", @show.episodes.first.video, class: "btn btn-primary" %>
-      </div>
+      <% if !@video.nil? %>
+        <div class="jumbotron" style="background-image: url('<%= url_for @video.content_parent.promo_image %>')">
+          <h2 class="display-4"><%= @video.content_parent.title %></h2>
+          <% if @video.episode? %>
+            <h5><%= @video.title %> <small><%= @video.content.season_episode %></small></h5>
+          <% end %>
+          <%= link_to @video_progress.nil? ? "Watch Next" : "Continue Watching", @video, class: "btn btn-dark" %>
+        </div>
+      <% else %>
+        <div class="jumbotron" style="background-image: url('<%= url_for Show.last.promo_image %>')">
+          <h2 class="display-4">Find something to watch!</h2>
+          <%= link_to "Browse content", browse_path, class: "btn btn-dark" %>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="row" id="home-subscriptions">
@@ -15,7 +23,7 @@
       <div class="home-header"><h3>Your Subscriptions</h3></div>
       <div class="scrolling-wrapper">
         <% if current_person.user.subscriptions.any? %>
-          <% current_person.user.subscriptions.each do |sub| %>
+          <% current_person.user.subscriptions.includes(show: {promo_image_attachment: :blob}).each do |sub| %>
             <%= link_to sub.show do %>
               <div class="card">
                 <%= image_tag url_for(sub.show.promo_image), class: "card-img-top" if sub.show.promo_image.attached? %>
@@ -38,7 +46,7 @@
     <div class="col">
       <div class="home-header"><h3>Your Recommendations</h3></div>
       <div class="scrolling-wrapper">
-        <% Show.all.each do |show| %>
+        <% @suggestions.each do |show| %>
           <%= link_to show do %>
             <div class="card">
               <%= image_tag url_for(show.promo_image), class: "card-img-top" if show.promo_image.attached? %>
@@ -54,7 +62,7 @@
     <div class="col">
       <div class="home-header"><h3>Recently Updated</h3></div>
       <div class="scrolling-wrapper">
-        <% Show.order(updated_at: :desc).limit(10).each do |show| %>
+        <% Show.with_attached_promo_image.order(updated_at: :desc).limit(10).each do |show| %>
           <%= link_to show do %>
             <div class="card">
               <%= image_tag url_for(show.promo_image), class: "card-img-top" if show.promo_image.attached? %>

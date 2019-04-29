@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :watch_histories
   resources :favorites
   resources :people
   resources :video_comments
