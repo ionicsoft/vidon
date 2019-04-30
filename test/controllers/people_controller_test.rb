@@ -6,25 +6,26 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
-    log_in_as_customer
+    log_in_as(@person)
   end
 
   test "should get index" do
     get people_url
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should get new" do
     get new_person_url
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should create person" do
     #does not create person
+    @customer = Customer.create
     assert_difference('Person.count', 1) do
-      post people_url, params: { person: { email: "blah@gmail.com", first_name: "Joe", last_name: "Schmoe", password_digest: @person.password_digest, user_id: @person.user_id, user_type: "Customer", username: "joe" } }
+      post people_url, params: { person: { email: "blah@gmail.com", first_name: "Joe", last_name: "Schmoe", password:"password", password_confirmation: "password", user_id: @customer.id, user_type: "Customer", username: "schmoe" } }
     end
 
     assert_redirected_to person_url(Person.last)
@@ -32,14 +33,14 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
 
   test "should show person" do
     get person_url(@person)
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should get edit" do
     get edit_person_url(@person)
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should update person" do

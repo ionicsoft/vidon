@@ -7,7 +7,7 @@ class VideoCommentsControllerTest < ActionDispatch::IntegrationTest
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
-    log_in_as_customer
+    log_in_as(@customer)
   end
 
   test "should get index" do
@@ -24,7 +24,7 @@ class VideoCommentsControllerTest < ActionDispatch::IntegrationTest
   test "should create video_comment" do
     #does not create comment
     assert_difference('VideoComment.count', 1) do
-      post video_comments_url, params: { video_comment: { comment: @video_comment.comment, customer_id: @video_comment.customer_id, video_id: @video_comment.video_id } }
+      post video_comments_url, params: { video_comment: { comment: "yo", customer_id: @customer.id, video_id: @video_comment.video_id } }
     end
 
     assert_redirected_to video_comment_url(VideoComment.last)
@@ -32,14 +32,14 @@ class VideoCommentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show video_comment" do
     get video_comment_url(@video_comment)
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should get edit" do
     get edit_video_comment_url(@video_comment)
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should update video_comment" do

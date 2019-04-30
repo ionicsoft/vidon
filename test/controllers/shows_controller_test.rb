@@ -7,7 +7,7 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
-    log_in_as_producer
+    log_in_as(@producer)
   end
 
   test "should get index" do
@@ -23,7 +23,7 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
   test "should create show" do
     #does not create show
     assert_difference('Show.count', 1) do
-      post shows_url, params: { show: { name: @show.name, producer_id: @show.producer_id, description: @show.description } }
+      post shows_url, params: { show: { name: "The Rod Show", producer_id: @show.producer_id, description: "Our favorite teacher" } }
     end
 
     assert_redirected_to show_url(Show.last)
@@ -31,14 +31,14 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show show" do
     get show_url(@show)
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should get edit" do
     get edit_show_url(@show)
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should update show" do
@@ -52,6 +52,6 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
       delete show_url(@show)
     end
 
-    assert_redirected_to pro_shows_url(@producer)
+    assert_redirected_to pro_shows_url
   end
 end

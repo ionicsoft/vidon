@@ -7,7 +7,7 @@ class VideosControllerTest < ActionDispatch::IntegrationTest
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
-    log_in_as_producer
+    log_in_as(@producer)
   end
 
   test "should get index" do
@@ -22,8 +22,9 @@ class VideosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create video" do
     #does not create video
+    @mov = Movie.create
     assert_difference('Video.count', 1) do
-      post videos_url, params: { video: { description: @video.description, title: @video.title } }
+      post videos_url, params: { video: { description: "Another day in the neighborhood", title: "Pilot", content_id: @mov.id, content_type: "Movie" } }
     end
 
     assert_redirected_to video_url(Video.last)
@@ -31,14 +32,14 @@ class VideosControllerTest < ActionDispatch::IntegrationTest
 
   test "should show video" do
     get video_url(@video)
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should get edit" do
     get edit_video_url(@video)
-    assert_response :redirect
-    #assert_response :success
+    #assert_response :redirect
+    assert_response :success
   end
 
   test "should update video" do

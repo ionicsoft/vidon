@@ -8,7 +8,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
         Capybara.register_driver :selenium do |app|
             Capybara::Selenium::Driver.new(app, :browser => :firefox)
         end
-        log_in_as_customer
+        log_in_as(@customer.person)
     end
     test "should create friend request" do     
         assert_difference('FriendRequest.count', 1) do
