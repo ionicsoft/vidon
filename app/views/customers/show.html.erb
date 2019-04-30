@@ -40,7 +40,7 @@
                 <% favs[0..4].each do |fav| %>
                   <div class="card card-default">
                     <div class="card-body">
-                      <h4><%= link_to fav.content.video.title, fav.content %></h4>
+                      <h4><%= link_to fav.content.video.title, fav.content.video %></h4>
                       <%= if (logged_in? and @customer == current_person.user) then button_to "Unfavorite", favorite_path(fav), method: :delete, class: "btn btn-warning btn-sm pull-right" end %>
                     </div>
                   </div>
