@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_23_034324) do
+ActiveRecord::Schema.define(version: 2019_05_01_051317) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_034324) do
     t.datetime "updated_at", null: false
     t.integer "slots"
     t.date "renewal_date"
+    t.integer "subscriptions_count"
   end
 
   create_table "episodes", force: :cascade do |t|
@@ -80,7 +81,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_034324) do
 
   create_table "invoices", force: :cascade do |t|
     t.integer "payment_id"
-    t.decimal "amount"
+    t.decimal "amount", precision: 5, scale: 2
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -95,7 +96,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_034324) do
   end
 
   create_table "movie_genres", force: :cascade do |t|
-    t.string "genre"
+    t.integer "genre"
     t.integer "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -141,6 +142,9 @@ ActiveRecord::Schema.define(version: 2019_04_23_034324) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "remember_digest"
+    t.string "activation_digest"
+    t.boolean "activated", default: false
+    t.datetime "activated_at"
     t.index ["user_id", "user_type"], name: "index_people_on_user_id_and_user_type"
     t.index ["username"], name: "index_people_on_username", unique: true
   end
@@ -182,7 +186,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_034324) do
 
   create_table "show_genres", force: :cascade do |t|
     t.integer "show_id"
-    t.string "genre"
+    t.integer "genre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["show_id"], name: "index_show_genres_on_show_id"
@@ -235,6 +239,17 @@ ActiveRecord::Schema.define(version: 2019_04_23_034324) do
     t.integer "content_id"
     t.string "content_type"
     t.index ["content_id", "content_type"], name: "index_videos_on_content_id_and_content_type"
+  end
+
+  create_table "watch_histories", force: :cascade do |t|
+    t.integer "progress", default: 0
+    t.integer "customer_id"
+    t.integer "video_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
+    t.index ["customer_id"], name: "index_watch_histories_on_customer_id"
+    t.index ["video_id"], name: "index_watch_histories_on_video_id"
   end
 
 end

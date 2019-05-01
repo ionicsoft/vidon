@@ -7,6 +7,8 @@ one:
   last_name: Jones
   user: one (Customer)
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 two:
   username: rick
@@ -15,6 +17,8 @@ two:
   last_name: Anderson
   user: two (Customer)
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 three:
   username: joe
@@ -23,6 +27,8 @@ three:
   last_name: Anderson
   user: three (Customer)
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 four:
   username: ann
@@ -31,6 +37,8 @@ four:
   last_name: Anderson
   user: four (Customer)
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 five:
   username: laura
@@ -39,6 +47,8 @@ five:
   last_name: Likesdogs
   user: one (Producer)
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>
 
 six:
   username: dawn
@@ -47,3 +57,5 @@ six:
   last_name: Anderson
   user: two (Producer)
   password_digest: <%= Person.digest('password') %>
+  activated: true
+  activated_at: <%= Time.zone.now %>

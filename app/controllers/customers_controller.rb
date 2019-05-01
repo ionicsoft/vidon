@@ -34,9 +34,9 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        log_in(@customer.person)
+        PersonMailer.account_activation(@customer.person).deliver_now
         Invoice.create(:payment_id => @customer.payment.id, :amount => 10.00, :description => "Vidon Monthly Subscription Fee")
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+        format.html { redirect_to login_path, notice: 'Please check your email to activate your account.' }
         format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new }

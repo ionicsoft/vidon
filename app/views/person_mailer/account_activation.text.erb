@@ -1,0 +1,5 @@
+Hello <%= @person.full_name %>,
+
+Welcome to Vidon! Click the link below to activate your account:
+
+<%= edit_account_activation_url(@person.activation_token, email: @person.email) %>
