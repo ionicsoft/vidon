@@ -5,12 +5,6 @@ class MoviesController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /movies
-  # GET /movies.json
-  def index
-    @movies = Movie.all
-  end
-
   # GET /movies/1
   # GET /movies/1.json
   def show

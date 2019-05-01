@@ -5,15 +5,21 @@ class ShowsController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /shows
-  # GET /shows.json
-  def index
-    @shows = Show.all
-  end
-
   # GET /shows/1
   # GET /shows/1.json
   def show
+    if !params[:update].nil? and current_person.customer?
+      # Update subscription for customer
+      sub = current_person.user.subscriptions.find_by(show: @show)
+      sub.current_episode = @show.episodes.size
+      sub.save
+      # Set last video as completed
+      history = WatchHistory.find params[:update]
+      if !history.nil? and history.customer == current_person.user
+        history.completed = true
+        history.save
+      end
+    end
   end
 
   # GET /shows/new

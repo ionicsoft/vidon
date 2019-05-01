@@ -14,10 +14,12 @@ gem 'jquery-rails',            '~> 4.3.1'
 gem 'turbolinks',              '5.0.1'
 gem 'jbuilder',                '~> 2.7.0'
 gem "font-awesome-rails"
+gem 'sass'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'
   gem 'byebug',  '9.0.6', platform: :mri
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
@@ -34,6 +36,8 @@ group :test do
   gem 'minitest-reporters',       '1.1.14'
   gem 'guard',                    '>= 2.14.1'
   gem 'guard-minitest',           '>= 2.4.6'
+  gem 'selenium-webdriver'
+  gem 'geckodriver-helper', '~> 0.0.3'
 end
 
 group :production do

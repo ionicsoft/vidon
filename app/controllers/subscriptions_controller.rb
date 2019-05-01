@@ -3,26 +3,6 @@ class SubscriptionsController < ApplicationController
   #Authorization
   before_action :logged_in_customer
 
-  # GET /subscriptions
-  # GET /subscriptions.json
-  def index
-    @subscriptions = Subscription.all
-  end
-
-  # GET /subscriptions/1
-  # GET /subscriptions/1.json
-  def show
-  end
-
-  # GET /subscriptions/new
-  def new
-    @subscription = Subscription.new
-  end
-
-  # GET /subscriptions/1/edit
-  def edit
-  end
-
   # POST /subscriptions
   # POST /subscriptions.json
   def create
@@ -32,6 +12,7 @@ class SubscriptionsController < ApplicationController
     
     # Verify current customer
     if current_person.user != @customer
+      redirect_to root_url
       return
     end
     
@@ -40,21 +21,23 @@ class SubscriptionsController < ApplicationController
       # Check if customer can subscribe without purchase
       if @customer.open_slots?
         if @subscription.save
-          redirect_to @show
+          flash.notice = "Subscription added!"
         end
       else
         # Check if customer wants to purchase
-        if params[:purchase] == true
+        if params[:purchase] == "true"
           if @subscription.save
             # Purchase another slot
             Invoice.create(:payment_id => @customer.payment.id, :amount => 1.50, :description => "Additional subscription slot")
             @customer.slots += 1
             @customer.save
-            redirect_to @show
+            flash.notice = "Subscription purchased!"
           end
         end
       end
     end
+    
+    redirect_to @show
   end
 
   # PATCH/PUT /subscriptions/1
@@ -68,16 +51,6 @@ class SubscriptionsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @subscription.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /subscriptions/1
-  # DELETE /subscriptions/1.json
-  def destroy
-    @subscription.destroy
-    respond_to do |format|
-      format.html { redirect_to subscriptions_url, notice: 'Subscription was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

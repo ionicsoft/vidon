@@ -2,51 +2,18 @@ require 'test_helper'
 
 class VideosControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @file = fixture_file_upload("files/test.mp4","video/mp4")
     @video = videos(:one)
-    @producer = @video.content.show.producer.person
-  end
-
-  test "should get index" do
-    get videos_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    log_in_as @producer
-    get new_video_url
-    assert_response :success
-  end
-
-  # test "should create video" do
-  #   assert_difference('Video.count') do
-  #     post videos_url, params: { video: { description: @video.description, filename: @video.filename, title: @video.title } }
-  #   end
-
-  #   assert_redirected_to video_url(Video.last)
-  # end
-
-  # test "should show video" do
-  #   get video_url(@video)
-  #   assert_response :success
-  # end
-
-  test "should get edit" do
-    log_in_as @producer
-    get edit_video_url(@video)
-    assert_response :success
-  end
-
-  # test "should update video" do
-  #   patch video_url(@video), params: { video: { description: @video.description, filename: @video.filename, title: @video.title } }
-  #   assert_redirected_to video_url(@video)
-  # end
-
-  test "should destroy video" do
-    log_in_as @producer
-    assert_difference('Video.count', -1) do
-      delete video_url(@video)
+    @producer = @video.content.show.producer
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
+    log_in_as(@producer.person)
+  end
 
-    assert_redirected_to videos_url
+  test "should show video" do
+    get video_url(@video)
+    #assert_response :redirect
+    assert_response :success
   end
 end

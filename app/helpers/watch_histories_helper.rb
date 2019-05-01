@@ -1,0 +1,2 @@
+module WatchHistoriesHelper
+end

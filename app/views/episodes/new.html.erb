@@ -1,10 +1,10 @@
-<h1>New Episode</h1>
+<% provide(:title, "Create Episode") %>
 <% unless params[:show_id].nil? %>
     <% @show = Show.find(params[:show_id]) %>
 <% end %>
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-5">
+    <div class="col">
       <div class="card card-default">
         <h1 id="card-text" class="card-header">Create Episode</h1>
         <div class="card-body">
@@ -14,5 +14,3 @@
     </div>
   </div>
 </div>
-
-<%= link_to 'Back', episodes_path %>

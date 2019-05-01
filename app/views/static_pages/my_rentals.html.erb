@@ -1,8 +1,9 @@
+<% provide(:title, "Rentals") %>
 <div class="container">
   <%= render "flash_notice" %>
   <h3 id="banner">My Rentals</h3>
   <hr>
-  <% current_person.user.rentals.each do |rental| %>
+  <% current_person.user.rentals.includes(movie: [{promo_image_attachment: :blob}, :video]).each do |rental| %>
     <div class="row subscription">
       <div class="col-sm-2">
         <% if rental.movie.promo_image.attached? %>

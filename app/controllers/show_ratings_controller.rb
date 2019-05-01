@@ -4,26 +4,6 @@ class ShowRatingsController < ApplicationController
   before_action :logged_in_any, only: [:show]
   before_action :logged_in_customer, only: [:create, :edit, :update, :destroy]
 
-  # GET /show_ratings
-  # GET /show_ratings.json
-  def index
-    @show_ratings = ShowRating.all
-  end
-
-  # GET /show_ratings/1
-  # GET /show_ratings/1.json
-  def show
-  end
-
-  # GET /show_ratings/new
-  def new
-    @show_rating = ShowRating.new
-  end
-
-  # GET /show_ratings/1/edit
-  def edit
-  end
-
   # POST /show_ratings
   # POST /show_ratings.json
   def create

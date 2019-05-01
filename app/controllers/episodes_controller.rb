@@ -5,17 +5,6 @@ class EpisodesController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /episodes
-  # GET /episodes.json
-  def index
-    @episodes = Episode.all
-  end
-
-  # GET /episodes/1
-  # GET /episodes/1.json
-  def show
-  end
-
   # GET /episodes/new
   def new
     @episode = Episode.new

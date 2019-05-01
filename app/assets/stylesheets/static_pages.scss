@@ -29,7 +29,7 @@ $highlight-white: #000;
     left: 0;
     width: 100%;
     height: 90px;
-    background-image: linear-gradient(to bottom, transparent, #00000088);
+    background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.53));
   }
   
   .show-title {
@@ -73,7 +73,7 @@ $highlight-white: #000;
     background-size: cover;
     h2, h5 {
       color: white;
-      background-image: linear-gradient(to left, #00000011, #00000077);
+      background-image: linear-gradient(to left, rgba(0,0,0,0.07), rgba(0,0,0,0.47));
     }
   }
 }
@@ -100,11 +100,22 @@ $highlight-white: #000;
 }
 
 // Subscriptions page
+
 .subscription {
-  background-color:lightblue;
-  border-radius:5px;
-  padding: 1em;
-  margin: 0 0 1em 0;
+  img {
+    margin-top: 15px;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.subscription:nth-child(odd) {
+  background-color: lightgrey;
+}
+
+.sub-buttons {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 // Guest Homepage

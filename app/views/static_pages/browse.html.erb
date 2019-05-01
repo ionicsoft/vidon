@@ -1,3 +1,4 @@
+<% provide(:title, "Browse") %>
 <div class="container">
   <%= render "flash_notice" %>
   <div class="row">
@@ -15,7 +16,7 @@
       <div class="tab-content">
         <div class="tab-pane fade show active" id="shows" role="tabpanel">
           <div class="row pt-2 m-0">
-            <% Show.all.each do |show| %>
+            <% Show.with_attached_promo_image.all.each do |show| %>
               <div class="col-4 showcard p-0">
                 <%= link_to show do %>
                   <%= image_tag url_for(show.promo_image) if show.promo_image.attached? %>
@@ -30,7 +31,7 @@
         </div>
         <div class="tab-pane fade" id="movies" role="tabpanel">
           <div class="row pt-2 m-0">
-            <% Movie.all.each do |movie| %>
+            <% Movie.includes(:video).with_attached_promo_image.all.each do |movie| %>
               <div class="col-4 showcard p-0">
                 <%= link_to movie do %>
                   <%= image_tag url_for(movie.promo_image) if movie.promo_image.attached? %>

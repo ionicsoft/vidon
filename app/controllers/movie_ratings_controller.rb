@@ -4,26 +4,6 @@ class MovieRatingsController < ApplicationController
   before_action :logged_in_any, only: [:show]
   before_action :logged_in_customer, only: [:create, :edit, :update, :destroy]
 
-  # GET /movie_ratings
-  # GET /movie_ratings.json
-  def index
-    @movie_ratings = MovieRating.all
-  end
-
-  # GET /movie_ratings/1
-  # GET /movie_ratings/1.json
-  def show
-  end
-
-  # GET /movie_ratings/new
-  def new
-    @movie_rating = MovieRating.new
-  end
-
-  # GET /movie_ratings/1/edit
-  def edit
-  end
-
   # POST /movie_ratings
   # POST /movie_ratings.json
   def create
@@ -72,6 +52,6 @@ class MovieRatingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_rating_params
-      params.require(:movie_rating).permit(:movie_id, :rating)
+      params.require(:movie_rating).permit(:movie_id, :rating, :customer_id)
     end
 end

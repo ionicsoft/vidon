@@ -5,34 +5,15 @@ class MovieActorsController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /movie_actors
-  # GET /movie_actors.json
-  def index
-    @movie_actors = MovieActor.all
-  end
-
-  # GET /movie_actors/1
-  # GET /movie_actors/1.json
-  def show
-  end
-
-  # GET /movie_actors/new
-  def new
-    @movie_actor = MovieActor.new
-  end
-
-  # GET /movie_actors/1/edit
-  def edit
-  end
-
   # POST /movie_actors
   # POST /movie_actors.json
   def create
     @movie_actor = MovieActor.new(movie_actor_params)
+    session[:return_to] ||= request.referer
 
     respond_to do |format|
       if @movie_actor.save
-        format.html { redirect_to @movie_actor, notice: 'Movie actor was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Movie actor was successfully created.' }
         format.json { render :show, status: :created, location: @movie_actor }
       else
         format.html { render :new }
@@ -45,8 +26,9 @@ class MovieActorsController < ApplicationController
   # PATCH/PUT /movie_actors/1.json
   def update
     respond_to do |format|
+      @mov = Movie.find(@movie_actor.movie_id)
       if @movie_actor.update(movie_actor_params)
-        format.html { redirect_to @movie_actor, notice: 'Movie actor was successfully updated.' }
+        format.html { redirect_to @mov, notice: 'Movie actor was successfully updated.' }
         format.json { render :show, status: :ok, location: @movie_actor }
       else
         format.html { render :edit }
@@ -58,9 +40,10 @@ class MovieActorsController < ApplicationController
   # DELETE /movie_actors/1
   # DELETE /movie_actors/1.json
   def destroy
+    session[:return_to] ||= request.referer
     @movie_actor.destroy
     respond_to do |format|
-      format.html { redirect_to movie_actors_url, notice: 'Movie actor was successfully destroyed.' }
+      format.html { redirect_to session.delete(:return_to), notice: 'Movie actor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -1,131 +1,143 @@
+<% provide(:title, @show.name) %>
 <div class="container">
   <%= render "flash_notice" %>
-<div>
-  <h1 class="show_title" style="color:black;">
-    <%= @show.name %>
-    <% if @show.promo_image.attached? %>
-        <%= image_tag(url_for(@show.promo_image), :alt => "Promo Image", :style => "height: 400px; width: 300px;") %>
-    <% else %>
-        <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 400px; width: 300px;") %>
-    <% end %>
-  </h1>
-  
-  <h2 class="show_description">
-    <% if logged_in? && current_person.customer? %>
-    <p>
-      <ul class="show_navbar_nav">
-        <li>
-          <% if !current_person.user.has_subscription?(@show) %>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-              Subscribe
-            </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title text-body" id="exampleModalLabel">Subscribe to <%= @show.name %></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+  <div class="row">
+    <div class="col-4">
+      <% if @show.promo_image.attached? %>
+        <%= image_tag(url_for(@show.promo_image), alt: "Promo image", class: "promo-art") %>
+      <% else %>
+        <%= image_tag("nullPhoto.png", alt: "Promo image", class: "promo-art") %>
+      <% end %>
+      <hr>
+      <div class="card card-default">
+        <div class="card-body">
+          <h4 class="text-body text-center">About</h4>
+          <hr>
+          <p>
+            <b>Genre</b>
+            <% @show.show_genres.each do |g| %>
+              <span class="badge badge-light">
+                <%= g.genre.titleize %>
+                <%= link_to fa_icon("times"), g, method: :delete, class: "text-danger" if current_person.producer? %>
+              </span>
+            <% end %>
+          </p>
+          <p>
+            <b>Actors</b>
+            <% @show.show_actors.each do |a| %>
+              <span class="badge badge-light">
+                <%= a.name %>
+                <%= link_to fa_icon("times"), a, method: :delete, class: "text-danger" if current_person.producer? %>
+              </span>
+            <% end %>
+          </p>
+          <% if current_person.producer? %>
+            <div class="bg-warning p-2 mx-4">
+              <h5 class="text-body text-center"><small>Edit tags</small></h5>
+              <%= form_with(model: ShowGenre.new, local: true) do |form| %>
+                <%= form.hidden_field :show_id, :value => @show.id %>
+                <%= form.select :genre, ShowGenre.genres.keys.map { |w| [w.titleize, w] }, {include_blank: 'Genre'}, class: "custom-select custom-select-sm mb-2 mr-2" %>
+                <%= form.submit "Add genre", class: "btn btn-primary btn-sm btn-block mb-2"%>
+              <% end %>
+              <%= form_with(model: ShowActor.new, local: true) do |form| %>
+                <%= form.hidden_field :show_id, :value => @show.id %>
+                <%= form.text_field :name, id: :show_actor_name, placeholder: "Actor", class: "form-control form-control-sm mb-2 mr-2" %>
+                <%= form.submit "Add actor", class: "btn btn-primary btn-sm btn-block mb-2"%>
+              <% end %>
+            </div>
+          <% end %>
+          <hr>
+          <p><b>Description</b> <%= @show.description %></p>
+          <p><b>Produced by</b> <%= link_to @show.producer.company_name, @show.producer %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <%= content_tag :h1, @show.name %>
+      <hr>
+      <div class="btn-group mb-3">
+          <% if current_person.producer? %>
+            <%= link_to fa_icon('plus', text: 'Add episode'), new_episode_path(show_id: @show.id), class: "btn btn-secondary btn-large" %>
+            <%= link_to fa_icon('edit', text: 'Edit show'), edit_show_path, class: "btn btn-secondary btn-large" %>
+            <%= link_to fa_icon('trash', text: 'Delete show'), @show, class: "btn btn-danger btn-large", method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' } %>
+          <% else %>
+            <% if !current_person.user.has_subscription?(@show) %>
+              <button type="button" class="btn btn-info btn-large" data-toggle="modal" data-target="#exampleModal">
+                <%= fa_icon "plus", text: "Subscribe" %>
+              </button>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-body" id="exampleModalLabel">Subscribe to <%= @show.name %></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <% if current_person.user.open_slots? %>
+                      <div class="modal-body text-body">
+                        You have <span class="text-warning"><%= current_person.user.open_slots %></span> available subscription slots remaining.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <%= button_to "Subscribe", subscriptions_path,
+                          params: { subscription: { customer_id:
+                          current_person.user.id, show_id: @show.id} },
+                          class:"btn btn-primary" %>
+                      </div>
+                    <% else %>
+                      <div class="modal-body text-body">
+                        You do not have any available subscription slots. You can 
+                        purchase an additional slot for $2. Select "Purchase" to 
+                        add a new slot and subscribe to this show.
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <%= button_to "Purchase", subscriptions_path,
+                          params: { subscription: { customer_id:
+                          current_person.user.id, show_id: @show.id}, purchase: true },
+                          class:"btn btn-warning" %>
+                      </div>
+                    <% end %>
                   </div>
-                  <% if current_person.user.open_slots? %>
-                    <div class="modal-body text-body">
-                      You have <span class="text-warning"><%= current_person.user.open_slots %></span> available subscription slots remaining.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <%= button_to "Subscribe", subscriptions_path,
-                        params: { subscription: { customer_id:
-                        current_person.user.id, show_id: @show.id} },
-                        class:"btn btn-primary" %>
-                    </div>
+                </div>
+              </div>
+              
+              <%= link_to fa_icon("play", text: "Watch All"), @show.episodes.order(:absolute_episode).first.video, class: "btn btn-lg btn-primary disabled" %>
+            <% else %>
+              <%= link_to fa_icon("play", text: "Watch all"), @show.episodes.order(:absolute_episode).first.video, class: "btn btn-lg btn-primary" %>
+            <% end %>
+          <% end %>
+      </div>
+      <h3>Episodes</h3>
+      <% @show.episodes.order(:absolute_episode).includes(video: {thumbnail_attachment: :blob}).each do |episode| %>
+        <div class="row">
+          <div class="col mb-2">
+            <div class="card card-default ep-show">
+              <div class="card-body">
+                <% if episode.video.thumbnail.attached? %>
+                  <%= image_tag(url_for(episode.video.thumbnail), size: "100x100", alt: "Thumbnail") %>
+                <% else %>
+                  <%= image_tag("nullPhoto.png", size: "100x100", alt: "Thumbnail", class: "ep-show") %>
+                <% end %>
+                <h5 class="text-body"><%= episode.video.title %> <small class="text-secondary"><%= episode.season_episode %></small></h5>
+                <p><%= episode.video.description %></p>
+                <div id="ep-button-block">
+                  <% if current_person.customer? %>
+                    <%= link_to "Play", episode.video, class: "btn btn-secondary btn-sm" %>
                   <% else %>
-                    <div class="modal-body text-body">
-                      You do not have any available subscription slots. You can 
-                      purchase an additional slot for $2. Select "Purchase" to 
-                      add a new slot and subscribe to this show.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <%= button_to "Purchase", subscriptions_path,
-                        params: { subscription: { customer_id:
-                        current_person.user.id, show_id: @show.id}, purchase: true },
-                        class:"btn btn-warning" %>
-                    </div>
+                    <%= link_to "Edit", edit_episode_path(episode), class: "btn btn-secondary btn-sm" %>
+                    <%= link_to "Delete", episode, class: "btn btn-danger btn-sm" %>
                   <% end %>
                 </div>
               </div>
             </div>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to "Play", @show.episodes.find_by(absolute_episode: "1").video, class: "btn btn-primary" %>
-        </li>
-      </ul>
-      <br />
-    </p>
-    <% end %>
-    <p id="sm-text">
-      <strong>Description:</strong>
-      <%= @show.description %>
-    </p>
-    
-    <% unless @show.producer.nil? %>
-    <p id="sm-text">
-      <strong>Producer:</strong>
-      <%= @show.producer.company_name %>
-    </p>
-    <% end %>
-    
-    <% if current_person.customer? %>
-      <p>
-        <%= link_to 'Return to shows', browse_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
-      </p>
-    <% else %>
-      <p>
-        <%= link_to 'Return', pro_shows_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
-      </p>
-    <% end %>
-    
-  </h2>
-</div>  
-
-<div class="episodes_list">
-  <h3 id="sm-text">Episodes</h3>
-  <ul>
-    <% @show.episodes.each do |episode| %>
-    <li>
-      <p class="episodes_list_image">
-        <% if episode.video.thumbnail.attached? %>
-          <%= image_tag(url_for(episode.video.thumbnail), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
-        <% else %>
-          <%= image_tag("nullPhoto.png", :alt => "Thumbnail", :style => "height: 100px; width: 100px;") %>
-        <% end %>
-      </p>
-    
-      <div class="episodes_description">
-        <h3 id="sm-text"><%= episode.episode %> <%= episode.video.title %></h3>
-        <p id="sm-text">
-          <%= episode.video.description %>
-          <br/>
-          <% if current_person.customer? %>
-            <%= link_to 'Watch', episode.video, class: "btn btn-primary btn-large" %>
-          <% elsif current_person.user == @show.producer %>
-            <%= link_to 'Delete Episode', episode, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
-          
-        </p>
-      </div>
-      
-    </li>
-    <% end %>
-    <% if current_person.producer? and current_person.user == @show.producer %>
-      <%= link_to 'Add Episode', new_episode_path(show_id: @show.id), class: "btn btn-primary btn-large" %>
-      <%= link_to 'Edit Show', edit_show_path, class: "btn btn-primary btn-large" %>
-      <%= link_to 'Delete Show', @show, class: "btn btn-primary btn-large", method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
-  </ul>
-</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
   
 

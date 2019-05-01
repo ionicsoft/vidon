@@ -5,34 +5,15 @@ class ShowGenresController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /show_genres
-  # GET /show_genres.json
-  def index
-    @show_genres = ShowGenre.all
-  end
-
-  # GET /show_genres/1
-  # GET /show_genres/1.json
-  def show
-  end
-
-  # GET /show_genres/new
-  def new
-    @show_genre = ShowGenre.new
-  end
-
-  # GET /show_genres/1/edit
-  def edit
-  end
-
   # POST /show_genres
   # POST /show_genres.json
   def create
     @show_genre = ShowGenre.new(show_genre_params)
+    session[:return_to] ||= request.referer
 
     respond_to do |format|
       if @show_genre.save
-        format.html { redirect_to @show_genre, notice: 'Show genre was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Show genre was successfully created.' }
         format.json { render :show, status: :created, location: @show_genre }
       else
         format.html { render :new }
@@ -45,8 +26,9 @@ class ShowGenresController < ApplicationController
   # PATCH/PUT /show_genres/1.json
   def update
     respond_to do |format|
+      @show = Show.find(@show_genre.show_id)
       if @show_genre.update(show_genre_params)
-        format.html { redirect_to @show_genre, notice: 'Show genre was successfully updated.' }
+        format.html { redirect_to @show, notice: 'Show genre was successfully updated.' }
         format.json { render :show, status: :ok, location: @show_genre }
       else
         format.html { render :edit }
@@ -58,9 +40,10 @@ class ShowGenresController < ApplicationController
   # DELETE /show_genres/1
   # DELETE /show_genres/1.json
   def destroy
+     session[:return_to] ||= request.referer
     @show_genre.destroy
     respond_to do |format|
-      format.html { redirect_to show_genres_url, notice: 'Show genre was successfully destroyed.' }
+      format.html { redirect_to session.delete(:return_to), notice: 'Show genre was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
