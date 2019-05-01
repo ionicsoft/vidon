@@ -11,16 +11,6 @@ class MovieActorsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@producer)
   end
 
-  test "should get index" do
-    get movie_actors_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_movie_actor_url
-    assert_response :success
-  end
-
   test "should create movie_actor" do
     #does not create movie actor
     assert_difference('MovieActor.count', 1) do
@@ -28,18 +18,6 @@ class MovieActorsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to @movie
-  end
-
-  test "should show movie_actor" do
-    get movie_actor_url(@movie_actor)
-    #assert_response :redirect
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_movie_actor_url(@movie_actor)
-    #assert_response :redirect
-    assert_response :success
   end
 
   test "should update movie_actor" do

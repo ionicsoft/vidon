@@ -10,18 +10,6 @@ class ProfileCommentsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@customer)
   end
 
-  test "should get index" do
-    get profile_comments_url
-    #assert_response :redirect
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_profile_comment_url
-    #assert_response :redirect
-    assert_response :success
-  end
-
   test "should create profile_comment" do
     #does not create comment
     assert_difference('ProfileComment.count', 1) do
@@ -30,18 +18,6 @@ class ProfileCommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to customer_url(@profile_comment.customer)
-  end
-
-  test "should show profile_comment" do
-    get profile_comment_url(@profile_comment)
-    #assert_response :redirect
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_profile_comment_url(@profile_comment)
-    #assert_response :redirect
-    assert_response :success
   end
 
   test "should update profile_comment" do

@@ -10,11 +10,6 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@producer)
   end
 
-  test "should get index" do
-    get shows_url
-    assert_response :success
-  end
-
   test "should get new" do
     get new_show_url
     assert_response :success

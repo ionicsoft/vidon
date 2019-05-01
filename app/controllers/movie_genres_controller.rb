@@ -5,26 +5,6 @@ class MovieGenresController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /movie_genres
-  # GET /movie_genres.json
-  def index
-    @movie_genres = MovieGenre.all
-  end
-
-  # GET /movie_genres/1
-  # GET /movie_genres/1.json
-  def show
-  end
-
-  # GET /movie_genres/new
-  def new
-    @movie_genre = MovieGenre.new
-  end
-
-  # GET /movie_genres/1/edit
-  def edit
-  end
-
   # POST /movie_genres
   # POST /movie_genres.json
   def create

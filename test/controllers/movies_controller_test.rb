@@ -10,12 +10,6 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should get index" do
-    log_in_as(@customer.person)
-    get movies_url
-    assert_response :success
-  end
-
   test "should get new" do
     log_in_as(@producer)
     get new_movie_url

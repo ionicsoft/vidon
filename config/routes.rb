@@ -1,24 +1,23 @@
 Rails.application.routes.draw do
-  resources :watch_histories
-  resources :favorites
-  resources :people
-  resources :video_comments
-  resources :profile_comments
-  resources :movie_ratings
-  resources :movie_actors
-  resources :movie_genres
-  resources :movies
-  resources :episodes
-  resources :videos
-  resources :show_actors
-  resources :show_ratings
-  resources :show_genres
-  resources :shows
-  resources :subscriptions
-  resources :customers
-  resources :payments
-  resources :producers
-  resources :friend_requests
+  resources :watch_histories,   only: [:index, :update]
+  resources :favorites,         only: [:create, :destroy]
+  resources :people,            only: [:edit, :update]
+  resources :video_comments,    only: [:create, :update, :destroy]
+  resources :profile_comments,  only: [:create, :update, :destroy]
+  resources :movie_ratings,     only: [:create, :update, :destroy]
+  resources :movie_actors,      only: [:create, :update, :destroy]
+  resources :movie_genres,      only: [:create, :update, :destroy]
+  resources :movies,            except: [:index]
+  resources :episodes,          except: [:index, :show]
+  resources :videos,            only: [:show]
+  resources :show_actors,       only: [:create, :update, :destroy]
+  resources :show_ratings,      only: [:create, :update, :destroy]
+  resources :show_genres,       only: [:create, :update, :destroy]
+  resources :shows,             except: [:index]
+  resources :subscriptions,     only: [:create, :update]
+  resources :customers,         except: [:index, :edit, :update]
+  resources :producers,         except: [:index, :edit, :update]
+  resources :friend_requests,   only: [:create, :update, :destroy]
   root    'static_pages#home'
   get     '/about',   to: 'static_pages#about'
   get     '/contact', to: 'static_pages#contact'

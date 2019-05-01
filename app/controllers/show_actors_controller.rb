@@ -5,26 +5,6 @@ class ShowActorsController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /show_actors
-  # GET /show_actors.json
-  def index
-    @show_actors = ShowActor.all
-  end
-
-  # GET /show_actors/1
-  # GET /show_actors/1.json
-  def show
-  end
-
-  # GET /show_actors/new
-  def new
-    @show_actor = ShowActor.new
-  end
-
-  # GET /show_actors/1/edit
-  def edit
-  end
-
   # POST /show_actors
   # POST /show_actors.json
   def create

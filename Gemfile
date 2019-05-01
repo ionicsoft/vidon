@@ -19,6 +19,7 @@ gem 'sass'
 group :development, :test do
   gem 'sqlite3', '~> 1.3.13'
   gem 'byebug',  '9.0.6', platform: :mri
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
@@ -26,7 +27,6 @@ group :development do
   gem 'listen',                '>= 3.1.5', '< 3.2'
   gem 'spring',                '>= 2.0.2'
   gem 'spring-watcher-listen', '~> 2.0.1'
-  gem 'rspec-rails', '~> 3.8'
 end
 
 group :test do
@@ -38,7 +38,6 @@ group :test do
   gem 'guard-minitest',           '>= 2.4.6'
   gem 'selenium-webdriver'
   gem 'geckodriver-helper', '~> 0.0.3'
-  gem 'rspec-rails', '~> 3.8'
 end
 
 group :production do

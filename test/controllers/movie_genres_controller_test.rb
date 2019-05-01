@@ -11,16 +11,6 @@ class MovieGenresControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@producer)
   end
 
-  test "should get index" do
-    get movie_genres_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_movie_genre_url
-    assert_response :success
-  end
-
   test "should create movie_genre" do
     #does not create movie genre
     assert_difference('MovieGenre.count', 1) do
@@ -28,18 +18,6 @@ class MovieGenresControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to @movie
-  end
-
-  test "should show movie_genre" do
-    get movie_genre_url(@movie_genre)
-    #assert_response :redirect
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_movie_genre_url(@movie_genre)
-    #assert_response :redirect
-    assert_response :success
   end
 
   test "should update movie_genre" do
