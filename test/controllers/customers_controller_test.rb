@@ -25,7 +25,6 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end 
 
   test "should create customer" do
-    #does not create customer
     assert_difference('Customer.count', 1) do
       post customers_url, params: { customer: { person_attributes: { username: 
         "newuser", password: "123456", password_confirmation: "123456", email:
@@ -59,7 +58,6 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy customer" do
-    #does not destroy customer
     log_in_as(@customer.person)
     assert_difference('Customer.count', -1) do
       delete customer_url(@customer)
@@ -120,14 +118,6 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on 'My Shows'
     click_on 'Episodes'
     assert_selector "h1", @show.name
-  end
-  
-  test "should get recommendation" do
-    #todo
-  end
-  
-  test "should get recently updated" do
-    #todo
   end
   
   test "should get show from browse" do
