@@ -18,12 +18,6 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end
 
   #Start coverage testing
-  test "should get index" do
-    log_in_as(@customer.person)
-    get customers_url
-    assert_response :success
-  end
-
   test "should get new" do
     log_in_as(@customer.person)
     get new_customer_url
