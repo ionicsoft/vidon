@@ -23,10 +23,10 @@ class ShowActorsControllerTest < ActionDispatch::IntegrationTest
   test "should create show_actor" do
     #does not create show actor
     assert_difference('ShowActor.count', 1) do
-      post show_actors_url, params: { show_actor: { name: "Leo DiCaprio", show_id: @show_actor.show_id } }
+      post show_actors_url, params: { show_actor: { name: "Leo DiCaprio", show_id: @show_actor.show_id } }, headers: { 'HTTP_REFERER' => @show_actor.show }
     end
 
-    #assert_redirected_to show_actor_url(ShowActor.last)
+    assert_redirected_to @show_actor.show
   end
 
   test "should show show_actor" do
@@ -48,10 +48,11 @@ class ShowActorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy show_actor" do
     #does not destroy show actor
+    #@request.env['HTTP_REFERER'] = "/"
     assert_difference('ShowActor.count', -1) do
-      delete show_actor_url(@show_actor)
+      delete show_actor_url(@show_actor), headers: { 'HTTP_REFERER' => show_actors_url }
     end
 
-    #assert_redirected_to show_actors_url
+    assert_redirected_to show_actors_url
   end
 end

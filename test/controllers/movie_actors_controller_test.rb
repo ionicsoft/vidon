@@ -24,10 +24,10 @@ class MovieActorsControllerTest < ActionDispatch::IntegrationTest
   test "should create movie_actor" do
     #does not create movie actor
     assert_difference('MovieActor.count', 1) do
-      post movie_actors_url, params: { movie_actor: { movie_id: @movie.id, name: "Leo Di Caprio" } }
+      post movie_actors_url, params: { movie_actor: { movie_id: @movie.id, name: "Leo Di Caprio" } }, headers: { 'HTTP_REFERER' => @movie }
     end
 
-    #assert_redirected_to movie_actor_url(MovieActor.last)
+    assert_redirected_to @movie
   end
 
   test "should show movie_actor" do
@@ -50,9 +50,9 @@ class MovieActorsControllerTest < ActionDispatch::IntegrationTest
   test "should destroy movie_actor" do
     #does not destroy movie actor
     assert_difference('MovieActor.count', -1) do
-      delete movie_actor_url(@movie_actor)
+      delete movie_actor_url(@movie_actor), headers: { 'HTTP_REFERER' => @movie }
     end
 
-    #assert_redirected_to movie_actors_url
+    assert_redirected_to @movie
   end
 end

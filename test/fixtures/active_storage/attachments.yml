@@ -82,3 +82,38 @@ episode7:
     name: clip
     record: seven (Video)
     blob: episode_blob
+    
+ep_thumb:
+    name: thumbnail
+    record: one (Video)
+    blob: bobs_picture_blob
+    
+ep_thumb2:
+    name: thumbnail
+    record: two (Video)
+    blob: bobs_picture_blob
+    
+ep_thumb3:
+    name: thumbnail
+    record: three (Video)
+    blob: bobs_picture_blob
+    
+ep_thumb4:
+    name: thumbnail
+    record: four (Video)
+    blob: bobs_picture_blob
+    
+ep_thumb5:
+    name: thumbnail
+    record: five (Video)
+    blob: bobs_picture_blob
+    
+ep_thumb6:
+    name: thumbnail
+    record: six (Video)
+    blob: bobs_picture_blob
+    
+ep_thumb7:
+    name: thumbnail
+    record: seven (Video)
+    blob: bobs_picture_blob

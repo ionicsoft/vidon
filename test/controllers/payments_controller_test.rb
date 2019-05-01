@@ -26,7 +26,7 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     #does not create payment
     @temp = Customer.create
     assert_difference('Payment.count') do
-      post payments_url, params: { payment: { card_name: "JoJo Cujoh", card_num: "1111222233334444", cvc: 123, expiration: "04/21", customer_id: @temp.id } }
+      post payments_url, params: { payment: { card_name: "JoJo Cujoh", card_num: "1111222233334444", cvc: 123, expiration: Date.today + 5.days, customer_id: @temp.id } }
     end
 
     assert_redirected_to payment_url(Payment.last)

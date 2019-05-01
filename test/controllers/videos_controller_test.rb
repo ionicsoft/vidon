@@ -2,12 +2,13 @@ require 'test_helper'
 
 class VideosControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @file = fixture_file_upload("files/test.mp4","video/mp4")
     @video = videos(:one)
-    @producer = @video.content.show.producer.person
+    @producer = @video.content.show.producer
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
-    log_in_as(@producer)
+    log_in_as(@producer.person)
   end
 
   test "should get index" do
@@ -22,9 +23,9 @@ class VideosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create video" do
     #does not create video
-    @mov = Movie.create
+    @mov = Movie.create(producer: @producer)
     assert_difference('Video.count', 1) do
-      post videos_url, params: { video: { description: "Another day in the neighborhood", title: "Pilot", content_id: @mov.id, content_type: "Movie" } }
+      post videos_url, params: { video: { description: "Another day in the neighborhood", title: "Pilot", content_id: @mov.id, content_type: "Movie", clip: @file } }
     end
 
     assert_redirected_to video_url(Video.last)

@@ -24,10 +24,10 @@ class MovieGenresControllerTest < ActionDispatch::IntegrationTest
   test "should create movie_genre" do
     #does not create movie genre
     assert_difference('MovieGenre.count', 1) do
-      post movie_genres_url, params: { movie_genre: { genre: "comedy", movie_id: @movie.id } }
+      post movie_genres_url, params: { movie_genre: { genre: "comedy", movie_id: @movie.id } }, headers: { 'HTTP_REFERER' => @movie }
     end
 
-    assert_redirected_to movie_genre_url(MovieGenre.last)
+    assert_redirected_to @movie
   end
 
   test "should show movie_genre" do
@@ -50,9 +50,9 @@ class MovieGenresControllerTest < ActionDispatch::IntegrationTest
   test "should destroy movie_genre" do
     #does not destroy movie genre
     assert_difference('MovieGenre.count', -1) do
-      delete movie_genre_url(@movie_genre)
+      delete movie_genre_url(@movie_genre), headers: { 'HTTP_REFERER' => @movie }
     end
 
-    assert_redirected_to movie_genres_url
+    assert_redirected_to @movie
   end
 end

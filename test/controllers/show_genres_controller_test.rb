@@ -23,10 +23,10 @@ class ShowGenresControllerTest < ActionDispatch::IntegrationTest
   test "should create show_genre" do
     #does not create show genre
     assert_difference('ShowGenre.count', 1) do
-      post show_genres_url, params: { show_genre: { genre: "comedy", show_id: @show_genre.show_id } }
+      post show_genres_url, params: { show_genre: { genre: "comedy", show_id: @show_genre.show_id } }, headers: { 'HTTP_REFERER' => @show_genre.show }
     end
 
-    assert_redirected_to show_genre_url(ShowGenre.last)
+    assert_redirected_to @show_genre.show
   end
 
   test "should show show_genre" do
@@ -49,9 +49,9 @@ class ShowGenresControllerTest < ActionDispatch::IntegrationTest
   test "should destroy show_genre" do
     #does not destroy show genre
     assert_difference('ShowGenre.count', -1) do
-      delete show_genre_url(@show_genre)
+      delete show_genre_url(@show_genre), headers: { 'HTTP_REFERER' => @show_genre.show }
     end
 
-    assert_redirected_to show_genres_url
+    assert_redirected_to @show_genre.show
   end
 end

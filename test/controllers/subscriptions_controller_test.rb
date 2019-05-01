@@ -25,10 +25,10 @@ class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
   test "should create subscription" do
     #does not create subscription
     assert_difference('Subscription.count', 1) do
-      post subscriptions_url, params: { subscription: { current_episode: 1, customer_id: @customer.user_id, show_id: @subscription.show_id } }
+      post subscriptions_url, params: { subscription: { current_episode: 1, customer_id: @customer.user_id, show_id: @subscription.show_id } }, headers: { 'HTTP_REFERER' => @subscription.show }
     end
 
-    assert_redirected_to show_url(Subscription.last)
+    assert_redirected_to @subscription.show
   end
 
   test "should show subscription" do

@@ -11,6 +11,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     @movie2 = movies(:two)
     @comment = profile_comments(:one)
     @fav = favorites(:one)
+    @fav2 = favorites(:three)
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
@@ -34,7 +35,9 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Customer.count', 1) do
       post customers_url, params: { customer: { person_attributes: { username: 
         "newuser", password: "123456", password_confirmation: "123456", email:
-        "newuser@example.com", first_name: "New", last_name: "User" } } }
+        "newuser@example.com", first_name: "New", last_name: "User" },
+        payment_attributes: { card_name: "guy", card_num: "1234123412341234",
+        cvc: 321, expiration: Date.today + 5.days}} }
     end
 
     assert_redirected_to customer_url(Customer.last)
@@ -159,7 +162,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     log_in_as_customer
     click_on 'My Shows'
     click_on 'Cancel'
-    find 'Renew'
+    assert_selector "input", "Renew"
   end
   
   test "should get browse from my shows" do
@@ -211,7 +214,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on @customer.person.first_name
     click_on 'Friends'
     fill_in "fsearch", with: "rick"
-    find(:css,"input-group-btn").click
+    click_on 'friend_search'
     assert_selector "h5", @customer2.person.full_name
   end
   
@@ -223,16 +226,24 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     log_in_as_customer
     click_on @customer.person.first_name
     click_on 'Profile'
-    click_on @comment.commentor.person.username
+    click_on @comment.commentor.person.full_name
     assert_selector "h4", @customer2.person.full_name
   end
   
-  test "should get show from favorites" do
+  test "should get movie from favorites" do
     log_in_as_customer
     click_on @customer.person.first_name
     click_on 'Profile'
-    click_on @fav.content.name
-    assert_selector "h1", @fav.content.name
+    click_on @fav.content.video.title
+    assert_selector "h4", @fav.content.video.title
+  end
+  
+  test "should get episode from favorites" do
+    log_in_as_customer
+    click_on @customer.person.first_name
+    click_on 'Profile'
+    click_on @fav2.content.video.title
+    assert_selector "h4", @fav2.content.video.title
   end
   
   test "should subscribe when click subscribe" do
@@ -240,7 +251,8 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on 'Browse'
     click_on @show2.name
     assert_difference("Subscription.count", 1) do
-      click_on 'Subscribe'
+      first(:button, 'Subscribe').click
+      click_on "Subscribe", class: "btn-primary"
     end
   end
   
@@ -256,7 +268,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     log_in_as_customer
     click_on 'Browse'
     click_on 'Movies'
-    click_on @movie.video.title
+    click_on @movie2.video.title
     assert_difference("Rental.count", 1) do
       click_on 'Rent'
     end
@@ -274,7 +286,6 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   test "should search for show" do
     log_in_as_customer
     fill_in "search", with: "ad"
-    #doesn't see button
     click_on "search-btn"
     assert_selector "h5", @show.name
   end
@@ -282,18 +293,14 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   test "should search for movie" do
     log_in_as_customer
     fill_in "search", with: "mys"
-    #doesn't see button
     click_on "search-btn"
     assert_selector "h5", @movie.video.title
   end
   
   test "should favorite movie" do
     log_in_as_customer
-    click_on 'Browse'
-    click_on 'Movies'
-    click_on @movie.video.title
-    click_on 'Watch'
-    #save_and_open_page
+    click_on 'My Rentals'
+    click_on 'Play'
     assert_difference("Favorite.count", 1) do
       click_on 'Favorite', class: "btn-primary"
     end
@@ -303,7 +310,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     log_in_as_customer
     click_on 'My Rentals'
     first(:link, 'Play').click
-    fill_in "comment", with: "This is great!"
+    fill_in "video_comment_comment", with: "This is great!"
     assert_difference("VideoComment.count", 1) do
       click_on 'Post', class: "btn-primary"
     end
@@ -314,6 +321,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on 'My Shows'
     click_on 'Episodes'
     click_on 'Watch'
+    click_on 'button_next'
     assert_difference("Favorite.count", 1) do
       click_on 'Favorite', class: "btn-primary"
     end
@@ -324,7 +332,7 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     click_on 'My Shows'
     click_on 'Episodes'
     first(:link, 'Play').click
-    fill_in "comment", with: "This is great!"
+    fill_in "video_comment_comment", with: "This is great!"
     assert_difference("VideoComment.count", 1) do
       click_on 'Post', class: "btn-primary"
     end

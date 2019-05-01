@@ -12,7 +12,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     end
     test "should create friend request" do     
         assert_difference('FriendRequest.count', 1) do
-            post friend_request_url, params: { friend_request: {customer_id: @customer.id, requester_id: @customer2.id }}
+            post friend_requests_url, params: { friend_request: {customer_id: @customer.id, requester_id: @customer2.id }}
         end 
     end
     

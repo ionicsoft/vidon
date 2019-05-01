@@ -3,9 +3,14 @@
 one:
   customer: one
   content: one
-  content_type: Content
+  content_type: Episode
 
 two:
   customer: two
   content: two
-  content_type: Content
+  content_type: Movie
+  
+three:
+  customer: one
+  content: five
+  content_type: Episode

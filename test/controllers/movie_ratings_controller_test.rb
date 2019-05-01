@@ -22,8 +22,9 @@ class MovieRatingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create movie_rating" do
     #does not create movie rating
+    temp = Customer.create
     assert_difference('MovieRating.count', 1) do
-      post movie_ratings_url, params: { movie_rating: { movie_id: @movie_rating.movie_id, rating: 3, customer_id: @customer.id } }
+      post movie_ratings_url, params: { movie_rating: { movie_id: @movie_rating.movie_id, rating: 3, customer_id: temp.id } }
     end
 
     assert_redirected_to movie_rating_url(MovieRating.last)

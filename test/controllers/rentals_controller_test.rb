@@ -3,6 +3,7 @@ require 'test_helper'
 class RentalsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @customer = customers(:one)
+    @movie = movies(:two)
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, :browser => :firefox)
     end
@@ -11,7 +12,7 @@ class RentalsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create rental" do
     assert_difference('Rental.count', 1) do
-      post rentals_url, params: { movie_id: 1, customer_id: 1}
+      post "#{url_for @movie}/rent", params: { rental: { movie_id: @movie.id, customer_id: @customer.id}}, headers: { 'HTTP_REFERER' => @movie }
     end
   end
 end
