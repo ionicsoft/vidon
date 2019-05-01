@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'noreply@example.com'
+  default from: 'noreply@ionicsoft-vidon.herokuapp.com'
   layout 'mailer'
 end
