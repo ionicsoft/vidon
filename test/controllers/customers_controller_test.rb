@@ -33,7 +33,8 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
         cvc: 321, expiration: Date.today + 5.days}} }
     end
 
-    assert_redirected_to customer_url(Customer.last)
+    assert_redirected_to login_path
+    assert_equal 'Please check your email to activate your account.', flash[:notice]
   end
 
   test "should show customer" do

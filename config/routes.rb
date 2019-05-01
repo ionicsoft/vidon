@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :customers,         except: [:index, :edit, :update]
   resources :producers,         except: [:index, :edit, :update]
   resources :friend_requests,   only: [:create, :update, :destroy]
+  resources :account_activations, only: [:edit]
   root    'static_pages#home'
   get     '/about',   to: 'static_pages#about'
   get     '/contact', to: 'static_pages#contact'

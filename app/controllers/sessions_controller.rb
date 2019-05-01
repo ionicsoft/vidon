@@ -7,9 +7,14 @@ class SessionsController < ApplicationController
   def create
     person = Person.find_by(username: params[:session][:username].downcase)
     if person && person.authenticate(params[:session][:password])
-      log_in(person)
-      params[:session][:remember_me] == '1' ? remember(person) : forget(person)
-      redirect_back_or root_url
+      if person.activated?
+        log_in(person)
+        params[:session][:remember_me] == '1' ? remember(person) : forget(person)
+        redirect_back_or root_url
+      else
+        flash[:danger] = "Account not activated. Please check your email."
+        redirect_to login_path
+      end
     else
       flash.now[:danger] = "No user found with username/password combination."
       render 'new'

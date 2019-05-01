@@ -35,7 +35,8 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
       } } }
     end
 
-    assert_redirected_to producer_url(Producer.last)
+    assert_redirected_to login_path
+    assert_equal 'Please check your email to activate your account.', flash[:notice]
   end
 
   test "should show producer" do

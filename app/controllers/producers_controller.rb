@@ -17,8 +17,8 @@ class ProducersController < ApplicationController
 
     respond_to do |format|
       if @producer.save
-        log_in(@producer.person)
-        format.html { redirect_to @producer, notice: 'Producer was successfully created.' }
+        PersonMailer.account_activation(@producer.person).deliver_now
+        format.html { redirect_to login_path, notice: 'Please check your email to activate your account.' }
         format.json { render :show, status: :created, location: @producer }
       else
         format.html { render :new }
