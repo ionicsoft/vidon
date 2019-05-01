@@ -4,9 +4,6 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @show = shows(:one)
     @producer = @show.producer.person
-    Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, :browser => :firefox)
-    end
     log_in_as(@producer)
   end
 
@@ -16,7 +13,6 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create show" do
-    #does not create show
     assert_difference('Show.count', 1) do
       post shows_url, params: { show: { name: "The Rod Show", producer_id: @show.producer_id, description: "Our favorite teacher" } }
     end
@@ -26,23 +22,20 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show show" do
     get show_url(@show)
-    #assert_response :redirect
     assert_response :success
   end
 
   test "should get edit" do
     get edit_show_url(@show)
-    #assert_response :redirect
     assert_response :success
   end
 
   test "should update show" do
     patch show_url(@show), params: { show: { name: @show.name, producer_id: @show.producer_id, description: @show.description } }
-    #assert_redirected_to show_url(@show)
+    assert_redirected_to show_url(@show)
   end
 
   test "should destroy show" do
-    #does not destroy show
     assert_difference('Show.count', -1) do
       delete show_url(@show)
     end

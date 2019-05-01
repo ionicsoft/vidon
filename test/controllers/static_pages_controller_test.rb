@@ -44,9 +44,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get search" do
     log_in_as(@customer.person)
-    #search url is undefined?
     get search_page_url
-    #assert_response :success
     assert_response :redirect
   end
 
@@ -65,14 +63,12 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get customer signup" do
     visit root_url
-    #doesn't see this?
     first(:link, 'Sign up today').click
     assert_selector "h1", text: "Sign up"
   end
 
   test "should get producer signup" do
     visit root_url
-    #doesn't see this?
     first(:link, 'Producer? Sign up here').click
     assert_selector "h1", text: "Sign up"
   end

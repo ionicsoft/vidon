@@ -46,7 +46,6 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy producer" do
-    #does not destroy producer
     log_in_as(@producer.person)
     assert_difference('Producer.count', -1) do
       delete producer_url(@producer)

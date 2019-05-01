@@ -5,9 +5,6 @@ class VideoCommentsControllerTest < ActionDispatch::IntegrationTest
     @video_comment = video_comments(:one)
     @video = videos(:one)
     @customer = @video_comment.customer.person
-    Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, :browser => :firefox)
-    end
     log_in_as(@customer)
   end
 
@@ -25,7 +22,6 @@ class VideoCommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy video_comment" do
-    #does not destroy comment
     assert_difference('VideoComment.count', -1) do
       delete video_comment_url(@video_comment), headers: { 'HTTP_REFERER' => @video }
     end

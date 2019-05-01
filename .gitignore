@@ -28,3 +28,6 @@
 # Ignore development storage files
 /storage/*
 !/storage/.keep
+
+#Ignore coverage
+/coverage/*

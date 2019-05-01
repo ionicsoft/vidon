@@ -309,7 +309,6 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should login user" do
-    #this one works - use this syntax
     visit root_url
     click_on 'Login'
     assert_selector "h1", text: "Login"

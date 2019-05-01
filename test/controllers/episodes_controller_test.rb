@@ -5,9 +5,6 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     @episode = episodes(:one)
     @show = shows(:one)
     @producer = producers(:one)
-    Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, :browser => :firefox)
-    end
     log_in_as(@producer.person)
   end
 
@@ -18,7 +15,6 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create episode" do
-    #does not create episode
     assert_difference('Episode.count', 1) do
       post episodes_url, params: { episode: { absolute_episode: 1, episode: 1, season: 1, show_id: @show.id } }
     end
@@ -28,17 +24,15 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
     get edit_episode_url(@episode)
-    #assert_response :redirect
     assert_response :success
   end
 
   test "should update episode" do
     patch episode_url(@episode), params: { episode: { absolute_episode: @episode.absolute_episode, episode: @episode.episode, season: @episode.season, show_id: @episode.show_id } }
-    #assert_redirected_to episode_url(@episode)
+    assert_redirected_to show_url(@episode.show)
   end
 
   test "should destroy episode" do
-    #does not destroy episode
     assert_difference('Episode.count', -1) do
       delete episode_url(@episode)
     end

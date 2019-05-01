@@ -41,6 +41,7 @@
         <div class="card-body">
           <h3 id="card-text">Friend Requests</h3>
           <hr>
+          <% @requests = FriendRequest.all.where(customer_id: current_person.user.id) %>
           <% @requests.each do |frequest| %>
             <div class="media mb-2">
               <% requester = frequest.requester %>

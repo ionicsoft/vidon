@@ -4,9 +4,6 @@ class RentalsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @customer = customers(:one)
     @movie = movies(:two)
-    Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, :browser => :firefox)
-    end
     log_in_as(@customer.person)
   end
 
