@@ -1,7 +1,6 @@
 class AccountActivationsController < ApplicationController
   def edit
     person = Person.find_by(email: params[:email])
-    byebug
     if person && !person.activated? && person.authenticated?(:activation, params[:id])
       person.activate
       log_in person
