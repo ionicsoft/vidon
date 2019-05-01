@@ -3,54 +3,53 @@ require 'test_helper'
 class VideoCommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @video_comment = video_comments(:one)
+    @video = videos(:one)
     @customer = @video_comment.customer.person
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
+    end
+    log_in_as(@customer)
   end
 
   test "should get index" do
-    log_in_as @customer
     get video_comments_url
     assert_response :success
   end
 
   test "should get new" do
-    log_in_as @customer
     get new_video_comment_url
     assert_response :success
   end
 
-  # test "should create video_comment" do
-  #   log_in_as @customer
-  #   assert_difference('VideoComment.count') do
-  #     post video_comments_url, params: { video_comment: { comment: @video_comment.comment, customer_id: @video_comment.customer_id, video_id: @video_comment.video_id } }
-  #   end
+  test "should create video_comment" do
+    assert_difference('VideoComment.count', 1) do
+      post video_comments_url, params: { video_comment: { comment: "yo", customer_id: @customer.id, video_id: @video_comment.video_id } }, headers: { 'HTTP_REFERER' => @video }
+    end
 
-  #   assert_redirected_to video_comment_url(VideoComment.last)
-  # end
+    assert_redirected_to @video
+  end
 
   test "should show video_comment" do
-    log_in_as @customer
     get video_comment_url(@video_comment)
     assert_response :success
   end
 
   test "should get edit" do
-    log_in_as @customer
     get edit_video_comment_url(@video_comment)
     assert_response :success
   end
 
   test "should update video_comment" do
-    log_in_as @customer
     patch video_comment_url(@video_comment), params: { video_comment: { comment: @video_comment.comment, customer_id: @video_comment.customer_id, video_id: @video_comment.video_id } }
     assert_redirected_to video_comment_url(@video_comment)
   end
 
-  # test "should destroy video_comment" do
-  #   log_in_as @customer
-  #   assert_difference('VideoComment.count', -1) do
-  #     delete video_comment_url(@video_comment)
-  #   end
+  test "should destroy video_comment" do
+    #does not destroy comment
+    assert_difference('VideoComment.count', -1) do
+      delete video_comment_url(@video_comment), headers: { 'HTTP_REFERER' => @video }
+    end
 
-  #   assert_redirected_to video_comments_url
-  # end
+    assert_redirected_to @video
+  end
 end

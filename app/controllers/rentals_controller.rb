@@ -19,6 +19,6 @@ class RentalsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def rental_params
-      params.require(:rental).permit(:movie_id)
+      params.require(:rental).permit(:movie_id, :customer_id)
     end
 end

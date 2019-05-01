@@ -1,7 +1,7 @@
 class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
   # Authorization
-  before_action :logged_in_customer
+  before_action :logged_in_customer, except: [:create]
 
   # GET /payments
   # GET /payments.json
