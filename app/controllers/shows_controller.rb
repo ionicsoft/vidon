@@ -5,12 +5,6 @@ class ShowsController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /shows
-  # GET /shows.json
-  def index
-    @shows = Show.all
-  end
-
   # GET /shows/1
   # GET /shows/1.json
   def show

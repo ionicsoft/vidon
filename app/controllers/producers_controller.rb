@@ -4,25 +4,10 @@ class ProducersController < ApplicationController
   before_action :logged_in_producer, only: [:edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /producers
-  # GET /producers.json
-  def index
-    @producers = Producer.all
-  end
-
-  # GET /producers/1
-  # GET /producers/1.json
-  def show
-  end
-
   # GET /producers/new
   def new
     @producer = Producer.new
     @producer.person = Person.new
-  end
-
-  # GET /producers/1/edit
-  def edit
   end
 
   # POST /producers
@@ -37,20 +22,6 @@ class ProducersController < ApplicationController
         format.json { render :show, status: :created, location: @producer }
       else
         format.html { render :new }
-        format.json { render json: @producer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /producers/1
-  # PATCH/PUT /producers/1.json
-  def update
-    respond_to do |format|
-      if @producer.update(producer_params)
-        format.html { redirect_to @producer, notice: 'Producer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @producer }
-      else
-        format.html { render :edit }
         format.json { render json: @producer.errors, status: :unprocessable_entity }
       end
     end

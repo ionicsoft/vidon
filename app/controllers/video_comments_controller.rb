@@ -4,26 +4,6 @@ class VideoCommentsController < ApplicationController
   before_action :logged_in_any, only: [:show]
   before_action :logged_in_customer, only: [:create, :edit, :update, :destroy]
 
-  # GET /video_comments
-  # GET /video_comments.json
-  def index
-    @video_comments = VideoComment.all
-  end
-
-  # GET /video_comments/1
-  # GET /video_comments/1.json
-  def show
-  end
-
-  # GET /video_comments/new
-  def new
-    @video_comment = VideoComment.new
-  end
-
-  # GET /video_comments/1/edit
-  def edit
-  end
-
   # POST /video_comments
   # POST /video_comments.json
   def create

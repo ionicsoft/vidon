@@ -5,12 +5,6 @@ class CustomersController < ApplicationController
   before_action :logged_in_customer, only: [:edit, :update, :destroy]
   before_action :correct_customer, only: [:edit, :update, :destroy]
 
-  # GET /customers
-  # GET /customers.json
-  def index
-    @customers = Customer.all
-  end
-
   # GET /customers/1
   # GET /customers/1.json
   def show
@@ -21,10 +15,6 @@ class CustomersController < ApplicationController
     @customer = Customer.new
     @customer.person = Person.new
     @customer.payment = Payment.new
-  end
-
-  # GET /customers/1/edit
-  def edit
   end
 
   # POST /customers
@@ -45,20 +35,6 @@ class CustomersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /customers/1
-  # PATCH/PUT /customers/1.json
-  def update
-    respond_to do |format|
-      if @customer.update(customer_params)
-        format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @customer }
-      else
-        format.html { render :edit }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /customers/1
   # DELETE /customers/1.json
   def destroy
@@ -68,8 +44,6 @@ class CustomersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  
 
   private
   

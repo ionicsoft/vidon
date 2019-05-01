@@ -5,26 +5,6 @@ class ShowGenresController < ApplicationController
   before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 
-  # GET /show_genres
-  # GET /show_genres.json
-  def index
-    @show_genres = ShowGenre.all
-  end
-
-  # GET /show_genres/1
-  # GET /show_genres/1.json
-  def show
-  end
-
-  # GET /show_genres/new
-  def new
-    @show_genre = ShowGenre.new
-  end
-
-  # GET /show_genres/1/edit
-  def edit
-  end
-
   # POST /show_genres
   # POST /show_genres.json
   def create

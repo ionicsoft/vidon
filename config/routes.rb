@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :watch_histories,   only: [:index]
+  resources :watch_histories,   only: [:index, :update]
   resources :favorites,         only: [:create, :destroy]
   resources :people,            only: [:edit, :update]
   resources :video_comments,    only: [:create, :update, :destroy]
@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :movie_actors,      only: [:create, :update, :destroy]
   resources :movie_genres,      only: [:create, :update, :destroy]
   resources :movies,            except: [:index]
-  resources :episodes,          except: [:index]
+  resources :episodes,          except: [:index, :show]
   resources :videos,            only: [:show]
   resources :show_actors,       only: [:create, :update, :destroy]
   resources :show_ratings,      only: [:create, :update, :destroy]

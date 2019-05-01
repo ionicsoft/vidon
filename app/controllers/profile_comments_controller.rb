@@ -3,26 +3,6 @@ class ProfileCommentsController < ApplicationController
   # Authorization
   before_action :logged_in_customer
 
-  # GET /profile_comments
-  # GET /profile_comments.json
-  def index
-    @profile_comments = ProfileComment.all
-  end
-
-  # GET /profile_comments/1
-  # GET /profile_comments/1.json
-  def show
-  end
-
-  # GET /profile_comments/new
-  def new
-    @profile_comment = ProfileComment.new
-  end
-
-  # GET /profile_comments/1/edit
-  def edit
-  end
-
   # POST /profile_comments
   # POST /profile_comments.json
   def create

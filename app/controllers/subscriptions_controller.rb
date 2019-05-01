@@ -3,26 +3,6 @@ class SubscriptionsController < ApplicationController
   #Authorization
   before_action :logged_in_customer
 
-  # GET /subscriptions
-  # GET /subscriptions.json
-  def index
-    @subscriptions = Subscription.all
-  end
-
-  # GET /subscriptions/1
-  # GET /subscriptions/1.json
-  def show
-  end
-
-  # GET /subscriptions/new
-  def new
-    @subscription = Subscription.new
-  end
-
-  # GET /subscriptions/1/edit
-  def edit
-  end
-
   # POST /subscriptions
   # POST /subscriptions.json
   def create
@@ -71,16 +51,6 @@ class SubscriptionsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @subscription.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /subscriptions/1
-  # DELETE /subscriptions/1.json
-  def destroy
-    @subscription.destroy
-    respond_to do |format|
-      format.html { redirect_to subscriptions_url, notice: 'Subscription was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
