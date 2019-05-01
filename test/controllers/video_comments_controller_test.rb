@@ -11,32 +11,12 @@ class VideoCommentsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@customer)
   end
 
-  test "should get index" do
-    get video_comments_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_video_comment_url
-    assert_response :success
-  end
-
   test "should create video_comment" do
     assert_difference('VideoComment.count', 1) do
       post video_comments_url, params: { video_comment: { comment: "yo", customer_id: @customer.id, video_id: @video_comment.video_id } }, headers: { 'HTTP_REFERER' => @video }
     end
 
     assert_redirected_to @video
-  end
-
-  test "should show video_comment" do
-    get video_comment_url(@video_comment)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_video_comment_url(@video_comment)
-    assert_response :success
   end
 
   test "should update video_comment" do

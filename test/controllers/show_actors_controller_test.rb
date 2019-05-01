@@ -10,16 +10,6 @@ class ShowActorsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@producer)
   end
 
-  test "should get index" do
-    get show_actors_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_show_actor_url
-    assert_response :success
-  end
-
   test "should create show_actor" do
     #does not create show actor
     assert_difference('ShowActor.count', 1) do
@@ -27,18 +17,6 @@ class ShowActorsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to @show_actor.show
-  end
-
-  test "should show show_actor" do
-    get show_actor_url(@show_actor)
-    #assert_response :redirect
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_show_actor_url(@show_actor)
-    #assert_response :redirect
-    assert_response :success
   end
 
   test "should update show_actor" do

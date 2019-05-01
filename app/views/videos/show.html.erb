@@ -58,7 +58,7 @@
           <div class="card-body">
             <div class="btn-group btn-block" role="group">
               <%= link_to fa_icon("chevron-left"), @video.prev_video, class: "btn btn-outline-secondary text-body", id: "button_prev" %>
-              <%= link_to fa_icon("chevron-right"), url_for([@video.next_video_or_show, update: @watch_history.id]), class: "btn btn-outline-secondary text-body", id: "button_next" %>
+              <%= link_to fa_icon("chevron-right"), url_for([@video.next_video_or_show, update: (@watch_history.id unless @watch_history.nil?)]), class: "btn btn-outline-secondary text-body", id: "button_next" %>
             </div>
             <% @video.content.show.episodes.order(:absolute_episode).each do |episode| %>
               <%= link_to episode.video do %>

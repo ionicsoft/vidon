@@ -12,11 +12,6 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
   end
 
   #Begin coverage testing
-  test "should get index" do
-    get episodes_url
-    assert_response :success
-  end
-
   test "should get new" do
     get new_episode_url(@show)
     assert_response :success
@@ -29,13 +24,6 @@ class EpisodesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to show_url(Episode.last.show)
-  end
-
-  test "should show episode" do
-    #log_in_as_customer
-    get episode_url(@episode)
-    #assert_response :redirect
-    assert_response :success
   end
 
   test "should get edit" do

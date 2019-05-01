@@ -52,7 +52,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get shows" do
     log_in_as(@customer.person)
-    get shows_url
+    get my_shows_url
     assert_response :success
   end
 
@@ -60,27 +60,27 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   test "should get login" do
     visit root_url
     click_on 'Login'
-    assert_selector "h1", "Login"
+    assert_selector "h1", text: "Login"
   end
 
   test "should get customer signup" do
     visit root_url
     #doesn't see this?
     first(:link, 'Sign up today').click
-    assert_selector "h1", "Sign up"
+    assert_selector "h1", text: "Sign up"
   end
 
   test "should get producer signup" do
     visit root_url
     #doesn't see this?
     first(:link, 'Producer? Sign up here').click
-    assert_selector "h1", "Sign up"
+    assert_selector "h1", text: "Sign up"
   end
 
   test "should return home" do
     visit root_url
     click_on 'Vidon'
-    assert_selector "span", "Vidon"
+    assert_selector "span", text: "Vidon"
   end
 
 end

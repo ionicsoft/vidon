@@ -10,16 +10,6 @@ class MovieRatingsControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@customer.person)
   end
 
-  test "should get index" do
-    get movie_ratings_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_movie_rating_url
-    assert_response :success
-  end
-
   test "should create movie_rating" do
     #does not create movie rating
     temp = Customer.create
@@ -28,18 +18,6 @@ class MovieRatingsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to movie_rating_url(MovieRating.last)
-  end
-
-  test "should show movie_rating" do
-    get movie_rating_url(@movie_rating)
-    #assert_response :redirect
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_movie_rating_url(@movie_rating)
-    #assert_response :redirect
-    assert_response :success
   end
 
   test "should update movie_rating" do
