@@ -1,7 +1,7 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   # Authorization
-  before_action :logged_in_any
+  before_action :logged_in_any, except: [:create]
   before_action :correct_person, only: [:edit, :update, :destroy]
 
   # GET /people/1/edit
@@ -35,6 +35,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:avatar, :username, :email, :password, :first_name, :last_name, :user_id, :user_type)
+      params.require(:person).permit(:avatar, :username, :email, :password, :password_confirmation, :first_name, :last_name, :user_id, :user_type)
     end
 end
