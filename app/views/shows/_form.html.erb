@@ -29,13 +29,13 @@
         
         <div class="form-group">
           <%= form.label :description, style: 'color: black;' %>
-          <%= form.text_field :description, id: :show_description, class: "form-control" %>
+          <%= form.text_area :description, id: :show_description, class: "form-control" %>
         </div>
       </div>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary btn-block" %>
   </div>
 <% end %>
