@@ -6,13 +6,21 @@ class FriendRequestsController < ApplicationController
   
   def create
     @request = FriendRequest.new(request_params)
-    respond_to do |format|
-      if @request.save
-        format.html { redirect_to @request.customer, notice: 'Request successfully sent' }
-        format.json { render :show, status: :created, location: @request }
-      else
-        format.html { render html: "nooo" }
-        format.json { render json: @request.errors, status: :unprocessable_entity }
+    # Look to see if a request already exists for sender
+    existing = FriendRequest.find_by(requester: @request.customer)
+    if existing
+      # Accept pending request instead of making another one
+      existing.accept
+    else
+      # Send new friend request
+      respond_to do |format|
+        if @request.save
+          format.html { redirect_to @request.customer, notice: 'Request successfully sent' }
+          format.json { render :show, status: :created, location: @request }
+        else
+          format.html { render html: "nooo" }
+          format.json { render json: @request.errors, status: :unprocessable_entity }
+        end
       end
     end
   end 

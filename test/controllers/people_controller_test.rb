@@ -15,7 +15,46 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update person" do
-    patch person_url(@person), params: { person: { email: @person.email, first_name: @person.first_name, last_name: @person.last_name, password_digest: @person.password_digest, user_id: @person.user_id, user_type: @person.user_type, username: @person.username } }
+    get edit_person_url(@person)
+    patch person_url(@person), params: { 
+      person: { 
+        email: @person.email,
+        first_name: @person.first_name,
+        last_name: @person.last_name,
+        password: "password",
+        password_confirmation: "password"
+      } 
+    }
+    
+    assert_redirected_to @person.user
+  end
+  
+  test "should update without password" do
+    get edit_person_url(@person)
+    patch person_url(@person), params: { 
+      person: { 
+        email: @person.email,
+        first_name: @person.first_name,
+        last_name: @person.last_name
+      } 
+    }
+    
+    assert_redirected_to @person.user
+  end
+  
+  test "should not update with invalid password" do
+    get edit_person_url(@person)
+    patch person_url(@person), params: { 
+      person: { 
+        email: @person.email,
+        first_name: @person.first_name,
+        last_name: @person.last_name,
+        password: "123",
+        password_confirmation: "123"
+      } 
+    }
+    
+    assert_template 'people/edit'
   end
   
   test "should get default picture" do
