@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
   #Authorization
   before_action :logged_in_customer, only: [:shows, :search, :friends, :friend_search]
+  before_action :logged_in_producer, only: [:_pro_shows]
   
   def home
     # Try to get videos to display on customer homepage
@@ -86,6 +87,9 @@ class StaticPagesController < ApplicationController
   end
   
   def shows
+  end
+  
+  def _pro_shows
   end
   
   def friends
