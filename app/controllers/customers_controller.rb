@@ -2,6 +2,7 @@ class CustomersController < ApplicationController
   # Load customer from database
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   # Check authorization
+  before_action :logged_in_any, only: [:show]
   before_action :logged_in_customer, only: [:edit, :update, :destroy], except: [:create]
   before_action :correct_customer, only: [:edit, :update, :destroy]
 

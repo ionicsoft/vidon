@@ -1,6 +1,7 @@
 class ProducersController < ApplicationController
   before_action :set_producer, only: [:show, :edit, :update, :destroy]
   # Check authorization
+  before_action :logged_in_any, only: [:show]
   before_action :logged_in_producer, only: [:edit, :update, :destroy]
   before_action :correct_producer, only: [:edit, :update, :destroy]
 

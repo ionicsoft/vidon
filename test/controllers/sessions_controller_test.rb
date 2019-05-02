@@ -14,9 +14,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should sign in through cookie" do
-    # cookies.signed[:person_id] = 1
-    # @customer = customers(:one)
-    # log_in_as(@customer.person)
+    @customer = customers(:one)
+    cookies.signed[:person_id] = @customer.person.id
+    log_in_as(@customer.person)
   end
   
   test "should redirect if not logged in" do
@@ -31,7 +31,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should redirect if customer is not logged in" do
-    visit customer_url(@customer)
+    get customer_url(@customer)
     assert_redirected_to login_path
   end
   
@@ -42,7 +42,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should redirect if producer is not logged in" do
-    visit producer_url(@producer)
+    get producer_url(@producer)
     assert_redirected_to login_path
   end
 end
