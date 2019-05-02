@@ -123,10 +123,11 @@
                 <% end %>
                 <h5 class="text-body"><%= episode.video.title %> <small class="text-secondary"><%= episode.season_episode %></small></h5>
                 <p><%= episode.video.description %></p>
-                <div id="ep-button-block">
+                <div id="ep-button-block" class="btn-group-vertical">
                   <% if current_person.customer? %>
                     <%= link_to "Play", episode.video, class: "btn btn-secondary btn-sm" %>
                   <% else %>
+                    <%= link_to "Show", episode.video, class: "btn btn-secondary btn-sm" %>
                     <%= link_to "Edit", edit_episode_path(episode), class: "btn btn-secondary btn-sm" %>
                     <%= link_to "Delete", episode, class: "btn btn-danger btn-sm" %>
                   <% end %>

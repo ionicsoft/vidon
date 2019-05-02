@@ -57,6 +57,7 @@
       <!-- button for rent, watch edit and delete-->
       <div class="btn-group mb-3">
         <% if current_person.producer? %>
+          <%= link_to fa_icon('eye', text: 'View'), @movie.video, class: "btn btn-secondary" %>
           <%= link_to fa_icon('edit', text: 'Edit movie'), edit_movie_path, class: 'btn btn-secondary' %>
           <%= link_to fa_icon('trash', text: 'Delete movie'), @movie, class: 'btn btn-danger', method: :delete, data: {confirm: 'Are you sure? This cannot be undone.'} %>
         <% elsif @movie.rentals.find_by customer: current_person.user %>
