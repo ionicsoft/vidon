@@ -13,10 +13,10 @@ joes_picture:
     record: three (Person)
     blob: bobs_picture_blob
 
-anns_picture:
-    name: avatar
-    record: four (Person)
-    blob: bobs_picture_blob
+# anns_picture:
+#     name: avatar
+#     record: four (Person)
+#     blob: bobs_picture_blob
 
 lauras_picture:
     name: avatar

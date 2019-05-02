@@ -19,4 +19,9 @@ class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
     patch subscription_url(@subscription), params: { subscription: { current_episode: @subscription.current_episode, customer_id: @subscription.customer_id, show_id: @subscription.show_id } }
     assert_redirected_to "/"
   end
+  
+  test "should return next episode" do
+    temp =  @subscription.next_video
+    assert temp.content_type == "Episode"
+  end
 end

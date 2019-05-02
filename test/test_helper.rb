@@ -39,6 +39,10 @@ class ActiveSupport::TestCase
     fill_in('Password', with: 'password')
     click_button 'Login'
   end
+  
+  def cookies
+    ActionDispatch::Request.new(page.driver.request.env).cookie_jar
+  end
 end
 
 class ActionDispatch::IntegrationTest

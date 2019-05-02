@@ -5,9 +5,9 @@ class AccountActivationsControllerTest < ActionDispatch::IntegrationTest
     @customer = customers(:one)
   end
   test "should activate account" do
-    temp = Person.create(username: "yolo", first_name: "joe", last_name: "targayen", email: "blah@gmail.com", password: "1234")
-    temp.update_attribute(:activated, true)
-    get edit_account_activation_url(temp)
-    assert_redirected_to root_url
+    @customer.person.update_attribute(:activated, false)
+    get edit_account_activation_url(@customer.person)
+    byebug
+    assert_equal 'Account activated!', flash[:notice]
   end
 end

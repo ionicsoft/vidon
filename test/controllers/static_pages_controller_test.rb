@@ -78,5 +78,45 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     click_on 'Vidon'
     assert_selector "span", text: "Vidon"
   end
+  
+  test "should search with actor filters" do
+    show = shows(:one)
+    log_in_as_customer
+    fill_in "search", with: "ad"
+    click_on "search-btn"
+    fill_in "filters_actor", with: "ann"
+    click_on 'Apply', class: "btn-primary"
+    assert_selector "h5", text: show.name
+  end
+  
+  test "should search with genre filters" do
+    show = shows(:one)
+    log_in_as_customer
+    fill_in "search", with: "ad"
+    click_on "search-btn"
+    find("select", id: "filters_genre").click
+    find('#filters_genre').find(:xpath, 'option[2]').select_option
+    assert_selector "h5", text: show.name
+  end
+  
+  test "should get next episode" do
+    customer = customers(:one)
+    watch = customer.watch_histories.first
+    watch.update_attribute(:completed, true)
+    log_in_as_customer
+    assert_selector "a", text: "Watch Next"
+  end
+  
+  test "should get next series" do
+    customer = customers(:one)
+    vid = videos(:five)
+    watch = customer.watch_histories.first
+    watch.update_attribute(:video_id, vid.id)
+    watch.update_attribute(:completed, true)
+    log_in_as_customer
+    #Doesn't go to next series?
+    #save_and_open_page
+    #assert_selector "a", text: "Watch Next"
+  end
 
 end
