@@ -30,6 +30,7 @@ class SubscriptionsController < ApplicationController
             # Purchase another slot
             Invoice.create(:payment_id => @customer.payment.id, :amount => 1.50, :description => "Additional subscription slot")
             @customer.slots += 1
+            byebug
             @customer.save
             flash.notice = "Subscription purchased!"
           end
