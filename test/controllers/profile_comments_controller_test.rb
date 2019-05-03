@@ -3,7 +3,7 @@ require 'test_helper'
 class ProfileCommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @profile_comment = profile_comments(:one)
-    @customer = Customer.first.person
+    @customer = customers(:one).person
     log_in_as(@customer)
   end
 

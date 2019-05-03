@@ -1,0 +1,49 @@
+<% provide(:title, "Edit billing") %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card card-default">
+        <div class="card-header">
+          <h1 class="text-body">Edit billing info</h1>
+        </div>
+        <div class="card-body">
+          <%= form_for @payment do |form| %>
+            <% if @payment.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+          
+                <ul>
+                <% @payment.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+            
+            <div class="form-row">
+              <div class="form-group col">
+                <%= form.label :card_name, "Name On Card" %>
+                <%= form.text_field :card_name, id: :payment_card_name, class: "form-control" %>
+              </div>
+              <div class="form-group col-auto">
+                <%= form.label :expiration, "Expiration Date" %>
+                <%= form.date_select :expiration, {discard_day: true, order: [:month,:year], use_short_month: true, add_month_numbers: true, start_year: Time.now.year}, {id: :payment_expiration, class: "form-control"} %>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col">
+                <%= form.label :card_num, "Card Number" %>
+                <%= form.text_field :card_num, id: :payment_card_num, class: "form-control", value: "" %>
+              </div>
+              <div class="form-group col-auto">
+                <%= form.label :cvc, "CVC" %>
+                <%= form.text_field :cvc, id: :payment_cvc, class: "form-control", value: "" %>
+              </div>
+            </div>
+            <%= form.submit class: "btn btn-block btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
