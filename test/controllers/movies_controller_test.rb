@@ -48,4 +48,11 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to movies_url
   end
+  
+  test "should not allow customer write access" do
+    log_in_as(customers(:one).person)
+    get edit_movie_url(@movie)
+    assert_redirected_to root_url
+    assert_equal "Content not available for customers.", flash[:danger]
+  end
 end

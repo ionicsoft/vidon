@@ -49,6 +49,11 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     get customer_url(@customer)
     assert_response :success
   end
+  
+  test "should prompt for login if guest tries to view customer" do
+    get customer_url(@customer)
+    assert_redirected_to login_path
+  end
 
   test "should destroy customer" do
     log_in_as(@customer.person)

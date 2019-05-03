@@ -18,6 +18,13 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
         end 
     end
     
+    test "should not allow producers friends" do
+        log_in_as (producers(:one).person)
+        get friends_path
+        assert_redirected_to root_url
+        assert_equal "Content not available for producers.", flash[:danger]
+    end
+    
     test "should not friend request oneself" do
         assert_difference('FriendRequest.count', 0) do
             post friend_requests_url, params: { friend_request: {customer_id: @customer.id, requester_id: @customer.id }}
