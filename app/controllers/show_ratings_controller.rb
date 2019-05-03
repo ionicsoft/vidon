@@ -9,28 +9,20 @@ class ShowRatingsController < ApplicationController
   def create
     @show_rating = ShowRating.new(show_rating_params)
 
-    respond_to do |format|
-      if @show_rating.save
-        format.html { redirect_to @show_rating, notice: 'Show rating was successfully created.' }
-        format.json { render :show, status: :created, location: @show_rating }
-      else
-        format.html { render :new }
-        format.json { render json: @show_rating.errors, status: :unprocessable_entity }
-      end
+    if @show_rating.save
+      redirect_to @show_rating, notice: 'Show rating was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /show_ratings/1
   # PATCH/PUT /show_ratings/1.json
   def update
-    respond_to do |format|
-      if @show_rating.update(show_rating_params)
-        format.html { redirect_to @show_rating, notice: 'Show rating was successfully updated.' }
-        format.json { render :show, status: :ok, location: @show_rating }
-      else
-        format.html { render :edit }
-        format.json { render json: @show_rating.errors, status: :unprocessable_entity }
-      end
+    if @show_rating.update(show_rating_params)
+      redirect_to @show_rating, notice: 'Show rating was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -38,10 +30,7 @@ class ShowRatingsController < ApplicationController
   # DELETE /show_ratings/1.json
   def destroy
     @show_rating.destroy
-    respond_to do |format|
-      format.html { redirect_to show_ratings_url, notice: 'Show rating was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to show_ratings_url, notice: 'Show rating was successfully destroyed.'
   end
 
   private

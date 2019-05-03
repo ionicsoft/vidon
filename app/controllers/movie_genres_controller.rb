@@ -11,29 +11,21 @@ class MovieGenresController < ApplicationController
     @movie_genre = MovieGenre.new(movie_genre_params)
     session[:return_to] ||= request.referer
 
-    respond_to do |format|
-      if @movie_genre.save
-        format.html { redirect_to session.delete(:return_to), notice: 'Movie genre was successfully created.' }
-        format.json { render :show, status: :created, location: @movie_genre }
-      else
-        format.html { render :new }
-        format.json { render json: @movie_genre.errors, status: :unprocessable_entity }
-      end
+    if @movie_genre.save
+      redirect_to session.delete(:return_to), notice: 'Movie genre was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /movie_genres/1
   # PATCH/PUT /movie_genres/1.json
   def update
-    respond_to do |format|
-      @mov = Movie.find(@movie_genre.movie_id)
-      if @movie_genre.update(movie_genre_params)
-        format.html { redirect_to @mov, notice: 'Movie genre was successfully updated.' }
-        format.json { render :show, status: :ok, location: @movie_genre }
-      else
-        format.html { render :edit }
-        format.json { render json: @movie_genre.errors, status: :unprocessable_entity }
-      end
+    @mov = Movie.find(@movie_genre.movie_id)
+    if @movie_genre.update(movie_genre_params)
+      redirect_to @mov, notice: 'Movie genre was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -42,10 +34,7 @@ class MovieGenresController < ApplicationController
   def destroy
     session[:return_to] ||= request.referer
     @movie_genre.destroy
-    respond_to do |format|
-      format.html { redirect_to session.delete(:return_to), notice: 'Movie genre was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to session.delete(:return_to), notice: 'Movie genre was successfully destroyed.'
   end
 
   private

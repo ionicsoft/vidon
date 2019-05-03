@@ -9,28 +9,20 @@ class MovieRatingsController < ApplicationController
   def create
     @movie_rating = MovieRating.new(movie_rating_params)
 
-    respond_to do |format|
-      if @movie_rating.save
-        format.html { redirect_to @movie_rating, notice: 'Movie rating was successfully created.' }
-        format.json { render :show, status: :created, location: @movie_rating }
-      else
-        format.html { render :new }
-        format.json { render json: @movie_rating.errors, status: :unprocessable_entity }
-      end
+    if @movie_rating.save
+      redirect_to @movie_rating, notice: 'Movie rating was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /movie_ratings/1
   # PATCH/PUT /movie_ratings/1.json
   def update
-    respond_to do |format|
-      if @movie_rating.update(movie_rating_params)
-        format.html { redirect_to @movie_rating, notice: 'Movie rating was successfully updated.' }
-        format.json { render :show, status: :ok, location: @movie_rating }
-      else
-        format.html { render :edit }
-        format.json { render json: @movie_rating.errors, status: :unprocessable_entity }
-      end
+    if @movie_rating.update(movie_rating_params)
+      redirect_to @movie_rating, notice: 'Movie rating was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -38,10 +30,7 @@ class MovieRatingsController < ApplicationController
   # DELETE /movie_ratings/1.json
   def destroy
     @movie_rating.destroy
-    respond_to do |format|
-      format.html { redirect_to movie_ratings_url, notice: 'Movie rating was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to movie_ratings_url, notice: 'Movie rating was successfully destroyed.'
   end
 
   private

@@ -23,16 +23,12 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
 
-    respond_to do |format|
-      if @customer.save
-        PersonMailer.account_activation(@customer.person).deliver_now
-        Invoice.create(:payment_id => @customer.payment.id, :amount => 10.00, :description => "Vidon Monthly Subscription Fee")
-        format.html { redirect_to login_path, notice: 'Please check your email to activate your account.' }
-        format.json { render :show, status: :created, location: @customer }
-      else
-        format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
+    if @customer.save
+      PersonMailer.account_activation(@customer.person).deliver_now
+      Invoice.create(:payment_id => @customer.payment.id, :amount => 10.00, :description => "Vidon Monthly Subscription Fee")
+      redirect_to login_path, notice: 'Please check your email to activate your account.'
+    else
+      render :new
     end
   end
 
@@ -40,10 +36,7 @@ class CustomersController < ApplicationController
   # DELETE /customers/1.json
   def destroy
     @customer.destroy
-    respond_to do |format|
-      format.html { redirect_to customers_url, notice: 'Customer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to customers_url, notice: 'Customer was successfully destroyed.'
   end
 
   private

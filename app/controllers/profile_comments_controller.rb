@@ -9,28 +9,20 @@ class ProfileCommentsController < ApplicationController
     @profile_comment = ProfileComment.new(profile_comment_params)
     session[:return_to] ||= request.referer
     
-    respond_to do |format|
-      if @profile_comment.save
-        format.html { redirect_to session.delete(:return_to), notice: 'Profile comment was successfully created.' }
-        format.json { render :show, status: :created, location: @profile_comment }
-      else
-        format.html { render :new }
-        format.json { render json: @profile_comment.errors, status: :unprocessable_entity }
-      end
+    if @profile_comment.save
+      redirect_to session.delete(:return_to), notice: 'Profile comment was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /profile_comments/1
   # PATCH/PUT /profile_comments/1.json
   def update
-    respond_to do |format|
-      if @profile_comment.update(profile_comment_params)
-        format.html { redirect_to @profile_comment, notice: 'Profile comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @profile_comment }
-      else
-        format.html { render :edit }
-        format.json { render json: @profile_comment.errors, status: :unprocessable_entity }
-      end
+    if @profile_comment.update(profile_comment_params)
+      redirect_to @profile_comment, notice: 'Profile comment was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -38,10 +30,7 @@ class ProfileCommentsController < ApplicationController
   # DELETE /profile_comments/1.json
   def destroy
     @profile_comment.destroy
-    respond_to do |format|
-      format.html { redirect_to profile_comments_url, notice: 'Profile comment was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to profile_comments_url, notice: 'Profile comment was successfully destroyed.'
   end
 
   private

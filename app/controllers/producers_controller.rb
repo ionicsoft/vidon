@@ -16,15 +16,11 @@ class ProducersController < ApplicationController
   def create
     @producer = Producer.new(producer_params)
 
-    respond_to do |format|
-      if @producer.save
-        PersonMailer.account_activation(@producer.person).deliver_now
-        format.html { redirect_to login_path, notice: 'Please check your email to activate your account.' }
-        format.json { render :show, status: :created, location: @producer }
-      else
-        format.html { render :new }
-        format.json { render json: @producer.errors, status: :unprocessable_entity }
-      end
+    if @producer.save
+      PersonMailer.account_activation(@producer.person).deliver_now
+      redirect_to login_path, notice: 'Please check your email to activate your account.'
+    else
+      render :new
     end
   end
 
@@ -32,10 +28,7 @@ class ProducersController < ApplicationController
   # DELETE /producers/1.json
   def destroy
     @producer.destroy
-    respond_to do |format|
-      format.html { redirect_to producers_url, notice: 'Producer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to producers_url, notice: 'Producer was successfully destroyed.'
   end
 
   private

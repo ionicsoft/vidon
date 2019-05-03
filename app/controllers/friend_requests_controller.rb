@@ -14,14 +14,10 @@ class FriendRequestsController < ApplicationController
       redirect_to @request.customer, notice: "Friend added"
     else
       # Send new friend request
-      respond_to do |format|
-        if @request.save
-          format.html { redirect_to @request.customer, notice: 'Request successfully sent' }
-          format.json { render :show, status: :created, location: @request }
-        else
-          format.html { render html: "nooo" }
-          format.json { render json: @request.errors, status: :unprocessable_entity }
-        end
+      if @request.save
+        redirect_to @request.customer, notice: 'Request successfully sent'
+      else
+        render html: "nooo"
       end
     end
   end 
