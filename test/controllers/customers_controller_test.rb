@@ -36,6 +36,13 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
     assert_equal 'Please check your email to activate your account.', flash[:notice]
   end
+  
+  test "should not create customer without data" do
+    assert_difference('Customer.count', 0) do
+      post customers_url, params: { customer: { person_attributes: { username: "a" } } }
+    end
+    assert_template 'customers/new'
+  end
 
   test "should show customer" do
     log_in_as(@customer.person)
@@ -50,6 +57,15 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to customers_url
+  end
+  
+  test "should not destroy other customer" do
+    log_in_as(@customer.person)
+    assert_difference('Customer.count', 0) do
+      delete customer_url(Customer.where.not(id: @customer.id).first)
+    end
+
+    assert_redirected_to root_url
   end
   
   #Start use cases

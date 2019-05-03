@@ -1,9 +1,8 @@
 class MovieActorsController < ApplicationController
-  before_action :set_movie_actor, only: [:show, :edit, :update, :destroy]
+  before_action :set_movie_actor, only: [:destroy]
   # Authorization
-  before_action :logged_in_any, only: [:show]
-  before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
-  before_action :correct_producer, only: [:edit, :update, :destroy]
+  before_action :logged_in_producer
+  before_action :correct_producer, only: [:destroy]
 
   # POST /movie_actors
   # POST /movie_actors.json
@@ -14,18 +13,7 @@ class MovieActorsController < ApplicationController
     if @movie_actor.save
       redirect_to session.delete(:return_to), notice: 'Movie actor was successfully created.'
     else
-      render :new
-    end
-  end
-
-  # PATCH/PUT /movie_actors/1
-  # PATCH/PUT /movie_actors/1.json
-  def update
-    @mov = Movie.find(@movie_actor.movie_id)
-    if @movie_actor.update(movie_actor_params)
-      redirect_to @mov, notice: 'Movie actor was successfully updated.'
-    else
-      render :edit
+      redirect_to session.delete(:return_to), notice: 'Invalid actor.'
     end
   end
 

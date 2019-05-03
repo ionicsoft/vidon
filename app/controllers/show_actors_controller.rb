@@ -1,9 +1,8 @@
 class ShowActorsController < ApplicationController
-  before_action :set_show_actor, only: [:show, :edit, :update, :destroy]
+  before_action :set_show_actor, only: [:destroy]
   # Authorization
-  before_action :logged_in_any, only: [:show]
-  before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
-  before_action :correct_producer, only: [:edit, :update, :destroy]
+  before_action :logged_in_producer
+  before_action :correct_producer, only: [:destroy]
 
   # POST /show_actors
   # POST /show_actors.json
@@ -15,17 +14,6 @@ class ShowActorsController < ApplicationController
       redirect_to session.delete(:return_to), notice: 'Show actor was successfully created.'
     else
       render :new
-    end
-  end
-
-  # PATCH/PUT /show_actors/1
-  # PATCH/PUT /show_actors/1.json
-  def update
-    @show = Show.find(@show_actor.show_id)
-    if @show_actor.update(show_actor_params)
-      redirect_to @show, notice: 'Show actor was successfully updated.'
-    else
-      render :edit
     end
   end
 

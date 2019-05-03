@@ -17,7 +17,7 @@ class FriendRequestsController < ApplicationController
       if @request.save
         redirect_to @request.customer, notice: 'Request successfully sent'
       else
-        render html: "nooo"
+        redirect_to friends_path, notice: 'Invalid request'
       end
     end
   end 

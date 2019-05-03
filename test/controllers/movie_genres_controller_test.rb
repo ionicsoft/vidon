@@ -15,10 +15,13 @@ class MovieGenresControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to @movie
   end
+  
+  test "should not create movie_genre with invalid data" do
+    assert_difference('MovieGenre.count', 0) do
+      post movie_genres_url, params: { movie_genre: { genre: "", movie_id: @movie.id } }, headers: { 'HTTP_REFERER' => @movie }
+    end
 
-  test "should update movie_genre" do
-    patch movie_genre_url(@movie_genre), params: { movie_genre: { genre: @movie_genre.genre, movie_id: @movie_genre.movie_id } }
-    assert_redirected_to movie_url(@movie_genre.movie)
+    assert_redirected_to @movie
   end
 
   test "should destroy movie_genre" do
@@ -27,5 +30,13 @@ class MovieGenresControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to @movie
+  end
+  
+  test "should not destroy other producer's movie_genre" do
+    assert_difference('MovieGenre.count', 0) do
+      delete movie_genre_url(movie_genres(:three)), headers: { 'HTTP_REFERER' => @movie }
+    end
+
+    assert_redirected_to root_url
   end
 end

@@ -18,6 +18,12 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
         end 
     end
     
+    test "should not friend request oneself" do
+        assert_difference('FriendRequest.count', 0) do
+            post friend_requests_url, params: { friend_request: {customer_id: @customer.id, requester_id: @customer.id }}
+        end 
+    end
+    
     test "should update friend request" do
         assert_difference('FriendRequest.count', -1) do
             patch friend_request_url(@req), params: { friend_request: {customer_id: @customer.id, requester_id: @temp.id }}

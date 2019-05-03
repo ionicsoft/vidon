@@ -15,11 +15,6 @@ class ShowGenresControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to @show_genre.show
   end
 
-  test "should update show_genre" do
-    patch show_genre_url(@show_genre), params: { show_genre: { genre: @show_genre.genre, show_id: @show_genre.show_id } }
-    assert_redirected_to show_url(@show_genre.show)
-  end
-
   test "should destroy show_genre" do
     assert_difference('ShowGenre.count', -1) do
       delete show_genre_url(@show_genre), headers: { 'HTTP_REFERER' => @show_genre.show }

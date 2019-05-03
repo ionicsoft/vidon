@@ -15,11 +15,6 @@ class ShowActorsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to @show_actor.show
   end
 
-  test "should update show_actor" do
-    patch show_actor_url(@show_actor), params: { show_actor: { name: @show_actor.name, show_id: @show_actor.show_id } }
-    assert_redirected_to show_url(@show_actor.show)
-  end
-
   test "should destroy show_actor" do
     assert_difference('ShowActor.count', -1) do
       delete show_actor_url(@show_actor), headers: { 'HTTP_REFERER' => show_actors_url }

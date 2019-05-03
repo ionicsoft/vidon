@@ -1,9 +1,8 @@
 class MovieGenresController < ApplicationController
-  before_action :set_movie_genre, only: [:show, :edit, :update, :destroy]
+  before_action :set_movie_genre, only: [:destroy]
   # Authorization
-  before_action :logged_in_any, only: [:show]
-  before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
-  before_action :correct_producer, only: [:edit, :update, :destroy]
+  before_action :logged_in_producer
+  before_action :correct_producer, only: [:destroy]
 
   # POST /movie_genres
   # POST /movie_genres.json
@@ -14,18 +13,7 @@ class MovieGenresController < ApplicationController
     if @movie_genre.save
       redirect_to session.delete(:return_to), notice: 'Movie genre was successfully created.'
     else
-      render :new
-    end
-  end
-
-  # PATCH/PUT /movie_genres/1
-  # PATCH/PUT /movie_genres/1.json
-  def update
-    @mov = Movie.find(@movie_genre.movie_id)
-    if @movie_genre.update(movie_genre_params)
-      redirect_to @mov, notice: 'Movie genre was successfully updated.'
-    else
-      render :edit
+      redirect_to session.delete(:return_to), notice: 'Invalid genre.'
     end
   end
 
