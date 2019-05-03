@@ -30,4 +30,5 @@
 !/storage/.keep
 
 #Ignore coverage
-/coverage/*
+/coverage
+/deep_cover
