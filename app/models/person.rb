@@ -59,7 +59,7 @@ class Person < ApplicationRecord
     
     # Sends activation email.
     def send_activation_email
-        UserMailer.account_activation(self).deliver_now
+        PersonMailer.account_activation(self).deliver_now
     end
 
     # Returns a person's first and last name

@@ -17,6 +17,30 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     end
   end
   
+  test "should not create payment with invalid expiration" do
+    assert_difference('Customer.count', 0) do
+      assert_difference('Payment.count', 0) do
+        post customers_url, params: { customer: { person_attributes: { username: 
+          "newuser", password: "123456", password_confirmation: "123456", email:
+          "newuser@example.com", first_name: "New", last_name: "User" },
+          payment_attributes: { card_name: "guy", card_num: "1234123412341234",
+          cvc: 321, expiration: ""}} }
+      end
+    end
+    assert_template 'customers/new'
+    
+    assert_difference('Customer.count', 0) do
+      assert_difference('Payment.count', 0) do
+        post customers_url, params: { customer: { person_attributes: { username: 
+          "newuser", password: "123456", password_confirmation: "123456", email:
+          "newuser@example.com", first_name: "New", last_name: "User" },
+          payment_attributes: { card_name: "guy", card_num: "1234123412341234",
+          cvc: 321, expiration: Date.today - 5.days}} }
+      end
+    end
+    assert_template 'customers/new'
+  end
+  
   test "should get edit" do
     log_in_as @payment.customer.person
     get edit_payment_url(@payment)

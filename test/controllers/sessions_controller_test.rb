@@ -13,10 +13,40 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
   
-  test "should sign in through cookie" do
-    @customer = customers(:one)
-    cookies.signed[:person_id] = @customer.person.id
-    log_in_as(@customer.person)
+  test "login with invalid data" do
+    get login_path
+    assert_template 'sessions/new'
+    post login_path, params: { session: { username: "", password: "" } }
+    assert_not is_logged_in?
+    assert_template 'sessions/new'
+    assert_not flash.empty?
+    get login_path
+    assert flash.empty?
+  end
+  
+  test "login and logout" do
+    get login_path
+    post login_path, params: { session: { username: "bob", password: "password" } }
+    assert is_logged_in?
+    assert_redirected_to root_url
+    follow_redirect!
+    assert_template 'static_pages/_home_customer'
+    delete logout_path
+    assert_not is_logged_in?
+    assert_redirected_to root_url
+    delete logout_path
+    follow_redirect!
+  end
+  
+  test "login with remember" do
+    log_in_as(@customer.person, remember_me: 1)
+    assert_not_empty cookies[:remember_token]
+  end
+  
+  test "login without remember" do
+    log_in_as(@customer.person, remember_me: 1)
+    log_in_as(@customer.person, remember_me: 0)
+    assert_empty cookies[:remember_token]
   end
   
   test "should redirect if not logged in" do

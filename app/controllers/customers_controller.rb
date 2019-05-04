@@ -24,7 +24,7 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
 
     if @customer.save
-      PersonMailer.account_activation(@customer.person).deliver_now
+      @customer.person.send_activation_email
       Invoice.create(:payment_id => @customer.payment.id, :amount => 10.00, :description => "Vidon Monthly Subscription Fee")
       redirect_to login_path, notice: 'Please check your email to activate your account.'
     else
