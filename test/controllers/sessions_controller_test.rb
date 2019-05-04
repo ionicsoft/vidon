@@ -56,12 +56,12 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   
   test "should redirect if not logged in as customer" do
     log_in_as(@producer.person)
-    visit customer_url(@customer)
+    get friends_url(@customer)
     assert_redirected_to root_url
   end
   
   test "should redirect if customer is not logged in" do
-    get customer_url(@customer)
+    get friends_url(@customer)
     assert_redirected_to login_path
   end
   
@@ -72,6 +72,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should redirect if producer is not logged in" do
+    #need to test else part of logged_in_producer
     get producer_url(@producer)
     assert_redirected_to login_path
   end
