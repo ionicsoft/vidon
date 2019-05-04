@@ -6,6 +6,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     @producer = producers(:one)
     @video = videos(:one)
     @show = shows(:one)
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
+    end
   end
   
   test "should get new" do
@@ -75,5 +78,44 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     #need to test else part of logged_in_producer
     get producer_url(@producer)
     assert_redirected_to login_path
+  end
+  
+  test "should refuse login for incorrect password" do
+    visit root_url
+    click_on 'Login'
+    fill_in "Username", with: @customer.person.username
+    fill_in "Password", with: "blah"
+    click_on "Login", class: "btn-primary"
+    find(:button, class: "close")
+  end
+  
+  test "should destroy session" do
+    log_in_as_customer
+    delete logout_url(@customer)
+    assert_redirected_to root_url
+  end
+  
+  test "should destroy nonexistent session" do
+    delete logout_url(@customer)
+    assert_redirected_to root_url
+  end
+  
+  test "should refuse unauthenticated account" do
+    visit signup_url
+    fill_in "person_username", with: "steve"
+    fill_in "person_password", with: "steveee"
+    fill_in "person_password_confirmation", with: "steveee"
+    fill_in "person_email", with: "steve-o@gmail.com"
+    fill_in "person_first_name", with: "Steve"
+    fill_in "person_last_name", with: "Harvey"
+    fill_in "payment_card_name", with: "Steve Harvey"
+    fill_in "payment_card_num", with: "1111222233334444"
+    fill_in "payment_cvc", with: 123
+    find('#customer_payment_attributes_expiration_2i').find(:xpath, 'option[10]').select_option
+    click_on "Submit!"
+    fill_in "Username", with: "steve"
+    fill_in "Password", with: "steveee"
+    click_on "Login", class: "btn-primary"
+    find(:button, class: "close")
   end
 end

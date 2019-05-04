@@ -12,4 +12,11 @@ class RentalsControllerTest < ActionDispatch::IntegrationTest
       post "#{url_for @movie}/rent", params: { rental: { movie_id: @movie.id, customer_id: @customer.id}}, headers: { 'HTTP_REFERER' => @movie }
     end
   end
+  
+  test "should fail to make rental" do
+    mov = movies(:one)
+    assert_difference('Rental.count', 0) do
+      post "#{url_for @movie}/rent", params: { rental: { movie_id: mov.id, customer_id: @customer.id}}, headers: { 'HTTP_REFERER' => @movie }
+    end
+  end
 end
