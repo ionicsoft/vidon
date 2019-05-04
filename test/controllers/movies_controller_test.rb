@@ -16,10 +16,24 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
   test "should create movie" do
     log_in_as(@producer)
     assert_difference('Movie.count', 1) do
-      post movies_url, params: { movie: { producer_id: @movie.producer_id } }
+      post movies_url, params: { movie: {
+        producer_id: @movie.producer_id,
+        video_attributes: {
+          title: "Foo",
+          description: "Foo bar"
+        } } }
     end
 
     assert_redirected_to movie_url(Movie.last)
+  end
+  
+  test "should not create movie with invalid data" do
+    log_in_as(@producer)
+    assert_difference('Movie.count', 0) do
+      post movies_url, params: { movie: { producer_id: "" } }
+    end
+
+    assert_template 'movies/new'
   end
 
   test "should show movie" do
@@ -33,11 +47,28 @@ class MoviesControllerTest < ActionDispatch::IntegrationTest
     get edit_movie_url(@movie)
     assert_response :success
   end
+  
+  test "should not get edit for other producer's movie" do
+    log_in_as(producers(:two).person)
+    get edit_movie_url(@movie)
+    assert_redirected_to root_url
+  end
 
   test "should update movie" do
     log_in_as(@producer)
     patch movie_url(@movie), params: { movie: { producer_id: @movie.producer_id } }
     assert_redirected_to movie_url(@movie)
+  end
+  
+  test "should not update movie with invalid data" do
+    log_in_as(@producer)
+    patch movie_url(@movie), params: { movie: { 
+      producer_id: "",
+      video_attributes: {
+        title: "",
+        description: ""
+    } } }
+    assert_template 'movies/edit'
   end
 
   test "should destroy movie" do

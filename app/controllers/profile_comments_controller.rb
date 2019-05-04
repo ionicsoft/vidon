@@ -12,17 +12,18 @@ class ProfileCommentsController < ApplicationController
     if @profile_comment.save
       redirect_to session.delete(:return_to), notice: 'Profile comment was successfully created.'
     else
-      render :new
+      redirect_to session.delete(:return_to), notice: 'Failed to create comment.'
     end
   end
 
   # PATCH/PUT /profile_comments/1
   # PATCH/PUT /profile_comments/1.json
   def update
+    session[:return_to] ||= request.referer
     if @profile_comment.update(profile_comment_params)
-      redirect_to @profile_comment, notice: 'Profile comment was successfully updated.'
+      redirect_to session.delete(:return_to), notice: 'Profile comment was successfully updated.'
     else
-      render :edit
+      redirect_to session.delete(:return_to), notice: 'Failed to update comment.'
     end
   end
 

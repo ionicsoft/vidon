@@ -13,6 +13,12 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     get edit_person_url(@person)
     assert_response :success
   end
+  
+  test "should not get edit for other person" do
+    log_in_as(people(:three))
+    get edit_person_url(@person)
+    assert_redirected_to root_url
+  end
 
   test "should update person" do
     get edit_person_url(@person)
