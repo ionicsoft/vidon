@@ -13,7 +13,8 @@ class VideoCommentsController < ApplicationController
     if @video_comment.save
       redirect_to session.delete(:return_to), notice: 'Comment posted.'
     else
-      render :new
+      #render :new
+      redirect_to session.delete(:return_to), notice: 'Comment not posted.'
     end
   end
 
@@ -23,7 +24,8 @@ class VideoCommentsController < ApplicationController
     if @video_comment.update(video_comment_params)
       redirect_to @video_comment, notice: 'Video comment was successfully updated.'
     else
-      render :edit
+      #render :edit
+      redirect_to @video_comment, notice: 'Video comment was not successfully updated.'
     end
   end
 

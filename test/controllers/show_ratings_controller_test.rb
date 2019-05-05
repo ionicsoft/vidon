@@ -27,4 +27,14 @@ class ShowRatingsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to show_ratings_url
   end
+  
+  test "should not update show_rating if not valid" do
+    patch show_rating_url(@show_rating), params: { show_rating: { rating: 6, show_id: @show_rating.show_id } }
+  end
+  
+  test "should not create invalid show_rating" do
+    assert_difference('ShowRating.count', 0) do
+      post show_ratings_url, params: { show_rating: { rating: 6, show_id: @show_rating.show_id } }
+    end
+  end
 end

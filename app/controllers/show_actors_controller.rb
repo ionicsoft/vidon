@@ -13,7 +13,7 @@ class ShowActorsController < ApplicationController
     if @show_actor.save
       redirect_to session.delete(:return_to), notice: 'Show actor was successfully created.'
     else
-      render :new
+      redirect_to session.delete(:return_to), notice: 'Show actor was not successfully created.'
     end
   end
 

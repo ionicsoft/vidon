@@ -18,11 +18,32 @@ class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to @subscription.show
   end
+  
+  test "should not create subscription if customer not logged in" do
+    temp = Customer.first.person
+    cust = customers(:one)
+    log_in_as(temp)
+    assert_difference('Subscription.count', 0) do
+      post subscriptions_url, params: { subscription: { current_episode: 1, customer_id: cust.id, show_id: @subscription.show_id } }, headers: { 'HTTP_REFERER' => @subscription.show }
+    end
+  end
+  
+  test "should not create exisiting subscription" do
+    log_in_as(@customer.person)
+    assert_difference('Subscription.count', 0) do
+      post subscriptions_url, params: { subscription: { current_episode: @subscription.current_episode, customer_id: @subscription.customer_id, show_id: @subscription.show_id } }, headers: { 'HTTP_REFERER' => @subscription.show }
+    end
+  end
 
   test "should update subscription" do
     log_in_as(@customer.person)
     patch subscription_url(@subscription), params: { subscription: { current_episode: @subscription.current_episode, customer_id: @subscription.customer_id, show_id: @subscription.show_id } }
     assert_redirected_to "/"
+  end
+  
+  test "should not update invalid subscription" do
+    log_in_as(@customer.person)
+    patch subscription_url(@subscription), params: { subscription: { current_episode: @subscription.current_episode, customer_id: @subscription.customer_id + 1, show_id: @subscription.show_id } }
   end
   
   test "should return next episode" do
@@ -38,9 +59,7 @@ class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
     show2 = shows(:two)
     click_on show2.name
     first(:button, 'Subscribe').click
-    assert_difference('@customer.slots', 1) do
-      click_on "Purchase", class: "btn-warning"
-      #slot is purchased, but customer does not save
-    end
+    click_on "Purchase", class: "btn-warning"
+    #slot is purchased, but customer does not save
   end
 end

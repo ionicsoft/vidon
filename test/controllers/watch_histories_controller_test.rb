@@ -15,4 +15,9 @@ class WatchHistoriesControllerTest < ActionDispatch::IntegrationTest
   test "should update watch history" do
     patch watch_history_url(@customer), params: { watch_history: { video_id: @video.id, progress: 50 } }
   end
+  
+  test "should not update another person's watch history" do
+    temp = customers(:two)
+    patch watch_history_url(temp), params: { watch_history: { video_id: @video.id, progress: 50 } }
+  end
 end

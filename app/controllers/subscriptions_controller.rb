@@ -30,7 +30,7 @@ class SubscriptionsController < ApplicationController
             # Purchase another slot
             Invoice.create(:payment_id => @customer.payment.id, :amount => 1.50, :description => "Additional subscription slot")
             @customer.slots += 1
-            byebug
+            #byebug
             @customer.save
             flash.notice = "Subscription purchased!"
           end
@@ -47,7 +47,9 @@ class SubscriptionsController < ApplicationController
     if @subscription.update(subscription_params)
       redirect_back(fallback_location: root_url)
     else
-      render :edit
+      #render :edit
+      redirect_back(fallback_location: root_url)
+      flash[:danger] = "Subscription not created"
     end
   end
 

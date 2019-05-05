@@ -12,7 +12,8 @@ class ShowRatingsController < ApplicationController
     if @show_rating.save
       redirect_to @show_rating, notice: 'Show rating was successfully created.'
     else
-      render :new
+      #render :new
+      redirect_to @show_rating, notice: 'Show rating was not successfully created.'
     end
   end
 
@@ -22,7 +23,8 @@ class ShowRatingsController < ApplicationController
     if @show_rating.update(show_rating_params)
       redirect_to @show_rating, notice: 'Show rating was successfully updated.'
     else
-      render :edit
+      #render :edit
+      redirect_to @show_rating, notice: 'Show rating was not successfully updated.'
     end
   end
 

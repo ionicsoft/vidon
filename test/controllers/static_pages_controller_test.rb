@@ -96,7 +96,8 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     click_on "search-btn"
     find("select", id: "filters_genre").click
     find('#filters_genre').find(:xpath, 'option[2]').select_option
-    assert_selector "h5", text: show.name
+    click_on 'Apply', class: "btn-primary"
+    assert_selector "h5", text: "Found 0 results for "
   end
   
   test "should get next episode" do
@@ -117,6 +118,21 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     #Doesn't go to next series?
     #save_and_open_page
     #assert_selector "a", text: "Watch Next"
+  end
+  
+  test "should get random shows" do
+    temp = customers(:three)
+    log_in_as(temp.person)
+    get root_url
+  end
+  
+  test "should get random shows from null genres" do
+    temp = customers(:two)
+    temp2 = show_genres(:three)
+    temp3 = shows(:one)
+    temp2.update_attribute(:show, temp3)
+    log_in_as(temp.person)
+    get root_url
   end
 
 end

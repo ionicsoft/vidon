@@ -3,13 +3,13 @@ require 'test_helper'
 class PeopleControllerTest < ActionDispatch::IntegrationTest
   setup do
     @person = people(:one)
-    # Capybara.register_driver :selenium do |app|
-    #   Capybara::Selenium::Driver.new(app, :browser => :firefox)
-    # end
-    log_in_as(@person)
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
+    end
   end
 
   test "should get edit" do
+    log_in_as(@person)
     get edit_person_url(@person)
     assert_response :success
   end
@@ -21,6 +21,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update person" do
+    log_in_as(@person)
     get edit_person_url(@person)
     patch person_url(@person), params: { 
       person: { 
@@ -36,6 +37,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should update without password" do
+    log_in_as(@person)
     get edit_person_url(@person)
     patch person_url(@person), params: { 
       person: { 
@@ -49,6 +51,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should not update with invalid password" do
+    log_in_as(@person)
     get edit_person_url(@person)
     patch person_url(@person), params: { 
       person: { 
@@ -64,9 +67,10 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should get default picture" do
-    @customer = customers(:four)
-    log_in_as(@customer.person)
-    visit customer_url(@customer)
+    customer = customers(:four)
+    log_in_as_customer
+    visit customer_url(customer)
+    save_and_open_page
     find("img[src*=default_profile]")
   end
 

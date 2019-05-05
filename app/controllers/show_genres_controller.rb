@@ -13,7 +13,8 @@ class ShowGenresController < ApplicationController
     if @show_genre.save
       redirect_to session.delete(:return_to), notice: 'Show genre was successfully created.'
     else
-      render :new
+      #render :new
+      redirect_to session.delete(:return_to), notice: 'Show genre was not successfully created.'
     end
   end
 
