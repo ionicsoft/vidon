@@ -1,8 +1,9 @@
 class ProducersController < ApplicationController
-  before_action :set_producer, only: [:show, :edit, :update, :destroy]
+  before_action :set_producer, only: [:show, :destroy]
   # Check authorization
-  before_action :logged_in_producer, only: [:edit, :update, :destroy]
-  before_action :correct_producer, only: [:edit, :update, :destroy]
+  before_action :logged_in_any, only: [:show]
+  before_action :logged_in_producer, only: [:destroy]
+  before_action :correct_producer, only: [:destroy]
 
   # GET /producers/new
   def new
@@ -15,15 +16,11 @@ class ProducersController < ApplicationController
   def create
     @producer = Producer.new(producer_params)
 
-    respond_to do |format|
-      if @producer.save
-        PersonMailer.account_activation(@producer.person).deliver_now
-        format.html { redirect_to login_path, notice: 'Please check your email to activate your account.' }
-        format.json { render :show, status: :created, location: @producer }
-      else
-        format.html { render :new }
-        format.json { render json: @producer.errors, status: :unprocessable_entity }
-      end
+    if @producer.save
+      PersonMailer.account_activation(@producer.person).deliver_now
+      redirect_to login_path, notice: 'Please check your email to activate your account.'
+    else
+      render :new
     end
   end
 
@@ -31,10 +28,7 @@ class ProducersController < ApplicationController
   # DELETE /producers/1.json
   def destroy
     @producer.destroy
-    respond_to do |format|
-      format.html { redirect_to producers_url, notice: 'Producer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to producers_url, notice: 'Producer was successfully destroyed.'
   end
 
   private

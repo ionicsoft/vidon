@@ -1,9 +1,8 @@
 class MovieActorsController < ApplicationController
-  before_action :set_movie_actor, only: [:show, :edit, :update, :destroy]
+  before_action :set_movie_actor, only: [:destroy]
   # Authorization
-  before_action :logged_in_any, only: [:show]
-  before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
-  before_action :correct_producer, only: [:edit, :update, :destroy]
+  before_action :logged_in_producer
+  before_action :correct_producer, only: [:destroy]
 
   # POST /movie_actors
   # POST /movie_actors.json
@@ -11,29 +10,10 @@ class MovieActorsController < ApplicationController
     @movie_actor = MovieActor.new(movie_actor_params)
     session[:return_to] ||= request.referer
 
-    respond_to do |format|
-      if @movie_actor.save
-        format.html { redirect_to session.delete(:return_to), notice: 'Movie actor was successfully created.' }
-        format.json { render :show, status: :created, location: @movie_actor }
-      else
-        format.html { render :new }
-        format.json { render json: @movie_actor.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /movie_actors/1
-  # PATCH/PUT /movie_actors/1.json
-  def update
-    respond_to do |format|
-      @mov = Movie.find(@movie_actor.movie_id)
-      if @movie_actor.update(movie_actor_params)
-        format.html { redirect_to @mov, notice: 'Movie actor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @movie_actor }
-      else
-        format.html { render :edit }
-        format.json { render json: @movie_actor.errors, status: :unprocessable_entity }
-      end
+    if @movie_actor.save
+      redirect_to session.delete(:return_to), notice: 'Movie actor was successfully created.'
+    else
+      redirect_to session.delete(:return_to), notice: 'Invalid actor.'
     end
   end
 
@@ -42,10 +22,7 @@ class MovieActorsController < ApplicationController
   def destroy
     session[:return_to] ||= request.referer
     @movie_actor.destroy
-    respond_to do |format|
-      format.html { redirect_to session.delete(:return_to), notice: 'Movie actor was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to session.delete(:return_to), notice: 'Movie actor was successfully destroyed.'
   end
 
   private

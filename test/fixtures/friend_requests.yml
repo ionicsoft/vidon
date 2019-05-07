@@ -1,7 +1,11 @@
 one:
-    customer_id: two
-    requester_id: four
+    customer: two
+    requester: four
     
 two:
-    customer_id: three
-    requester_id: one
+    customer: three
+    requester: one
+    
+three:
+    customer: one
+    requester: four

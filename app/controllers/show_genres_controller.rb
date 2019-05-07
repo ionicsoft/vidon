@@ -1,9 +1,8 @@
 class ShowGenresController < ApplicationController
-  before_action :set_show_genre, only: [:show, :edit, :update, :destroy]
+  before_action :set_show_genre, only: [:destroy]
   # Authorization
-  before_action :logged_in_any, only: [:show]
-  before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
-  before_action :correct_producer, only: [:edit, :update, :destroy]
+  before_action :logged_in_producer
+  before_action :correct_producer, only: [:destroy]
 
   # POST /show_genres
   # POST /show_genres.json
@@ -11,41 +10,20 @@ class ShowGenresController < ApplicationController
     @show_genre = ShowGenre.new(show_genre_params)
     session[:return_to] ||= request.referer
 
-    respond_to do |format|
-      if @show_genre.save
-        format.html { redirect_to session.delete(:return_to), notice: 'Show genre was successfully created.' }
-        format.json { render :show, status: :created, location: @show_genre }
-      else
-        format.html { render :new }
-        format.json { render json: @show_genre.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /show_genres/1
-  # PATCH/PUT /show_genres/1.json
-  def update
-    respond_to do |format|
-      @show = Show.find(@show_genre.show_id)
-      if @show_genre.update(show_genre_params)
-        format.html { redirect_to @show, notice: 'Show genre was successfully updated.' }
-        format.json { render :show, status: :ok, location: @show_genre }
-      else
-        format.html { render :edit }
-        format.json { render json: @show_genre.errors, status: :unprocessable_entity }
-      end
+    if @show_genre.save
+      redirect_to session.delete(:return_to), notice: 'Show genre was successfully created.'
+    else
+      #render :new
+      redirect_to session.delete(:return_to), notice: 'Show genre was not successfully created.'
     end
   end
 
   # DELETE /show_genres/1
   # DELETE /show_genres/1.json
   def destroy
-     session[:return_to] ||= request.referer
+    session[:return_to] ||= request.referer
     @show_genre.destroy
-    respond_to do |format|
-      format.html { redirect_to session.delete(:return_to), notice: 'Show genre was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to session.delete(:return_to), notice: 'Show genre was successfully destroyed.'
   end
 
   private
