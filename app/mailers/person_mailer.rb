@@ -15,9 +15,8 @@ class PersonMailer < ApplicationMailer
   #
   #   en.person_mailer.password_reset.subject
   #
-  # def password_reset
-  #   @greeting = "Hi"
-
-  #   mail to: "to@example.org"
-  # end
+  def sub_notice(person)
+    @person = person
+    mail to: person.email, subject: "Subscription notice"
+  end
 end

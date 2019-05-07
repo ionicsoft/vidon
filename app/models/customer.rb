@@ -60,4 +60,9 @@ class Customer < ApplicationRecord
     !(subscriptions.find_by show_id: show.id).nil?
   end
   
+  # Sends activation email.
+  def send_notice_email
+    PersonMailer.sub_notice(self.person).deliver_now
+  end
+  
 end
