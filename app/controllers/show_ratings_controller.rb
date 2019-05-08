@@ -8,23 +8,16 @@ class ShowRatingsController < ApplicationController
   # POST /show_ratings.json
   def create
     @show_rating = ShowRating.new(show_rating_params)
+    
 
-    if @show_rating.save
-      redirect_to @show_rating, notice: 'Show rating was successfully created.'
+    if @show_rating.valid?
+      prev = ShowRating.find_by(customer_id: @show_rating.customer_id)
+      prev.destroy unless prev.nil?
+      @show_rating.save
+      redirect_to @show_rating.show, notice: 'Show rating was successfully created.'
     else
       #render :new
-      redirect_to @show_rating, notice: 'Show rating was not successfully created.'
-    end
-  end
-
-  # PATCH/PUT /show_ratings/1
-  # PATCH/PUT /show_ratings/1.json
-  def update
-    if @show_rating.update(show_rating_params)
-      redirect_to @show_rating, notice: 'Show rating was successfully updated.'
-    else
-      #render :edit
-      redirect_to @show_rating, notice: 'Show rating was not successfully updated.'
+      redirect_to @show_rating.show, notice: 'Show rating was not successfully created.'
     end
   end
 

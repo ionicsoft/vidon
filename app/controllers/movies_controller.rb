@@ -8,6 +8,13 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
+    @average_rating = 0.01
+    if @movie.movie_ratings.any?
+      @movie.movie_ratings.each do |rating|
+        @average_rating += rating.rating
+      end
+      @average_rating /= @movie.movie_ratings.size
+    end
   end
 
   # GET /movies/new

@@ -9,15 +9,11 @@ class ShowRatingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create show_rating" do
     assert_difference('ShowRating.count', 1) do
-      post show_ratings_url, params: { show_rating: { rating: 5, show_id: @show_rating.show_id } }
+      post show_ratings_url, params: { show_rating: { rating: 5, show_id: @show_rating.show_id, customer_id: @customer.id } }
+      post show_ratings_url, params: { show_rating: { rating: 1, show_id: @show_rating.show_id, customer_id: @customer.id } }
     end
 
-    assert_redirected_to show_rating_url(ShowRating.last)
-  end
-
-  test "should update show_rating" do
-    patch show_rating_url(@show_rating), params: { show_rating: { rating: @show_rating.rating, show_id: @show_rating.show_id } }
-    assert_redirected_to show_rating_url(@show_rating)
+    assert_redirected_to show_url(ShowRating.last.show)
   end
 
   test "should destroy show_rating" do
@@ -26,10 +22,6 @@ class ShowRatingsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to show_ratings_url
-  end
-  
-  test "should not update show_rating if not valid" do
-    patch show_rating_url(@show_rating), params: { show_rating: { rating: 6, show_id: @show_rating.show_id } }
   end
   
   test "should not create invalid show_rating" do

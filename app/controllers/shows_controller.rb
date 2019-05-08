@@ -20,6 +20,14 @@ class ShowsController < ApplicationController
         history.save
       end
     end
+    
+    @average_rating = 0.01
+    if @show.show_ratings.any?
+      @show.show_ratings.each do |rating|
+        @average_rating += rating.rating
+      end
+      @average_rating /= @show.show_ratings.size
+    end
   end
 
   # GET /shows/new

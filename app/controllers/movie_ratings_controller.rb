@@ -9,20 +9,13 @@ class MovieRatingsController < ApplicationController
   def create
     @movie_rating = MovieRating.new(movie_rating_params)
 
-    if @movie_rating.save
-      redirect_to @movie_rating, notice: 'Movie rating was successfully created.'
+    if @movie_rating.valid?
+      prev = MovieRating.find_by(customer_id: @movie_rating.customer_id)
+      prev.destroy unless prev.nil?
+      @movie_rating.save
+      redirect_to @movie_rating.movie, notice: 'Movie rating was successfully created.'
     else
-      render :new
-    end
-  end
-
-  # PATCH/PUT /movie_ratings/1
-  # PATCH/PUT /movie_ratings/1.json
-  def update
-    if @movie_rating.update(movie_rating_params)
-      redirect_to @movie_rating, notice: 'Movie rating was successfully updated.'
-    else
-      render :edit
+      redirect_to @movie_rating.movie, notice: 'Movie rating was not successfully created.'
     end
   end
 
