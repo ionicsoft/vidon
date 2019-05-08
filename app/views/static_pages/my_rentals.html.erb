@@ -1,29 +1,27 @@
 <% provide(:title, "Rentals") %>
 <div class="container">
   <%= render "flash_notice" %>
-  <div class="card card-body">
-    <h3 id="banner" class="text-body">My Rentals</h3>
-    <hr>
-    <% current_person.user.rentals.includes(movie: [{promo_image_attachment: :blob}, :video]).each do |rental| %>
-      <div class="row subscription">
-        <div class="col-sm-2">
-          <% if rental.movie.promo_image.attached? %>
-            <%= image_tag(url_for(rental.movie.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
-          <% else %>
-            <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 100px; width: 100px;") %>
-          <% end %>
-        </div>
-        <div class="col-sm-8 mt-2">
-          <b><%= link_to rental.movie.title, rental.movie %></b>
-          <p><%= rental.movie.description %></p>
-        </div>
-        <div class="col-sm-2 mt-2">
-          <%= link_to "Play", rental.movie.video, class: "btn btn-primary btn-block btn-sm" %>
-        </div>
+  <h3 id="banner">My Rentals</h3>
+  <hr>
+  <% current_person.user.rentals.includes(movie: [{promo_image_attachment: :blob}, :video]).each do |rental| %>
+    <div class="row subscription">
+      <div class="col-sm-2">
+        <% if rental.movie.promo_image.attached? %>
+          <%= image_tag(url_for(rental.movie.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+        <% else %>
+          <%= image_tag("nullPhoto.png", :alt => "nullPhoto", :style => "height: 100px; width: 100px;") %>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-  <div class="col-sm-12 text-center mt-3">
+      <div class="col-sm-8">
+        <b><%= rental.movie.title %></b>
+        <p><%= rental.movie.description %></p>
+      </div>
+      <div class="col-sm-2">
+        <%= link_to "Play", rental.movie.video, class: "btn btn-primary btn-block btn-sm" %>
+      </div>
+    </div>
+  <% end %>
+  <div class="col-sm-12 text-center">
     <%= link_to "Find new movies!", browse_path(params: {movies: true}), class: "btn btn-primary btn-lg" %>
   </div>
 </div>

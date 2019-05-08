@@ -8,13 +8,6 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
-    @average_rating = 0.01
-    if @movie.movie_ratings.any?
-      @movie.movie_ratings.each do |rating|
-        @average_rating += rating.rating
-      end
-      @average_rating /= @movie.movie_ratings.size
-    end
   end
 
   # GET /movies/new
@@ -32,20 +25,28 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.new(movie_params)
 
-    if @movie.save
-      redirect_to @movie, notice: 'Movie was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @movie.save
+        format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
+        format.json { render :show, status: :created, location: @movie }
+      else
+        format.html { render :new }
+        format.json { render json: @movie.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   # PATCH/PUT /movies/1
   # PATCH/PUT /movies/1.json
   def update
-    if @movie.update(movie_params)
-      redirect_to @movie, notice: 'Movie was successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      if @movie.update(movie_params)
+        format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
+        format.json { render :show, status: :ok, location: @movie }
+      else
+        format.html { render :edit }
+        format.json { render json: @movie.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -53,7 +54,10 @@ class MoviesController < ApplicationController
   # DELETE /movies/1.json
   def destroy
     @movie.destroy
-    redirect_to movies_url, notice: 'Movie was successfully destroyed.'
+    respond_to do |format|
+      format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

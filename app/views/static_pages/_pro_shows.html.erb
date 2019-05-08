@@ -4,58 +4,48 @@
     <div class="col">
       <h3>My Shows</h3>
       <hr>
-      <div class="card card-default">
-        <div class="card-body">
-          <div class="row">
-            <% current_person.user.shows.each do |theshow| %>
-              <div class="col-3 subscription">
-                <% if theshow.promo_image.attached? %>
-                  <%= image_tag(url_for(theshow.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
-                <% else %>
-                  <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
-                <% end %>
-                <p>
-                  <b><%= theshow.name %></b><br>
-                  <%= pluralize theshow.subscriptions.size, "Subscription" %><br>
-                  <%= pluralize theshow.episodes.size, "Episode" %>
-                </p>
-                <div class="sub-buttons">
-                  <%= link_to "View Show", theshow, class: "btn btn-info btn-block btn-sm mb-1" %>
-                </div>
-              </div>
+      <% current_person.user.shows.each do |theshow| %>
+        <div class="row subscription">
+          <div class="col-sm-2">
+            <% if theshow.promo_image.attached? %>
+              <%= image_tag(url_for(theshow.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+            <% else %>
+              <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
             <% end %>
           </div>
+          <div class="col-sm-8">
+            <b><%= theshow.name %></b>
+            <p><%= theshow.description %></p>
+          </div>
+          <div class="col-sm-2">
+            <%= link_to "View Show", theshow, class: "btn btn-primary btn-block btn-sm" %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col">
       <h3>My Movies</h3>
         <hr>
-        <div class="card card-default">
-          <div class="card-body">
-            <div class="row">
-              <% current_person.user.movies.each do |themovie| %>
-                <div class="col-3 subscription">
-                  <% if themovie.promo_image.attached? %>
-                    <%= image_tag(url_for(themovie.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
-                  <% else %>
-                    <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
-                  <% end %>
-                  <p>
-                    <b><%= themovie.video.title %></b><br>
-                    <%= pluralize themovie.rentals.size, "Rental" %><br>
-                    <%= pluralize themovie.video.watch_histories.size, "View" %>
-                  </p>
-                  <div class="sub-buttons">
-                    <%= link_to "View Movie", themovie, class: "btn btn-info btn-block btn-sm mb-1" %>
-                  </div>
-                </div>
+        <% current_person.user.movies.each do |themovie| %>
+          <div class="row subscription">
+            <div class="col-sm-2">
+              <% if themovie.promo_image.attached? %>
+                <%= image_tag(url_for(themovie.promo_image), :alt => "Promo Image", :style => "height: 100px; width: 100px;") %>
+              <% else %>
+                <%= image_tag("nullPhoto.png", :alt => "sub thumbnail", :style => "height: 100px; width: 100px;") %>
               <% end %>
             </div>
+            <div class="col-sm-8">
+              <b><%= themovie.video.title %></b>
+              <p><%= themovie.video.description %></p>
+            </div>
+            <div class="col-sm-2">
+              <%= link_to "View Movie", themovie, class: "btn btn-primary btn-block btn-sm" %>
+            </div>
           </div>
-        </div>
+        <% end %>
     </div>
   </div>
   <div id="buttons" class="col text-center">

@@ -19,7 +19,10 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create producer" do
+    log_in_as(@producer.person)
     assert_difference('Producer.count', 1) do
+      # :company_name,:person_attributes => [:avatar, :username, :password, 
+      # :password_confirmation, :email]
       @person = @producer.person
       post producers_url, params: { producer: {
         company_name: @producer.company_name,
@@ -35,16 +38,6 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
     assert_equal 'Please check your email to activate your account.', flash[:notice]
   end
-  
-  test "should not create producer with invalid data" do
-    assert_difference('Producer.count', 0) do
-      post producers_url, params: { producer: {
-        company_name: ""
-      } }
-    end
-  
-    assert_template 'producers/new'
-  end
 
   test "should show producer" do
     log_in_as(@producer.person)
@@ -53,21 +46,13 @@ class ProducersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy producer" do
+    #does not destroy producer
     log_in_as(@producer.person)
     assert_difference('Producer.count', -1) do
       delete producer_url(@producer)
     end
 
     assert_redirected_to producers_url
-  end
-  
-  test "should not destroy other producer" do
-    log_in_as(producers(:two).person)
-    assert_difference('Producer.count', 0) do
-      delete producer_url(@producer)
-    end
-
-    assert_redirected_to root_url
   end
   
   #Begin use cases

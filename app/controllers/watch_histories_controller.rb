@@ -11,7 +11,7 @@ class WatchHistoriesController < ApplicationController
   # POST /watch_histories/:id
   def update
     @history = WatchHistory.find(params[:id])
-    if current_person.user == @history.customer
+    if current_person.user = @history.customer
       @history.progress = params[:watch_history][:progress]
       @history.save
     end

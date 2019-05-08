@@ -1,10 +1,9 @@
 <div class="container-fluid">
-  <div class="guest-fill row">
-    <div class="col">
-    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel" data-interval="4000">
+  <div class="guest-fill row justify-content-center align-items-center">
+    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
       <div class="carousel-inner">
         <% (1..4).each do |num| %>
-        <div class="carousel-item<%= " active" if num == 1 %>">
+        <div class="item<%= " active" if num == 1 %>">
           <%= image_tag "homepage/0#{num}.jpg", alt: "Slide #{num}" %>
           <div class="carousel-caption">
             <h2 class="text-main">
@@ -14,14 +13,13 @@
               Pick your shows, sit back, and enjoy.
             </h4>
             <h2>
-              <%= link_to "Sign up today", signup_path, class: "btn btn-primary" %>
-              <%= link_to "Producer? Sign up here", psignup_path, class: "btn btn-primary" %>
+              <%= link_to "Sign up today", signup_path, class: "btn btn-primary btn-large" %>
+              <%= link_to "Producer? Sign up here", psignup_path, class: "btn btn-primary btn-lg" %>
             </h2>
           </div>
         </div>
         <% end %>
       </div>
-    </div>
     </div>
   </div>
 </div>

@@ -14,22 +14,6 @@
           <h4 class="text-body text-center">About</h4>
           <hr>
           <p>
-            <b>Average Rating</b>
-            <span class="badge badge-light"><%= @average_rating.round(1) %></span>
-            <% if current_person.customer? %>
-            <div class="btn-group btn-block" role="group">
-              <% (1..5).each do |value| %>
-                <%= button_to show_ratings_path,
-                    params: { show_rating: { customer_id: current_person.user_id, rating: value, show_id: @show.id } },
-                    form_class: "btn btn-sm btn-#{value <= @average_rating ? "primary" : "secondary"}",
-                    class: "btn m-0 p-0" do %>
-                  <%= fa_icon "star" %>
-                <% end %>
-              <% end %>
-            </div>
-            <% end %>
-          </p>
-          <p>
             <b>Genre</b>
             <% @show.show_genres.each do |g| %>
               <span class="badge badge-light">
@@ -105,7 +89,7 @@
                     <% else %>
                       <div class="modal-body text-body">
                         You do not have any available subscription slots. You can 
-                        purchase an additional slot for $1.50. Select "Purchase" to 
+                        purchase an additional slot for $2. Select "Purchase" to 
                         add a new slot and subscribe to this show.
                       </div>
                       <div class="modal-footer">
@@ -139,11 +123,10 @@
                 <% end %>
                 <h5 class="text-body"><%= episode.video.title %> <small class="text-secondary"><%= episode.season_episode %></small></h5>
                 <p><%= episode.video.description %></p>
-                <div id="ep-button-block" class="btn-group-vertical">
+                <div id="ep-button-block">
                   <% if current_person.customer? %>
                     <%= link_to "Play", episode.video, class: "btn btn-secondary btn-sm" %>
                   <% else %>
-                    <%= link_to "Show", episode.video, class: "btn btn-secondary btn-sm" %>
                     <%= link_to "Edit", edit_episode_path(episode), class: "btn btn-secondary btn-sm" %>
                     <%= link_to "Delete", episode, class: "btn btn-danger btn-sm" %>
                   <% end %>

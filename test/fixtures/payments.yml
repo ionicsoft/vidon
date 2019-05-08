@@ -13,17 +13,3 @@ two:
   cvc: 321
   expiration: 2024-02-26
   customer: two
-
-three:
-  card_name: Thre
-  card_num: 8765432187654321
-  cvc: 321
-  expiration: 2024-02-26
-  customer: three
-
-four:
-  card_name: Fou
-  card_num: 8765432187654321
-  cvc: 321
-  expiration: 2024-02-26
-  customer: four

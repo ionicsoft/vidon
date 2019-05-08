@@ -1,4 +1,3 @@
-require 'deep-cover'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -37,10 +36,6 @@ class ActiveSupport::TestCase
     fill_in('Username', with: 'laura')
     fill_in('Password', with: 'password')
     click_button 'Login'
-  end
-  
-  def cookies
-    ActionDispatch::Request.new(page.driver.request.env).cookie_jar
   end
 end
 

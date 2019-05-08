@@ -1,8 +1,10 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
   #Authorization
-  before_action :logged_in_any
-  before_action :check_permission
+  before_action :logged_in_any, only: [:show]
+  before_action :check_permission, only: [:show]
+  before_action :logged_in_producer, only: [:create, :edit, :update, :destroy]
+  before_action :correct_producer, only: [:edit, :update, :destroy]
 
   # GET /videos/1
   # GET /videos/1.json
@@ -62,5 +64,10 @@ class VideosController < ApplicationController
     # Check current user has permision to edit
     def correct_producer
       redirect_to root_url unless @video.valid_producer? current_person.user
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def video_params
+      params.require(:video).permit(:title, :description, :clip, :thumbnail, :content_id, :content_type)
     end
 end

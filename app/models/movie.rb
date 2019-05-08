@@ -8,8 +8,7 @@ class Movie < ApplicationRecord
   has_many :favorites, as: :content, dependent: :destroy
   has_one_attached :promo_image
   
-  validates :video, presence: true
-  accepts_nested_attributes_for :video, update_only: true, reject_if: :all_blank
+  accepts_nested_attributes_for :video, update_only: true
   
   def title
     video.title

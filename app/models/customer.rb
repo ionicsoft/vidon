@@ -60,9 +60,9 @@ class Customer < ApplicationRecord
     !(subscriptions.find_by show_id: show.id).nil?
   end
   
-  # Sends activation email.
-  def send_notice_email
-    PersonMailer.sub_notice(self.person).deliver_now
+  # Returns true if the customer is able to subscribe to the show
+  def can_subscribe?(show)
+    open_slots? && !has_subscription?(show)
   end
   
 end

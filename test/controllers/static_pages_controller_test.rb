@@ -44,7 +44,9 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get search" do
     log_in_as(@customer.person)
+    #search url is undefined?
     get search_page_url
+    #assert_response :success
     assert_response :redirect
   end
 
@@ -63,12 +65,14 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get customer signup" do
     visit root_url
+    #doesn't see this?
     first(:link, 'Sign up today').click
     assert_selector "h1", text: "Sign up"
   end
 
   test "should get producer signup" do
     visit root_url
+    #doesn't see this?
     first(:link, 'Producer? Sign up here').click
     assert_selector "h1", text: "Sign up"
   end
@@ -77,62 +81,6 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     visit root_url
     click_on 'Vidon'
     assert_selector "span", text: "Vidon"
-  end
-  
-  test "should search with actor filters" do
-    show = shows(:one)
-    log_in_as_customer
-    fill_in "search", with: "ad"
-    click_on "search-btn"
-    fill_in "filters_actor", with: "ann"
-    click_on 'Apply', class: "btn-primary"
-    assert_selector "h5", text: show.name
-  end
-  
-  test "should search with genre filters" do
-    show = shows(:one)
-    log_in_as_customer
-    fill_in "search", with: "ad"
-    click_on "search-btn"
-    find("select", id: "filters_genre").click
-    find('#filters_genre').find(:xpath, 'option[2]').select_option
-    click_on 'Apply', class: "btn-primary"
-    assert_selector "h5", text: "Found 0 results for "
-  end
-  
-  test "should get next episode" do
-    customer = customers(:one)
-    watch = customer.watch_histories.first
-    watch.update_attribute(:completed, true)
-    log_in_as_customer
-    assert_selector "a", text: "Watch Next"
-  end
-  
-  test "should get next series" do
-    customer = customers(:one)
-    vid = videos(:five)
-    watch = customer.watch_histories.first
-    watch.update_attribute(:video_id, vid.id)
-    watch.update_attribute(:completed, true)
-    log_in_as_customer
-    #Doesn't go to next series?
-    #save_and_open_page
-    #assert_selector "a", text: "Watch Next"
-  end
-  
-  test "should get random shows" do
-    temp = customers(:three)
-    log_in_as(temp.person)
-    get root_url
-  end
-  
-  test "should get random shows from null genres" do
-    temp = customers(:two)
-    temp2 = show_genres(:three)
-    temp3 = shows(:one)
-    temp2.update_attribute(:show, temp3)
-    log_in_as(temp.person)
-    get root_url
   end
 
 end

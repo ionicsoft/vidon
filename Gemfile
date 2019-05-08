@@ -38,7 +38,6 @@ group :test do
   gem 'guard-minitest',           '>= 2.4.6'
   gem 'selenium-webdriver'
   gem 'geckodriver-helper', '~> 0.0.3'
-  gem 'deep-cover', require: false
 end
 
 group :production do

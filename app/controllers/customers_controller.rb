@@ -2,7 +2,6 @@ class CustomersController < ApplicationController
   # Load customer from database
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   # Check authorization
-  before_action :logged_in_any, only: [:show]
   before_action :logged_in_customer, only: [:edit, :update, :destroy], except: [:create]
   before_action :correct_customer, only: [:edit, :update, :destroy]
 
@@ -23,12 +22,16 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
 
-    if @customer.save
-      @customer.person.send_activation_email
-      Invoice.create(:payment_id => @customer.payment.id, :amount => 10.00, :description => "Vidon Monthly Subscription Fee")
-      redirect_to login_path, notice: 'Please check your email to activate your account.'
-    else
-      render :new
+    respond_to do |format|
+      if @customer.save
+        PersonMailer.account_activation(@customer.person).deliver_now
+        Invoice.create(:payment_id => @customer.payment.id, :amount => 10.00, :description => "Vidon Monthly Subscription Fee")
+        format.html { redirect_to login_path, notice: 'Please check your email to activate your account.' }
+        format.json { render :show, status: :created, location: @customer }
+      else
+        format.html { render :new }
+        format.json { render json: @customer.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -36,7 +39,10 @@ class CustomersController < ApplicationController
   # DELETE /customers/1.json
   def destroy
     @customer.destroy
-    redirect_to customers_url, notice: 'Customer was successfully destroyed.'
+    respond_to do |format|
+      format.html { redirect_to customers_url, notice: 'Customer was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

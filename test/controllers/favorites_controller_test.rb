@@ -6,6 +6,9 @@ class FavoritesControllerTest < ActionDispatch::IntegrationTest
     @video2 = videos(:six)
     @customer = customers(:one)
     @favorite = favorites(:one)
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
+    end
     log_in_as(@customer.person)
   end
   

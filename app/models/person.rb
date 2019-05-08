@@ -21,7 +21,7 @@ class Person < ApplicationRecord
                       length: { maximum: 255}
     validates :first_name, presence: { if: -> { user.is_a?(Customer) } }
     validates :last_name, presence: { if: -> { user.is_a?(Customer) } }
-    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+    validates :password, presence: true, length: { minimum: 6 }
 
     # Generates a hash digest of provided string
     def Person.digest(string)
@@ -59,7 +59,7 @@ class Person < ApplicationRecord
     
     # Sends activation email.
     def send_activation_email
-        PersonMailer.account_activation(self).deliver_now
+        UserMailer.account_activation(self).deliver_now
     end
 
     # Returns a person's first and last name
