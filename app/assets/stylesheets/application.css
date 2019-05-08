@@ -15,6 +15,7 @@
  */
 
 /* Overrides */
+
 body {
   margin: 0;
 }
@@ -24,6 +25,7 @@ body {
 }
 
 /* Fix modals shifting page to the left */
+
 .modal-open {
   padding-right: 0 !important;
 }
@@ -31,4 +33,5 @@ body {
 .navbar {
   padding-right: 1rem !important;
 }
+
 /* End modal fix */
