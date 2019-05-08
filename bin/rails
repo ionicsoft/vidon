@@ -1,4 +1,9 @@
 #!/usr/bin/env ruby
+# Enable coverage testing
+if ENV['RAILS_ENV'] == 'test'
+  require 'deep-cover'
+  puts "required deepcover"
+end
 begin
   load File.expand_path('../spring', __FILE__)
 rescue LoadError => e

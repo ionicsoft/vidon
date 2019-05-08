@@ -3,9 +3,9 @@
 one:
   customer: one
   show: one
-  current_episode: 0
+  current_episode: 1
 
 two:
   customer: two
   show: one
-  current_episode: 0
+  current_episode: 1

@@ -36,11 +36,23 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
     assert_equal 'Please check your email to activate your account.', flash[:notice]
   end
+  
+  test "should not create customer without data" do
+    assert_difference('Customer.count', 0) do
+      post customers_url, params: { customer: { person_attributes: { username: "a" } } }
+    end
+    assert_template 'customers/new'
+  end
 
   test "should show customer" do
     log_in_as(@customer.person)
     get customer_url(@customer)
     assert_response :success
+  end
+  
+  test "should prompt for login if guest tries to view customer" do
+    get customer_url(@customer)
+    assert_redirected_to login_path
   end
 
   test "should destroy customer" do
@@ -50,6 +62,15 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to customers_url
+  end
+  
+  test "should not destroy other customer" do
+    log_in_as(@customer.person)
+    assert_difference('Customer.count', 0) do
+      delete customer_url(Customer.where.not(id: @customer.id).first)
+    end
+
+    assert_redirected_to root_url
   end
   
   #Start use cases
@@ -309,7 +330,6 @@ class CustomersControllerTest < ActionDispatch::IntegrationTest
   end
   
   test "should login user" do
-    #this one works - use this syntax
     visit root_url
     click_on 'Login'
     assert_selector "h1", text: "Login"

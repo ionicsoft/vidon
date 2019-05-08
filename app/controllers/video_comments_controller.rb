@@ -10,28 +10,22 @@ class VideoCommentsController < ApplicationController
     @video_comment = VideoComment.new(video_comment_params)
     session[:return_to] ||= request.referer
 
-    respond_to do |format|
-      if @video_comment.save
-        format.html { redirect_to session.delete(:return_to), notice: 'Comment posted.' }
-        format.json { render :show, status: :created, location: @video_comment }
-      else
-        format.html { render :new }
-        format.json { render json: @video_comment.errors, status: :unprocessable_entity }
-      end
+    if @video_comment.save
+      redirect_to session.delete(:return_to), notice: 'Comment posted.'
+    else
+      #render :new
+      redirect_to session.delete(:return_to), notice: 'Comment not posted.'
     end
   end
 
   # PATCH/PUT /video_comments/1
   # PATCH/PUT /video_comments/1.json
   def update
-    respond_to do |format|
-      if @video_comment.update(video_comment_params)
-        format.html { redirect_to @video_comment, notice: 'Video comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @video_comment }
-      else
-        format.html { render :edit }
-        format.json { render json: @video_comment.errors, status: :unprocessable_entity }
-      end
+    if @video_comment.update(video_comment_params)
+      redirect_to @video_comment, notice: 'Video comment was successfully updated.'
+    else
+      #render :edit
+      redirect_to @video_comment, notice: 'Video comment was not successfully updated.'
     end
   end
 
@@ -41,10 +35,9 @@ class VideoCommentsController < ApplicationController
     if @video_comment.customer.person == current_person
       session[:return_to] ||= request.referer
       @video_comment.destroy
-      respond_to do |format|
-        format.html { redirect_to session.delete(:return_to), notice: 'Comment deleted.' }
-        format.json { head :no_content }
-      end
+      redirect_to session.delete(:return_to), notice: 'Comment deleted.'
+    else
+      redirect_to root_url
     end
   end
 

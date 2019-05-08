@@ -20,28 +20,20 @@ class EpisodesController < ApplicationController
   def create
     @episode = Episode.new(episode_params)
 
-    respond_to do |format|
-      if @episode.save
-        format.html { redirect_to @episode.show, notice: 'Episode was successfully created.' }
-        format.json { render :show, status: :created, location: @episode }
-      else
-        format.html { render :new }
-        format.json { render json: @episode.errors, status: :unprocessable_entity }
-      end
+    if @episode.save
+      redirect_to @episode.show, notice: 'Episode was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
-    respond_to do |format|
-      if @episode.update(episode_params)
-        format.html { redirect_to @episode.show, notice: 'Episode was successfully updated.' }
-        format.json { render :show, status: :ok, location: @episode }
-      else
-        format.html { render :edit }
-        format.json { render json: @episode.errors, status: :unprocessable_entity }
-      end
+    if @episode.update(episode_params)
+      redirect_to @episode.show, notice: 'Episode was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -49,10 +41,7 @@ class EpisodesController < ApplicationController
   # DELETE /episodes/1.json
   def destroy
     @episode.destroy
-    respond_to do |format|
-      format.html { redirect_to episodes_url, notice: 'Episode was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to episodes_url, notice: 'Episode was successfully destroyed.'
   end
 
   private

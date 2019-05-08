@@ -1,2 +1,0 @@
-module ShowGenresHelper
-end
