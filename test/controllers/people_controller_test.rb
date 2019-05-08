@@ -70,7 +70,6 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     customer = customers(:four)
     log_in_as_customer
     visit customer_url(customer)
-    save_and_open_page
     find("img[src*=default_profile]")
   end
 

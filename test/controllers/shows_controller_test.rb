@@ -41,7 +41,6 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
     temp2.update_attribute(:video_id, 5)
     log_in_as(temp.person)
     get show_url(@show)
-    save_and_open_page
   end
 
   test "should get edit" do
