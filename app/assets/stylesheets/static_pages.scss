@@ -1,10 +1,11 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 $highlight-white: #000;
 
-.small, p, b {
+.small,
+p,
+b {
   color: black;
 }
 
@@ -22,16 +23,16 @@ $highlight-white: #000;
     width: 100%;
     object-fit: cover;
   }
-  
+
   .shadow {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 90px;
-    background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.53));
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.53));
   }
-  
+
   .show-title {
     color: white;
     position: absolute;
@@ -71,9 +72,10 @@ $highlight-white: #000;
   .jumbotron {
     background-position: center;
     background-size: cover;
-    h2, h5 {
+    h2,
+    h5 {
       color: white;
-      background-image: linear-gradient(to left, rgba(0,0,0,0.07), rgba(0,0,0,0.47));
+      background-image: linear-gradient(to left, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0.47));
     }
   }
 }
@@ -84,12 +86,32 @@ $highlight-white: #000;
   overflow-y: hidden;
   white-space: nowrap;
 
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #454B51;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #999DA2;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
   .card {
-    margin-bottom:1em;
+    margin-bottom: 1em;
     width: 220;
     display: inline-block;
     h5 {
-      padding:0.4rem 1rem;
+      padding: 0.4rem 1rem;
     }
     img {
       width: 220px;
@@ -100,7 +122,6 @@ $highlight-white: #000;
 }
 
 // Subscriptions page
-
 .subscription {
   img {
     margin-top: 15px;
@@ -125,43 +146,43 @@ $highlight-white: #000;
   margin-top: -52px;
   margin-left: -48px;
   margin-right: -48px;
-  height: 100%;
-  // height: 100vh;
+  height: 100%; // height: 100vh;
   // width: 100vw;
   img {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
   }
-  
+
   .carousel-inner {
     height: 95vh;
   }
-  
+
   .carousel-caption {
     top: 20%;
   }
-  
+
   .btn {
     border: none;
     border-radius: 0;
-    font-weight: bold;
-    // background: #487F5BBB;
+    font-weight: bold; // background: #487F5BBB;
     // background: $highlight-white;
     padding: 6px 40px;
   }
-  
+
   .text-main {
     padding: 5px;
     margin: 10px 10vw;
   }
-  
+
   h4 {
     padding: 5px;
     margin: 30px 0;
   }
-  
-  .btn, .text-main, h4 {
+
+  .btn,
+  .text-main,
+  h4 {
     background: $highlight-white;
   }
 }
@@ -174,25 +195,25 @@ a.btn:visited {
 $primary_color: #D3F3DE;
 
 .result_image {
-    margin-right: 10px;
-    background-color: $primary_color;
-    padding: 10px 10px 10px 10px;    
-    border: 3px solid black;
-    float: left;
-    display: block;
+  margin-right: 10px;
+  background-color: $primary_color;
+  padding: 10px 10px 10px 10px;
+  border: 3px solid black;
+  float: left;
+  display: block;
 }
 
 .result_description {
-    padding: 30px;
-   
+  padding: 30px;
+
 }
 
-.search_results{
-    list-style: none;
+.search_results {
+  list-style: none;
 }
 
-.search_results > li {
-    float: left;
-    padding: 5px;
-    width: 80%;
+.search_results>li {
+  float: left;
+  padding: 5px;
+  width: 80%;
 }
